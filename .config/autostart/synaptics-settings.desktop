@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Touchpad Settings
+Exec=/usr/bin/synclient MinSpeed=1.8 MaxSpeed=4 AccelFactor=0.03 VertHysteresis=0.1 HorizHysteresis=0.1
+Icon=libinput-gestures
+Comment=Initializes custom settings for synaptic mouse
+Categories=GNOME;GTK;System;

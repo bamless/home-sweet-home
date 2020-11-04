@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Synaptic Disable Mouse
+Exec=/bin/bash -c "sleep 2 && /usr/bin/syndaemon -t -R -k -i 1 -d"
+Icon=libinput-gestures
+Comment=Disables mouse click for a short time after typing
+Categories=GNOME;GTK;System;
