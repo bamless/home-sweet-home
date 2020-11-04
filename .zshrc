@@ -101,6 +101,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias update-mirrors='sudo reflector --verbose -c Germany -c Italy -c Netherlands --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist'
-alias code='code --ignore-gpu-blacklist --enable-gpu-rasterization --enable-oop-rasterization --no-sandbox --unity-launch'
-
+alias update-mirrors="sudo reflector --verbose -c Germany -c Italy -c Netherlands --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
+alias code="code --ignore-gpu-blacklist --enable-gpu-rasterization --enable-oop-rasterization --no-sandbox --unity-launch"
