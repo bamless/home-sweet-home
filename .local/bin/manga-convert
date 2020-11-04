@@ -11,14 +11,16 @@ import io
 import re
 import sys
 
-var CHAPTER_NUMBER_REGEX = '%d+'
-var KINDLE_EXT           = 'mobi'
+
+// Constants
+var CHAPTER_NUMBER = '%d+'
+var MOBI_EXTENSION = 'mobi'
 
 class ConvertException is Exception end
 
 fun kccC2E(fileName, title)
-    var CMD = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
-    return sys.system(CMD % (title, fileName)) == 0
+    var cmd = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
+    return sys.system(cmd % (title, fileName)) == 0
 end
 
 fun convertAndRename(chapterName, newName)
@@ -32,13 +34,13 @@ fun convertAndRename(chapterName, newName)
     
     var convertedChapter
     if chapterExt then
-        convertedChapter = re.gsub(chapterName, chapterExt, KINDLE_EXT)
+        convertedChapter = re.gsub(chapterName, chapterExt, MOBI_EXTENSION)
     else
-        convertedChapter = chapterName + '.' + KINDLE_EXT
+        convertedChapter = chapterName + '.' + MOBI_EXTENSION
     end
 
     try
-        io.rename(convertedChapter, newName + '.' + KINDLE_EXT)
+        io.rename(convertedChapter, newName + '.' + MOBI_EXTENSION)
     except io.IOException e
         raise ConvertException('Error renaming chapter: {1}' % (convertedChapter, e.err()))
     end
@@ -66,7 +68,7 @@ if __name__ == '__main__' then
     end
 
     for var n, chapterName in argv.enumerate() do
-        var chapterNum = re.match(chapterName, CHAPTER_NUMBER_REGEX)
+        var chapterNum = re.match(chapterName, CHAPTER_NUMBER)
         if !chapterNum then
             io.stderr.writeln("`{0}` doesn't contain a chapter number, skipping" % chapterName)
             continue
