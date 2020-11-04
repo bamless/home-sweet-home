@@ -1,0 +1,86 @@
+#!/usr/bin/env jstar
+
+// Convert and rename comics provided as cbz using kcc-c2e (pip install KindleComicConverter).
+// The program accepts a pattern of the form 'new name %n' and a list of .cbz comics.
+// During conversion, the comics will be renamed using the provided pattern by substituting the '%n'
+// with a chapter number extracted from the cbz file name. If no number can be found in the cbz
+// filename, it will be skipped. The output is gonna be a new file in mobi format, ready to be
+// imported by a kindle.
+
+import io
+import re
+import sys
+
+var CHAPTER_NUMBER_REGEX = '%d+'
+var KINDLE_EXT           = 'mobi'
+
+class ConvertException is Exception end
+
+fun kccC2E(fileName, title)
+    var CMD = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
+    return sys.system(CMD % (title, fileName)) == 0
+end
+
+fun convertAndRename(chapterName, newName)
+    if !kccC2E(chapterName, newName) then
+        raise ConvertException('Cannot convert chapter `{0}`' % chapterName)
+    end
+    // delete KCC cache
+	sys.system('rm -rf /tmp/KCC* 2>/dev/null 1>&2')
+
+    var chapterExt = re.match(chapterName, '%.([^%.]+)$')
+    
+    var convertedChapter
+    if chapterExt then
+        convertedChapter = re.gsub(chapterName, chapterExt, KINDLE_EXT)
+    else
+        convertedChapter = chapterName + '.' + KINDLE_EXT
+    end
+
+    try
+        io.rename(convertedChapter, newName + '.' + KINDLE_EXT)
+    except io.IOException e
+        raise ConvertException('Error renaming chapter: {1}' % (convertedChapter, e.err()))
+    end
+end
+
+if __name__ == '__main__' then
+
+    fun printProgress(n, total, chapterName, newName)
+        var perc = int(((n + 1) / total) * 100)
+        print('[{0}%] converting {1} to {2}' % (perc, chapterName, newName))
+    end
+
+    fun fatal(err)
+        io.stderr.writeln(err)
+        sys.exit(-1)
+    end
+
+    if #argv == 0 then
+        fatal('Usage: manga-convert pattern [chapters...]')
+    end
+
+    var namePattern = argv.removeAt(0)
+    if !re.match(namePattern, '%%n') then
+        fatal("Name pattern `{0}` doesn't contain `%n`" % namePattern)
+    end
+
+    for var n, chapterName in argv.enumerate() do
+        var chapterNum = re.match(chapterName, CHAPTER_NUMBER_REGEX)
+        if !chapterNum then
+            io.stderr.writeln("`{0}` doesn't contain a chapter number, skipping" % chapterName)
+            continue
+        end
+
+        var newName = re.gsub(namePattern, '%%n', chapterNum)
+        printProgress(n, #argv, chapterName, newName)
+
+        try 
+            convertAndRename(chapterName, newName)
+        except ConvertException e
+            io.stderr.writeln(e.err())
+        end
+    end
+
+    print('Done')
+end
