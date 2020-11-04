@@ -11,7 +11,6 @@ import io
 import re
 import sys
 
-
 // Constants
 var CHAPTER_NUMBER = '%d+'
 var MOBI_EXTENSION = 'mobi'
