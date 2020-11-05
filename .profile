@@ -12,4 +12,8 @@ fi
 # Set theme (GTK4 Workaround)
 export GTK_THEME=WhiteSur-Dark-solid-blue-nord #Flat-Remix-GTK-Blue-Dark-Solid
 
+# Graphics driver stuff
+# Manually set libva driver
+export LIBVA_DRIVER_NAME=nvidia-drm
+
 PATH=$(printf "%s" "$PATH" | awk -v RS=':' '!a[$1]++ { if (NR > 1) printf RS; printf $1 }')
