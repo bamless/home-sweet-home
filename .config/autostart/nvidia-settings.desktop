@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Nvidia Settings
+Exec=/usr/bin/nvidia-settings --load-config-only
+Icon=nvidia
+Comment=Load nvidia X server settings on login
+Categories=GNOME;GTK;System;
