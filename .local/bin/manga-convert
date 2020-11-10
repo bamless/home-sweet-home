@@ -12,68 +12,64 @@ import re
 import sys
 
 // Constants
-var CHAPTER_NUMBER = '%d+'
-var MOBI_EXTENSION = 'mobi'
+var MOBI_EXT = "mobi"
+var NUM_REGEX = "%d+"
 
-class ConvertException is Exception end
+class ConvertException is Exception 
+    fun new(chapterName, errMsg)
+        super("Error converting chapter {0}: {1}" % (chapterName, errMsg))
+    end
+end
 
 fun kccC2E(fileName, title)
     var cmd = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
     return sys.system(cmd % (title, fileName)) == 0
 end
 
-fun convertAndRename(chapterName, newName)
-    if !kccC2E(chapterName, newName) then
-        raise ConvertException('Cannot convert chapter `{0}`' % chapterName)
+fun convertAndRename(chapter, name)
+    if !kccC2E(chapter, name) then
+        raise ConvertException(chapter, "kcc-c2e failed")
     end
-    // delete KCC cache
-	sys.system('rm -rf /tmp/KCC* 2>/dev/null 1>&2')
 
-    var chapterExt = re.match(chapterName, '%.([^%.]+)$')
-    
-    var convertedChapter
-    if chapterExt then
-        convertedChapter = re.gsub(chapterName, chapterExt, MOBI_EXTENSION)
-    else
-        convertedChapter = chapterName + '.' + MOBI_EXTENSION
-    end
+    // delete KCC cache
+	sys.system("rm -rf /tmp/KCC* 2>/dev/null 1>&2")
+
+    var ext = re.match(capther, "%.([^%.]+)$")
+    var converted = re.gsub(chapter, ext, MOBI_EXT) if ext else chapter + "." + MOBI_EXT
 
     try
-        io.rename(convertedChapter, newName + '.' + MOBI_EXTENSION)
+        io.rename(converted, name + '.' + MOBI_EXT)
     except io.IOException e
-        raise ConvertException('Error renaming chapter: {1}' % (convertedChapter, e.err()))
+        raise ConvertException(chapter, e.err())
     end
 end
 
-if __name__ == '__main__' then
-
+if __name__ == "__main__" then
     fun printProgress(n, total, chapterName, newName)
         var perc = int(((n + 1) / total) * 100)
-        print('[{0}%] converting {1} to {2}' % (perc, chapterName, newName))
-    end
-
-    fun fatal(err)
-        io.stderr.writeln(err)
-        sys.exit(-1)
+        print("[{0}%] converting {1} to {2}" % (perc, chapterName, newName))
     end
 
     if #argv == 0 then
-        fatal('Usage: manga-convert pattern [chapters...]')
+        io.stderr.writeln("Usage: manga-convert pattern [chapters...]")
+        sys.exit(-1)
     end
 
     var namePattern = argv.removeAt(0)
     if !re.match(namePattern, '%%n') then
-        fatal("Name pattern `{0}` doesn't contain `%n`" % namePattern)
+        io.stderr.writeln("Name pattern `{0}` doesn't contain `%n`" % namePattern)
+        sys.exit(-1)
     end
 
     for var n, chapterName in argv.enumerate() do
-        var chapterNum = re.match(chapterName, CHAPTER_NUMBER)
+        var chapterNum = re.match(chapterName, NUM_REGEX)
+        
         if !chapterNum then
             io.stderr.writeln("`{0}` doesn't contain a chapter number, skipping" % chapterName)
             continue
         end
 
-        var newName = re.gsub(namePattern, '%%n', chapterNum)
+        var newName = re.gsub(namePattern, "%%n", chapterNum)
         printProgress(n, #argv, chapterName, newName)
 
         try 
@@ -83,5 +79,5 @@ if __name__ == '__main__' then
         end
     end
 
-    print('Done')
+    print("Done")
 end
