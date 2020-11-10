@@ -32,7 +32,7 @@ fun convertAndRename(chapter, name)
     end
 
     // delete KCC cache
-	sys.system("rm -rf /tmp/KCC* 2>/dev/null 1>&2")
+    sys.system("rm -rf /tmp/KCC* 2>/dev/null 1>&2")
 
     var ext = re.match(capther, "%.([^%.]+)$")
     var converted = re.gsub(chapter, ext, MOBI_EXT) if ext else chapter + "." + MOBI_EXT
