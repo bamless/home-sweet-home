@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Vulkan Documentation page opener.
+# It searches for the official Vulkan documentation in /usr/share/doc/vulkan and /usr/share/vulkan/man/html.
+# The script uses xdg-open to open the documentation pages using the default browser.
+# The default search directories can be modified by changing the VK_ROOT_PATH and VK_DOC_PATH variables.
+
+# The paths searched for the vulkan html doc pages.
+# Can be changed in case your system installs them in another path 
+VK_DOC_ROOT="/usr/share/doc/vulkan"
+VK_DOC_PATH="${VK_DOC_ROOT}/man/html"
+
+# Constants, shouldn't be changed.
+COLOR_RED='\u001b[31m'
+COLOR_CLEAR='\u001b[0m'
+VK_DOC_EXT="html"
+
+function open {
+	xdg-open "$*" > /dev/null 2>&1
+}
+
+function error {
+	>&2 echo -e "${COLOR_RED}${1}${COLOR_CLEAR}"
+}
+
+if [ $# -eq 0 ]; then
+	error "What Vulkan documentation page do you want?"
+	error "For example, try 'vkdoc vkCreateInstance'"
+	exit -1
+fi
+
+for page in "$@"; do
+	if [ -f "${VK_DOC_ROOT}/${page}.${VK_DOC_EXT}" ]; then
+		open "${VK_DOC_ROOT}/${page}.${VK_DOC_EXT}" 
+	elif [ -f "${VK_DOC_PATH}/${page}.${VK_DOC_EXT}" ]; then
+		open "${VK_DOC_PATH}/${page}.${VK_DOC_EXT}"
+	else
+		error "Documentation page '${page}' not found."
+		exit -1
+	fi
+done
