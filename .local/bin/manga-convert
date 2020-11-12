@@ -40,7 +40,7 @@ fun convertAndRename(chapter, name)
     try
         io.rename(converted, name + '.' + MOBI_EXT)
     except io.IOException e
-        raise ConvertException(chapter, e.err())
+        raise ConvertException(chapter, "cannot rename chapter: " + e.err())
     end
 end
 
