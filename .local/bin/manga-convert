@@ -1,10 +1,10 @@
 #!/usr/bin/env jstar
 
 // Convert and rename comics provided as cbz using kcc-c2e (pip install KindleComicConverter).
-// The program accepts a pattern of the form 'new name %n' and a list of .cbz comics.
-// During conversion, the comics will be renamed using the provided pattern by substituting the '%n'
+// The program accepts a pattern of the form 'new_name %n' and a list of .cbz comics.
+// During conversion, the comics will be renamed using the provided pattern by substituting the `%n`
 // with a chapter number extracted from the cbz file name. If no number can be found in the cbz
-// filename, it will be skipped. The output is gonna be a new file in mobi format, ready to be
+// filename, it will be skipped. The output is going be a new file in mobi format, ready to be
 // imported by a kindle.
 
 import io
@@ -12,18 +12,17 @@ import re
 import sys
 
 // Constants
-var MOBI_EXT = "mobi"
-var NUM_REGEX = "%d+"
+var MOBI_EXT, NUM_REGEX = "mobi", "%d+"
+var KCC_COMMAND = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
 
 class ConvertException is Exception 
-    fun new(chapterName, errMsg)
-        super("Error converting chapter {0}: {1}" % (chapterName, errMsg))
+    fun new(chapter, error)
+        super("Error converting chapter {0}: {1}" % (chapter, error))
     end
 end
 
-fun kccC2E(fileName, title)
-    var cmd = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
-    return sys.system(cmd % (title, fileName)) == 0
+fun kccC2E(file, title)
+    return sys.system(KCC_COMMAND % (title, file)) == 0
 end
 
 fun convertAndRename(chapter, name)
@@ -31,14 +30,15 @@ fun convertAndRename(chapter, name)
         raise ConvertException(chapter, "kcc-c2e failed")
     end
 
-    // delete KCC cache
+    // delete KCC cache, as it may fill up the /tmp fylesystem
     sys.system("rm -rf /tmp/KCC* 2>/dev/null 1>&2")
 
-    var ext = re.match(chapter, "%.([^%.]+)$")
-    var converted = re.gsub(chapter, ext, MOBI_EXT) if ext else chapter + "." + MOBI_EXT
+    var extension = re.match(chapter, "%.([^%.]+)$")
+    var kccOutput = re.gsub(chapter, extension, MOBI_EXT) if extension else chapter + "." + MOBI_EXT
+    var outName = name + "." + MOBI_EXT
 
     try
-        io.rename(converted, name + '.' + MOBI_EXT)
+        io.rename(kccOutput, outName)
     except io.IOException e
         raise ConvertException(chapter, "cannot rename chapter: " + e.err())
     end
@@ -46,7 +46,7 @@ end
 
 if __name__ == "__main__" then
     fun printProgress(n, total, chapterName, newName)
-        var perc = int(((n + 1) / total) * 100)
+        var perc = int((n + 1) / total * 100)
         print("[{0}%] converting {1} to {2}" % (perc, chapterName, newName))
     end
 
@@ -63,16 +63,15 @@ if __name__ == "__main__" then
 
     for var n, chapterName in argv.enumerate() do
         var chapterNum = re.match(chapterName, NUM_REGEX)
-        
         if !chapterNum then
             io.stderr.writeln("`{0}` doesn't contain a chapter number, skipping" % chapterName)
             continue
         end
 
         var newName = re.gsub(namePattern, "%%n", chapterNum)
-        printProgress(n, #argv, chapterName, newName)
 
         try 
+            printProgress(n, #argv, chapterName, newName)
             convertAndRename(chapterName, newName)
         except ConvertException e
             io.stderr.writeln(e.err())
