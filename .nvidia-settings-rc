@@ -2,7 +2,7 @@
 # /home/fabrizio/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA X Server Settings utility
-# Generated on Sat Jul 10 01:52:44 2021
+# Generated on Sun Jul 18 14:31:44 2021
 #
 
 # ConfigProperties:
@@ -13,9 +13,9 @@ SliderTextEntries = Yes
 IncludeDisplayNameInConfigFile = No
 ShowQuitDialog = Yes
 UpdateRulesOnProfileNameChange = Yes
-Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
-Timer = Thermal_Monitor_(GPU_0),Yes,1000
 Timer = Memory_Used_(GPU_0),Yes,3000
+Timer = Thermal_Monitor_(GPU_0),Yes,1000
+Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 
 # Attributes:
 
@@ -52,7 +52,7 @@ Timer = Memory_Used_(GPU_0),Yes,3000
 [DPY:DP-0]/Dithering=0
 [DPY:DP-0]/DitheringMode=0
 [DPY:DP-0]/DitheringDepth=0
-[DPY:DP-0]/DigitalVibrance=200
+[DPY:DP-0]/DigitalVibrance=100
 [DPY:DP-0]/ColorSpace=0
 [DPY:DP-0]/ColorRange=0
 [DPY:DP-0]/SynchronousPaletteUpdates=0
@@ -80,7 +80,7 @@ Timer = Memory_Used_(GPU_0),Yes,3000
 [DPY:DP-2]/Dithering=1
 [DPY:DP-2]/DitheringMode=2
 [DPY:DP-2]/DitheringDepth=0
-[DPY:DP-2]/DigitalVibrance=200
+[DPY:DP-2]/DigitalVibrance=100
 [DPY:DP-2]/ColorSpace=0
 [DPY:DP-2]/ColorRange=0
 [DPY:DP-2]/SynchronousPaletteUpdates=0
