@@ -75,5 +75,5 @@ export EDITOR='vim'
 export PAGER='less'
 
 # Aliases
-alias update-mirrors="sudo reflector --verbose -c Germany -c Italy -c Netherlands --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
+alias update-mirrors="reflector --verbose -c Italy -a 6 --sort rate --save /etc/pacman.d/mirrorlist"
 alias code="code --ignore-gpu-blacklist --enable-gpu-rasterization --enable-oop-rasterization --enable-native-gpu-memory-buffers --no-sandbox --unity-launch"
