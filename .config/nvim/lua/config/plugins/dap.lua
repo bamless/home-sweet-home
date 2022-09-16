@@ -148,7 +148,7 @@ local function setup_dap()
         {
             type = "chrome",
             request = "launch",
-            url = "http://localhost:3000",
+            url = "http://localhost:5173",
             program = "${file}",
             cwd = vim.fn.getcwd(),
             sourceMaps = true,
@@ -162,7 +162,7 @@ local function setup_dap()
         {
             type = "chrome",
             request = "launch",
-            url = "http://localhost:3000",
+            url = "http://localhost:5173",
             program = "${file}",
             cwd = vim.fn.getcwd(),
             sourceMaps = true,
