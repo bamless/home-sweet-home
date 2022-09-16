@@ -1,4 +1,4 @@
-# Add .local/bin to end of PATH for local binaries
+# Add .local/bin to start of PATH for local binaries
 export PATH=$HOME/.local/bin:$PATH
 
 # Load profiles from .profile.d
@@ -16,4 +16,10 @@ export LESS_TERMCAP_me=$'\E[0m'           # end mode
 export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode 
 export LESS_TERMCAP_so=$'\E[7m'           # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline 
-export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underlin
+
+# Set theme (GTK4 Workaround)
+export GTK_THEME=WhiteSur-Dark-solid-blue-nord #Flat-Remix-GTK-Blue-Dark-Solid
+
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
