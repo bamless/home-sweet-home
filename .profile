@@ -1,4 +1,4 @@
-# Add .local/bin to end of PATH for local binaries
+# Add .local/bin to start of PATH for local binaries
 export PATH=$HOME/.local/bin:$PATH
 
 # Load profiles from .profile.d
