@@ -1,2 +1,6 @@
 /* Remove dotted lines from GTK 3 applications */
 undershoot.top, undershoot.right, undershoot.bottom, undershoot.left { background-image: none; }
+
+MessageList,* {
+    -MessageList-new-mail-fg-color: SteelBlue;
+}
