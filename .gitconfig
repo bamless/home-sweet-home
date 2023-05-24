@@ -2,7 +2,7 @@
 	email = mail@fabrizio-pietrucci.it
 	name = Fabrizio Pietrucci
 [core]
-	editor = vim
+	editor = nvim
 [pull]
 	rebase = false
 [init]
