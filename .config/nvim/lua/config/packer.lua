@@ -77,7 +77,6 @@ return require('packer').startup(function(use)
         }
     }
 
-    use("laytan/cloak.nvim")
     use('ray-x/lsp_signature.nvim')
 
     -- Navigation Bar
@@ -111,7 +110,6 @@ return require('packer').startup(function(use)
             vim.cmd('colorscheme tokyonight')
         end
     }
-
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
