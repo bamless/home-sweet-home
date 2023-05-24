@@ -19,6 +19,11 @@ return require('packer').startup(function(use)
     --
 
     use {
+        "williamboman/mason.nvim",
+        run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+    }
+
+    use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
@@ -73,6 +78,7 @@ return require('packer').startup(function(use)
     }
 
     use("laytan/cloak.nvim")
+    use('ray-x/lsp_signature.nvim')
 
     -- Navigation Bar
     use 'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
@@ -99,14 +105,13 @@ return require('packer').startup(function(use)
     --
 
     use {
-        use 'folke/tokyonight.nvim',
+        'folke/tokyonight.nvim',
         as = 'tokyonight',
         config = function()
             vim.cmd('colorscheme tokyonight')
         end
     }
 
-    use 'ray-x/lsp_signature.nvim'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
