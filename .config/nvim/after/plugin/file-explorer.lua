@@ -18,7 +18,12 @@ require("nvim-tree").setup {
     },
     diagnostics = {
         enable = true
-    }
+    },
+    git = {
+        enable = true,
+        ignore = false,
+        timeout = 500,
+    },
 }
 
 vim.keymap.set('n', '<C-b>', ':NvimTreeFindFileToggle<CR>', { noremap = true, silent = true })
