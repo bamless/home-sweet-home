@@ -71,7 +71,7 @@ plugins=(git zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export EDITOR='vim'
+export EDITOR='nvim'
 export PAGER='less'
 
 # Aliases
