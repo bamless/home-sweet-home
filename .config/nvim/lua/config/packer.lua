@@ -14,45 +14,9 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    --
+    ---
     -- Plugins
-    --
-
-    use {
-        "williamboman/mason.nvim",
-        run = ":MasonUpdate" -- :MasonUpdate updates registry contents
-    }
-
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
-
-    use {
-        "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {
-                icons = false,
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    }
-
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end,
-    }
-
-    use("nvim-treesitter/playground")
-    use("mbbill/undotree")
-    use("tpope/vim-fugitive")
-    use("nvim-treesitter/nvim-treesitter-context");
+    ---
 
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -77,31 +41,61 @@ return require('packer').startup(function(use)
         }
     }
 
-    use('ray-x/lsp_signature.nvim')
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
 
-    -- Navigation Bar
-    use 'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
-    use 'lewis6991/gitsigns.nvim'     -- OPTIONAL: for git status
-    use 'romgrk/barbar.nvim'
-
-    -- File explorer tree
     use {
         'nvim-tree/nvim-tree.lua',
         requires = { 'nvim-tree/nvim-web-devicons' },
     }
 
-    -- Lua Line
+    use {
+        "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup {
+                icons = false,
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end,
+    }
+
+    use {
+        'romgrk/barbar.nvim',
+        requires = {
+            use 'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+            use 'lewis6991/gitsigns.nvim'      -- OPTIONAL: for git status
+        }
+    }
+
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
 
-    -- Formatter
+    use 'nvim-treesitter/nvim-treesitter-context'
+    use 'nvim-treesitter/playground'
+    use 'ray-x/lsp_signature.nvim'
     use 'mhartington/formatter.nvim'
+    use 'mbbill/undotree'
+    use 'tpope/vim-fugitive'
+    use 'kosayoda/nvim-lightbulb'
 
-    --
-    -- Color Theme
-    --
+    ---
+    -- Color Themes
+    ---
 
     use {
         'folke/tokyonight.nvim',
