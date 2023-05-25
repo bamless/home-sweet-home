@@ -25,5 +25,6 @@ return {
     lsp = {
         lua_ls = require('config.lsp.lua_ls'),
         jdtls = require('config.lsp.jdtls'),
+        pyright = require('config.lsp.pyright'),
     }
 }
