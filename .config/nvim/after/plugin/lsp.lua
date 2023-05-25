@@ -1,52 +1,45 @@
-local lsp = require("lsp-zero")
+---
+-- Configure LSP servers
+---
 
-lsp.preset("recommended")
+local lsp_zero = require('lsp-zero')
+local lsp_configs = require('config.lsp')
 
-lsp.ensure_installed({
-    'tsserver',
-    'rust_analyzer',
-})
+lsp_zero.extend_lspconfig {
+    set_lsp_keymaps = false,
+    on_attach = lsp_configs.on_attach
+}
 
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
+require('mason').setup()
+require('mason-lspconfig').setup()
 
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
-
-local on_attach = function(client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
-    local telescope = require('telescope.builtin')
-
-    if client.supports_method("textDocument/formatting") then
-        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+local handlers_config = {
+    function(server_name)
+        require('lspconfig')[server_name].setup {}
     end
+}
 
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>sr", function() telescope.lsp_references() end, opts)
-    vim.keymap.set("n", "<leader>ss", function() telescope.treesitter() end, opts)
-    vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set("n", "<leader>wr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+local custom_configs = lsp_configs.lsp
+for lsp_name, config_fn in pairs(custom_configs) do
+    handlers_config[lsp_name] = config_fn
 end
 
-lsp.on_attach(on_attach)
--- Call custom lst configurations
-require('config.lsp')(on_attach)
-lsp.setup()
+require('mason-lspconfig').setup_handlers(handlers_config)
+
+---
+-- Diagnostic config
+---
+
+lsp_zero.set_sign_icons {
+    error = 'E',
+    warn = 'W',
+    hint = 'H',
+    info = 'I'
+}
+
+vim.diagnostic.config {
+    virtual_text = true
+}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -56,16 +49,29 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         virtual_text = {
             spacing = 4,
         },
-        -- Use a function to dynamically turn signs off
-        -- and on, using buffer local variables
-        signs = function(_, bufnr)
-            return vim.b[bufnr].show_signs == true
-        end,
         -- Disable a feature
         update_in_insert = false,
     }
 )
 
-vim.diagnostic.config({
-    virtual_text = true
+---
+-- Snippet config
+---
+
+require('luasnip').config.set_config({
+    region_check_events = 'InsertEnter',
+    delete_check_events = 'InsertLeave'
 })
+
+require('luasnip.loaders.from_vscode').lazy_load()
+
+---
+-- Autocompletion
+---
+
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
+local cmp = require('cmp')
+local cmp_config = lsp_zero.defaults.cmp_config({})
+
+cmp.setup(cmp_config)
