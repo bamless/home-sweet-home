@@ -1,6 +1,7 @@
 local dap = require('dap')
-local dapui = require('dapui')
-dapui.setup()
+
+require('dapui').setup()
+require("nvim-dap-virtual-text").setup()
 
 ---
 -- C/C++
