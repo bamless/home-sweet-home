@@ -94,6 +94,12 @@ return require('packer').startup(function(use)
     use 'kosayoda/nvim-lightbulb'
 
     ---
+    -- Debug
+    ---
+
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
+    ---
     -- Color Themes
     ---
 
