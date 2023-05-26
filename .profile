@@ -1,5 +1,5 @@
 # Add .local/bin to end of PATH for local binaries
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$HOME/.local/bin:$PATH
 
 # Load profiles from .profile.d
 if test -d $HOME/.profile.d/; then
