@@ -96,5 +96,5 @@ vim.keymap.set('n', '<F12>', [[:lua require'dap'.step_out()<CR>]], {})
 -- Press F6 to open REPL
 vim.keymap.set('n', '<F6>', [[:lua require'dap'.repl.open()<CR>]], {})
 -- Toggle debug mode, will remove NvimTree also
-vim.keymap.set('n', '<C-k>', [[:NvimTreeToggle<CR> :lua require'dapui'.toggle()<CR>]], {})
+vim.keymap.set('n', '<C-x>', [[:NvimTreeToggle<CR> :lua require'dapui'.toggle()<CR>]], {})
 
