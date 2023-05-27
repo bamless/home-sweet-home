@@ -51,8 +51,8 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
 
 -- BarBar
 -- Move to previous/next
-vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+vim.keymap.set('n', '<Tab>', '<Cmd>BufferPrevious<CR>', opts)
+vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferNext<CR>', opts)
 -- Re-order to previous/next
 vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
 vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
