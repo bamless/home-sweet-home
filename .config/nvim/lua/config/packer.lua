@@ -34,6 +34,7 @@ return require('packer').startup(function(use)
             { 'saadparwaiz1/cmp_luasnip' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lua' },
+            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
 
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
@@ -87,7 +88,6 @@ return require('packer').startup(function(use)
 
     use 'nvim-treesitter/nvim-treesitter-context'
     use 'nvim-treesitter/playground'
-    use 'ray-x/lsp_signature.nvim'
     use 'mhartington/formatter.nvim'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
