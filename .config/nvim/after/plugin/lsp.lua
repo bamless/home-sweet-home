@@ -73,8 +73,15 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local cmp = require('cmp')
 local cmp_config = lsp_zero.defaults.cmp_config({})
-table.insert(cmp_config.sources, { name = 'nvim_lsp_signature_help' })
 cmp.setup(cmp_config)
+
+require('lsp_signature').setup {
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    handler_opts = {
+        border = "single"
+    },
+    hint_enable = false,
+}
 
 ---
 -- Lightbulb
@@ -82,7 +89,7 @@ cmp.setup(cmp_config)
 
 -- Show a lightbulb icon when there are available LSP actions.
 require("nvim-lightbulb").setup {
-  sign = { enabled = false },
-  virtual_text = { enabled = true, text = "💡" },
-  autocmd = { enabled = true },
+    sign = { enabled = false },
+    virtual_text = { enabled = true, text = "💡" },
+    autocmd = { enabled = true },
 }
