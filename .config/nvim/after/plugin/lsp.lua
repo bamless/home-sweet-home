@@ -81,6 +81,7 @@ require('lsp_signature').setup {
         border = "single"
     },
     hint_enable = false,
+    doc_lines = 0,
 }
 
 ---
