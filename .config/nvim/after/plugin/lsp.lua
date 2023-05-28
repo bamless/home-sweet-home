@@ -73,9 +73,8 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local cmp = require('cmp')
 local cmp_config = lsp_zero.defaults.cmp_config({})
+table.insert(cmp_config.sources, { name = 'nvim_lsp_signature_help' })
 cmp.setup(cmp_config)
-
-require('lsp_signature').setup {}
 
 ---
 -- Lightbulb
