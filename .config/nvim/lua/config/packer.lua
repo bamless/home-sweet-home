@@ -86,6 +86,11 @@ return require('packer').startup(function(use)
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
 
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+
     use 'ray-x/lsp_signature.nvim'
     use 'nvim-treesitter/nvim-treesitter-context'
     use 'nvim-treesitter/playground'
@@ -98,7 +103,7 @@ return require('packer').startup(function(use)
     -- Debug
     ---
 
-    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
     use 'theHamsta/nvim-dap-virtual-text'
 
     ---
