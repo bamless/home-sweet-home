@@ -1,7 +1,15 @@
 local dap = require('dap')
+local dapui = require('dapui')
 
-require('dapui').setup()
+dapui.setup()
+dap.listeners.after.event_initialized["dapui_config"]=function() vim.cmd("NvimTreeToggle"); dapui.open() end
+dap.listeners.before.event_terminated["dapui_config"]=function() vim.cmd("NvimTreeToggle"); dapui.close() end
+dap.listeners.before.event_exited["dapui_config"]=function() vim.cmd("NvimTreeToggle"); dapui.close() end
+
 require("nvim-dap-virtual-text").setup()
+
+vim.fn.sign_define('DapBreakpoint',{ text ='🔴', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
 
 ---
 -- C/C++
@@ -20,6 +28,14 @@ dap.configurations.cpp = {
         request = "launch",
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        args = function()
+            local argsString = vim.fn.input('Program Arguments: ')
+            local args = {}
+            for arg in argsString:gmatch("%S+") do
+                table.insert(args, arg)
+            end
+            return args
         end,
         cwd = '${workspaceFolder}',
         stopAtEntry = false,
@@ -80,9 +96,9 @@ dap.configurations.typescriptreact = { -- change to typescript if needed
 -- Press f5 to debug
 vim.keymap.set('n', '<F5>', [[:lua require'dap'.continue()<CR>]], {})
 -- Regular breakpoint
-vim.keymap.set('n', '<leader>brk', [[:lua require'dap'.toggle_breakpoint()<CR>]], {})
+vim.keymap.set('n', '<leader>br', [[:lua require'dap'.toggle_breakpoint()<CR>]], {})
 -- Breakpoint with Condition
-vim.keymap.set('n', '<leader>brkc', [[:lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: '))<CR>]], {})
+vim.keymap.set('n', '<leader>brc', [[:lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: '))<CR>]], {})
 -- Logpoint
 vim.keymap.set('n', '<leader>lgp', [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: '))<CR>]], {})
 -- Press dl to run last ran configuration (if you used f5 before it will re run it etc)
