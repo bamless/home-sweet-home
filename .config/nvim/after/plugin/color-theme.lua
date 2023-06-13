@@ -1,4 +1,4 @@
-require('tokyonight').setup {}
+require('tokyonight').setup { style = "moon" }
 require('catppuccin').setup {}
 
 function ColorTheme(color)
