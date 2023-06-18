@@ -74,18 +74,17 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 local cmp = require('cmp')
 
 local cmp_config = lsp_zero.defaults.cmp_config({})
-table.insert(cmp_config.sources, { name = 'nvim_lsp_signature_help' })
-
+-- table.insert(cmp_config.sources, { name = 'nvim_lsp_signature_help' })
 cmp.setup(cmp_config)
 
--- require('lsp_signature').setup {
---     bind = true, -- This is mandatory, otherwise border config won't get registered.
---     handler_opts = {
---         border = "single"
---     },
---     hint_enable = false,
---     doc_lines = 0,
--- }
+require('lsp_signature').setup {
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    handler_opts = {
+        border = "single"
+    },
+    hint_enable = false,
+    doc_lines = 0,
+}
 
 ---
 -- Lightbulb
