@@ -16,7 +16,7 @@ var MOBI_EXT, NUM_REGEX = "mobi", "%d+"
 var KCC_COMMAND = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
 
 class ConvertException is Exception 
-    fun new(chapter, error)
+    construct(chapter, error)
         super("Error converting chapter {0}: {1}" % (chapter, error))
     end
 end
@@ -34,7 +34,7 @@ fun convertAndRename(chapter, name)
     sys.system("rm -rf /tmp/KCC* 2>/dev/null 1>&2")
 
     var extension = re.match(chapter, "%.([^%.]+)$")
-    var kccOutput = re.gsub(chapter, extension, MOBI_EXT) if extension else chapter + "." + MOBI_EXT
+    var kccOutput = re.substituteAll(chapter, extension, MOBI_EXT) if extension else chapter + "." + MOBI_EXT
     var outName = name + "." + MOBI_EXT
 
     try
@@ -46,7 +46,7 @@ end
 
 if __name__ == "__main__"
     fun printProgress(n, total, chapterName, newName)
-        var perc = int((n + 1) / total * 100)
+        var perc = std.int((n + 1) / total * 100)
         print("[{0}%] converting {1} to {2}" % (perc, chapterName, newName))
     end
 
@@ -68,7 +68,7 @@ if __name__ == "__main__"
             continue
         end
 
-        var newName = re.gsub(namePattern, "%%n", chapterNum)
+        var newName = re.substituteAll(namePattern, "%%n", chapterNum)
 
         try 
             printProgress(n, #argv, chapterName, newName)
