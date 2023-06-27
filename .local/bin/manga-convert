@@ -13,7 +13,7 @@ import sys
 
 // Constants
 var MOBI_EXT, NUM_REGEX = "mobi", "%d+"
-var KCC_COMMAND = 'kcc-c2e -m -q -2 -p K578 -g 0.75 -r 1 -t "{0}" "{1}" 2>/dev/null 1>&2'
+var KCC_COMMAND = 'kcc-c2e -m -q -2 -p KPW5 -r 1 -g 0.80 -t "{0}" "{1}" 1>/dev/null'
 
 class ConvertException is Exception 
     construct(chapter, error)
