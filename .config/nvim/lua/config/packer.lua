@@ -98,6 +98,7 @@ return require('packer').startup(function(use)
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
     use 'kosayoda/nvim-lightbulb'
+    use 'simrat39/rust-tools.nvim'
 
     ---
     -- Debug

@@ -6,6 +6,12 @@ return function()
                 checkOnSave = {
                     command = "clippy",
                 },
+                diagnostics = {
+                    enable = true,
+                    experimental = {
+                        enable = true,
+                    },
+                },
             },
         },
     }

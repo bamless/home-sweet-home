@@ -7,7 +7,36 @@ local lsp_configs = require('config.lsp')
 
 lsp_zero.extend_lspconfig {
     set_lsp_keymaps = false,
-    on_attach = lsp_configs.on_attach
+    on_attach = function(client, bufnr)
+        local opts = { buffer = bufnr, remap = false }
+        local telescope = require('telescope.builtin')
+
+        -- LSP formatting support
+        if client.supports_method("textDocument/formatting") then
+            vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+        end
+
+        -- Enable inlay hints if supported by neovim and language server
+        if client.supports_method("textDocument/inlayHints") and vim.lsp.inlay_hint then
+            vim.lsp.inlay_hint(bufnr, true)
+            vim.keymap.set("n", "<leader>h", function() vim.lsp.inlay_hint(bufnr) end, opts)
+        end
+
+        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+        vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
+        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+        vim.keymap.set("n", "<leader>sr", function() telescope.lsp_references() end, opts)
+        vim.keymap.set("n", "<leader>ss", function() telescope.treesitter() end, opts)
+        vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
+        vim.keymap.set("n", "<leader>wr", function() vim.lsp.buf.references() end, opts)
+        vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+        vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+        vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+        vim.keymap.set("n", "<leader>dd", function() telescope.diagnostics() end, opts)
+        vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+        vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    end
 }
 
 require('mason').setup()
@@ -19,7 +48,7 @@ local handlers_config = {
     end
 }
 
-local custom_configs = lsp_configs.lsp
+local custom_configs = lsp_configs
 for lsp_name, config_fn in pairs(custom_configs) do
     handlers_config[lsp_name] = config_fn
 end
