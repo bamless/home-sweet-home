@@ -13,7 +13,7 @@ lsp_zero.extend_lspconfig {
 require('mason').setup()
 require('mason-lspconfig').setup()
 
-local handlers_config = {
+local handlers = {
     function(server_name)
         require('lspconfig')[server_name].setup {}
     end
@@ -21,10 +21,10 @@ local handlers_config = {
 
 local configs = lsp_configs.lsps
 for lsp_name, config in pairs(configs) do
-    handlers_config[lsp_name] = config
+    handlers[lsp_name] = config
 end
 
-require('mason-lspconfig').setup_handlers(handlers_config)
+require('mason-lspconfig').setup_handlers(handlers)
 
 ---
 -- Diagnostic config

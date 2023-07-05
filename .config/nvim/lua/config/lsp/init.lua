@@ -18,13 +18,13 @@ return {
             vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
         end
 
-        -- Enable inlay hints if supported by neovim and language server
+        -- Enable inlay hints if supported by neovim and LSP
         if client.supports_method("textDocument/inlayHint") and vim.lsp.inlay_hint then
-            print("INLAY")
             vim.lsp.inlay_hint(bufnr, true) -- Enable inlay hints by default
             vim.keymap.set("n", "<leader>h", function() vim.lsp.inlay_hint(bufnr) end, opts)
         end
 
+        -- Add keymaps to trigger LSP functions
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
         vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
