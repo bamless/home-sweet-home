@@ -74,6 +74,13 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 local cmp = require('cmp')
 
 local cmp_config = lsp_zero.defaults.cmp_config({})
+-- Limit size of autocompletion popup
+cmp_config.formatting = {
+  format = function(_, vim_item)
+    vim_item.abbr = string.sub(vim_item.abbr, 1, 140)
+    return vim_item
+  end
+}
 -- table.insert(cmp_config.sources, { name = 'nvim_lsp_signature_help' })
 cmp.setup(cmp_config)
 
