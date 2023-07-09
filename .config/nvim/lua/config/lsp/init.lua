@@ -30,7 +30,7 @@ return {
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
         vim.keymap.set("n", "<leader>sr", function() telescope.lsp_references() end, opts)
         vim.keymap.set("n", "<leader>ss", function() telescope.treesitter() end, opts)
-        vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
+        vim.keymap.set("n", "<leader>ws", function() telescope.lsp_dynamic_workspace_symbols() end, opts)
         vim.keymap.set("n", "<leader>wr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
         vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
