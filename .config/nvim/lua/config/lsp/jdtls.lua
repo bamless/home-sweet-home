@@ -3,6 +3,9 @@ return function()
         settings = {
             java = {
                 signatureHelp = { enabled = true },
+                inlayHints = {
+                    parameterNames = { enabled = "literals" }
+                },
             }
         }
     }
