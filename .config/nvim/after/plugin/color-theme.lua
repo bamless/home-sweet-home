@@ -1,5 +1,5 @@
 require('tokyonight').setup {
-    style = "moon",
+    style = "night",
     on_colors = function(colors)
        -- colors.terminal_black = "#717ba8"
        -- dim color is too dim, lighten it up
