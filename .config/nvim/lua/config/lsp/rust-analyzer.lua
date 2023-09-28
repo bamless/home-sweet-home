@@ -12,6 +12,9 @@ return function()
                         enable = true,
                     },
                 },
+                cargo = {
+                     features = { "ssr", "csr" }
+                }
             },
         },
     }
