@@ -10,6 +10,10 @@ lsp_zero.extend_lspconfig {
     on_attach = lsp_configs.on_attach,
 }
 
+---
+-- Configure Mason
+---
+
 require('mason').setup()
 require('mason-lspconfig').setup()
 
@@ -25,6 +29,13 @@ for lsp_name, config in pairs(configs) do
 end
 
 require('mason-lspconfig').setup_handlers(handlers)
+
+---@diagnostic disable-next-line: different-requires
+local opts = require("config.mason")
+
+vim.api.nvim_create_user_command("MasonInstallAll", function()
+    vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+end, {})
 
 ---
 -- Diagnostic config
@@ -115,7 +126,7 @@ local cmp_config = lsp_zero.defaults.cmp_config({
     },
 })
 
--- Custom formatting
+-- Custom autocompletion formatting
 cmp_config.formatting = {
     -- default fields order i.e completion word + item.kind + item.kind icons
     fields = { "abbr", "kind", "menu" },
