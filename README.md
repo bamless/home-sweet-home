@@ -25,6 +25,9 @@ This file and folder mirror how `/etc/profile` and `/etc/profile.d` are used to 
 ### .zshrc/.zprofile, .bashrc/.bash_profile
 Zsh and Bash configuration files. `.zprofile` and `.bash_profile` are simply set up to source `.profile` and kickstart the environment initialization process. `.bashrc` is a farly barebone bash configuration file, left here only for compatibility. `.zshrc` instead contains all my personal shell settings and aliases, and it needs [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) with the [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) plugin installed to correctly function.
 
+### .tmux.conf
+Personal tmux config file. You will need to install [TPM](https://github.com/tmux-plugins/tpm) in order to work correctly. Remember to `<prefix> + I` to install all plugins on first start!
+
 ## File tracking
 I use [dotfiles.sh](https://github.com/eli-schwartz/dotfiles.sh.git), a wrapper for git that allows tracking files directly in `$HOME` without initializing a repository in it. Instead, all git metadata are stored in `~/.home-sweet-home` keeping the home free of unnecessary files. 
 Adding or removing a file works just like it would for a normal git repository:
