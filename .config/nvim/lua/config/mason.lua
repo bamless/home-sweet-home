@@ -12,6 +12,7 @@ local options = {
         'pyright',
         'rust-analyzer',
         'typescript-language-server',
+        'css-lsp',
     },
 }
 
