@@ -1,3 +1,5 @@
+---@diagnostic disable: different-requires
+
 ---
 -- Configure LSP servers
 ---
@@ -5,17 +7,13 @@
 local lsp_zero = require('lsp-zero')
 local lsp_configs = require('config.lsp')
 
-lsp_zero.extend_lspconfig {
-    set_lsp_keymaps = false,
-    on_attach = lsp_configs.on_attach,
-}
+lsp_zero.on_attach(lsp_configs.on_attach)
 
 ---
 -- Configure Mason
 ---
 
 require('mason').setup()
-require('mason-lspconfig').setup()
 
 local handlers = {
     function(server_name)
@@ -23,18 +21,18 @@ local handlers = {
     end
 }
 
-local configs = lsp_configs.lsps
-for lsp_name, config in pairs(configs) do
+local lsps = lsp_configs.lsps
+for lsp_name, config in pairs(lsps) do
     handlers[lsp_name] = config
 end
 
-require('mason-lspconfig').setup_handlers(handlers)
-
----@diagnostic disable-next-line: different-requires
-local opts = require("config.mason")
+require('mason-lspconfig').setup({
+    ensure_installed = require("config.mason").ensure_installed,
+    handlers = handlers
+})
 
 vim.api.nvim_create_user_command("MasonInstallAll", function()
-    vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+    vim.cmd("MasonInstall " .. table.concat(require("config.mason").ensure_installed, " "))
 end, {})
 
 ---
@@ -111,6 +109,20 @@ local cmp_config = lsp_zero.defaults.cmp_config({
             winhighlight = "Normal:CmpDoc",
         },
     },
+
+    mapping = cmp.mapping.preset.insert({
+        -- `Enter` key to confirm completion
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
+        -- Navigate between completions 
+        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+
+        -- Scroll up and down in the completion documentation
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    }),
+
     snippet = {
         expand = function(args)
             require("luasnip").lsp_expand(args.body)
