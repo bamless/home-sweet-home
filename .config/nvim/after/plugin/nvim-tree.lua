@@ -17,7 +17,8 @@ require("nvim-tree").setup {
         dotfiles = true,
     },
     diagnostics = {
-        enable = true
+        enable = true,
+        show_on_dirs = true
     },
     git = {
         enable = true,
