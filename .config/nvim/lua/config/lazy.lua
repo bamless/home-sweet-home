@@ -110,6 +110,7 @@ return require('lazy').setup({
     'mbbill/undotree',
     'tpope/vim-fugitive',
     'kosayoda/nvim-lightbulb',
+    'tpope/vim-surround',
 
     ---
     -- Debug
