@@ -2,6 +2,11 @@ return function()
     require('lspconfig').rust_analyzer.setup {
         settings = {
             ["rust-analyzer"] = {
+                completion = {
+                    callable = {
+                        snippets = "add_parentheses"
+                    }
+                },
                 cargo = {
                     allFeatures = true,
                     loadOutDirsFromCheck = true,
