@@ -27,7 +27,6 @@ for lsp_name, config in pairs(lsps) do
 end
 
 require('mason-lspconfig').setup({
-    ensure_installed = require("config.mason").ensure_installed,
     handlers = handlers
 })
 
