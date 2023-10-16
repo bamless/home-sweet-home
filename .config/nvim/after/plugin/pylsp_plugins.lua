@@ -7,4 +7,5 @@ local pylsp_path = pylsp:get_install_path()
 if path.exists(pylsp_path) and not path.exists(pylsp_path .. '/venv/bin/mypy') then
     vim.cmd [[ PylspInstall pylsp-mypy ]]
     vim.cmd [[ PylspInstall pylsp-rope ]]
+    vim.cmd [[ PylspInstall python-lsp-ruff ]]
 end

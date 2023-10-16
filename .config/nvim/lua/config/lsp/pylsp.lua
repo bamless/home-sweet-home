@@ -7,7 +7,8 @@ return function()
                     pylint = { enabled = false },
                     pyflakes = { enabled = false },
                     pycodestyle = { enabled = false },
-                    flake8 = { enabled = true },
+                    flake8 = { enabled = false },
+                    ruff = { enabled = true },
                     -- type checker
                     pylsp_mypy = {
                         enabled = true,
