@@ -9,7 +9,7 @@ local options = {
         'jdtls',
         'json-lsp',
         'lua-language-server',
-        'pyright',
+        'python-lsp-server',
         'rust-analyzer',
         'typescript-language-server',
         'css-lsp',
