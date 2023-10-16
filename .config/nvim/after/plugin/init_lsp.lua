@@ -47,8 +47,10 @@ lsp_zero.set_sign_icons {
 
 vim.diagnostic.config {
     virtual_text = {
-        severity = true
-    }
+        virtual_text = true,
+    },
+    float = { source = true, severity_sort = true },
+    severity_sort = true,
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -58,7 +60,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         -- Enable virtual text, override spacing to 4
         virtual_text = {
             spacing = 4,
-            severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
+            severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN },
+            source = "if_many",
         },
         update_in_insert = false,
         severity_sort = true,
