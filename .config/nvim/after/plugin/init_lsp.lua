@@ -46,7 +46,9 @@ lsp_zero.set_sign_icons {
 }
 
 vim.diagnostic.config {
-    virtual_text = true
+    virtual_text = {
+        severity = true
+    }
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -56,6 +58,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         -- Enable virtual text, override spacing to 4
         virtual_text = {
             spacing = 4,
+            severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
         },
         update_in_insert = false,
         severity_sort = true,
@@ -113,7 +116,7 @@ local cmp_config = lsp_zero.defaults.cmp_config({
         -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
-        -- Navigate between completions 
+        -- Navigate between completions
         ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 
