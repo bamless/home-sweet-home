@@ -16,9 +16,10 @@ lsp_zero.on_attach(lsp_configs.on_attach)
 require('mason').setup()
 
 local handlers = {
-    function(server_name)
-        require('lspconfig')[server_name].setup {}
-    end
+    lsp_zero.default_setup,
+    -- function(server_name)
+    --     require('lspconfig')[server_name].setup {}
+    -- end
 }
 
 local lsps = lsp_configs.lsps
