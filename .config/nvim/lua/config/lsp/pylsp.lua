@@ -17,7 +17,7 @@ return function()
                     },
                     -- import sorting
                     pyls_isort = { enabled = true },
-                    rope_autoimport = { enabled = true },
+                    -- rope_autoimport = { enabled = true },
                 }
             }
         }
