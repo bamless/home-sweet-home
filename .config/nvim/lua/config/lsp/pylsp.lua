@@ -8,6 +8,7 @@ return function()
                     pyflakes = { enabled = false },
                     pycodestyle = { enabled = false },
                     flake8 = { enabled = false },
+                    -- Rewrite it in rust!
                     ruff = { enabled = true },
                     -- type checker
                     pylsp_mypy = {
@@ -17,6 +18,7 @@ return function()
                     },
                     -- import sorting
                     pyls_isort = { enabled = true },
+                    -- This is *really* slow, disable it for now
                     -- rope_autoimport = { enabled = true },
                 }
             }
