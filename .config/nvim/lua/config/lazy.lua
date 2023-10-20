@@ -84,6 +84,8 @@ return require('lazy').setup({
         dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
     },
 
+    { 'arkav/lualine-lsp-progress' },
+
     {
         "windwp/nvim-autopairs",
         opts = {
@@ -116,7 +118,7 @@ return require('lazy').setup({
     -- Debug
     ---
 
-    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+    { "rcarriga/nvim-dap-ui",      dependencies = { "mfussenegger/nvim-dap" } },
     'theHamsta/nvim-dap-virtual-text',
 
     ---
@@ -131,5 +133,5 @@ return require('lazy').setup({
         end
     },
 
-    { "catppuccin/nvim",      name = "catppuccin" },
+    { "catppuccin/nvim", name = "catppuccin" },
 })
