@@ -13,7 +13,7 @@ return function()
                     -- type checker
                     pylsp_mypy = {
                         enabled = true,
-                        overrides = { '--ignore-missing-imports', true },
+                        overrides = { '--ignore-missing-imports', '--check-untyped-defs', true },
                         live_mode = true
                     },
                     -- import sorting
