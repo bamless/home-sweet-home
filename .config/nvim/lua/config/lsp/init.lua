@@ -1,3 +1,5 @@
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 return {
     -- Language servers configurations
     lsps = {
@@ -11,18 +13,15 @@ return {
 
     -- Keybindings configuration
     on_attach = function(client, bufnr)
-        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         local opts = { buffer = bufnr, remap = false }
         local telescope = require('telescope.builtin')
 
         -- LSP formatting support
         if client.supports_method("textDocument/formatting") then
             vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
-            -- Auto formatting
-            vim.api.nvim_clear_autocmds {
-                group = augroup,
-                buffer = bufnr
-            }
+
+            -- Auto formatting on save
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = augroup,
                 buffer = bufnr,
