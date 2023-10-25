@@ -1,4 +1,5 @@
--- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 return {
     -- Language servers configurations
     lsps = {
@@ -20,14 +21,14 @@ return {
             vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
 
             -- Auto formatting on save
-            -- vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-            -- vim.api.nvim_create_autocmd("BufWritePre", {
-            --     group = augroup,
-            --     buffer = bufnr,
-            --     callback = function()
-            --         vim.lsp.buf.format(opts)
-            --     end
-            -- })
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.format { async = false }
+                end
+            })
         end
 
         -- Enable inlay hints if supported by neovim and LSP
