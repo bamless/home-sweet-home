@@ -2,12 +2,14 @@ local dap = require('dap')
 local dapui = require('dapui')
 
 dapui.setup()
-dap.listeners.after.event_initialized["dapui_config"]=function() vim.cmd("NvimTreeToggle"); dapui.open() end
+dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open()
+end
 
 require("nvim-dap-virtual-text").setup()
 
-vim.fn.sign_define('DapBreakpoint',{ text ='🔴', texthl ='', linehl ='', numhl =''})
-vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapStopped', { text = '▶️', texthl = '', linehl = '', numhl = '' })
 
 ---
 -- C/C++
@@ -48,6 +50,65 @@ dap.configurations.cpp = {
 }
 
 dap.configurations.c = dap.configurations.cpp
+
+---
+-- Python
+---
+---
+
+local debugpy_venv = vim.fn.expand('$HOME/.local/share/nvim/mason/packages/debugpy/venv')
+
+dap.adapters.python = function(cb, config)
+    if config.request == 'attach' then
+        ---@diagnostic disable-next-line: undefined-field
+        local port = (config.connect or config).port
+        ---@diagnostic disable-next-line: undefined-field
+        local host = (config.connect or config).host or '127.0.0.1'
+        cb({
+            type = 'server',
+            port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+            host = host,
+            options = {
+                source_filetype = 'python',
+            },
+        })
+    else
+        cb({
+            type = 'executable',
+            command = debugpy_venv .. '/bin/python',
+            args = { '-m', 'debugpy.adapter' },
+            options = {
+                source_filetype = 'python',
+            },
+        })
+    end
+end
+
+dap.configurations.python = {
+    {
+        -- The first three options are required by nvim-dap
+        type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
+        request = 'launch',
+        name = "Launch file",
+
+        -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+        program = "${file}", -- This configuration will launch the current file if used.
+        pythonPath = function()
+            -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+            -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+            -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+            local cwd = vim.fn.getcwd()
+            if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+                return cwd .. '/venv/bin/python'
+            elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+                return cwd .. '/.venv/bin/python'
+            else
+                return '/usr/bin/python'
+            end
+        end,
+    },
+}
 
 ---
 -- Javascript Chrome
@@ -98,7 +159,8 @@ vim.keymap.set('n', '<leader>br', [[:lua require'dap'.toggle_breakpoint()<CR>]],
 -- Breakpoint with Condition
 vim.keymap.set('n', '<leader>brc', [[:lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: '))<CR>]], {})
 -- Logpoint
-vim.keymap.set('n', '<leader>lgp', [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: '))<CR>]], {})
+vim.keymap.set('n', '<leader>lgp', [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: '))<CR>]],
+    {})
 -- Press dl to run last ran configuration (if you used f5 before it will re run it etc)
 vim.keymap.set('n', '<leader>dl', [[:lua require'dap'.run_last()<CR>]], {})
 -- Pressing F10 to step over
@@ -110,5 +172,4 @@ vim.keymap.set('n', '<F12>', [[:lua require'dap'.step_out()<CR>]], {})
 -- Press F6 to open REPL
 vim.keymap.set('n', '<F6>', [[:lua require'dap'.repl.open()<CR>]], {})
 -- Toggle debug mode, will remove NvimTree also
-vim.keymap.set('n', '<C-x>', [[:NvimTreeToggle<CR> :lua require'dapui'.toggle()<CR>]], {})
-
+vim.keymap.set('n', '<C-x>', [[:lua require'dapui'.toggle()<CR>]], {})

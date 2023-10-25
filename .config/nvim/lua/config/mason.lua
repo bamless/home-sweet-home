@@ -13,6 +13,7 @@ local options = {
         'rust-analyzer',
         'typescript-language-server',
         'css-lsp',
+        'debugpy',
     },
 }
 
