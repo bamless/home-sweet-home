@@ -7,6 +7,7 @@ vim.opt.termguicolors = true
 
 require("nvim-tree").setup {
     sort_by = "case_sensitive",
+    auto_reload_on_write = true,
     view = {
         width = 30,
     },
