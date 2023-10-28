@@ -14,6 +14,7 @@ local options = {
         'typescript-language-server',
         'css-lsp',
         'debugpy',
+        'js-debug-adapter',
     },
 }
 
