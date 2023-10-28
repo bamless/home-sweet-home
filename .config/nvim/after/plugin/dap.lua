@@ -54,15 +54,12 @@ dap.configurations.c = dap.configurations.cpp
 ---
 -- Python
 ---
----
 
 local debugpy_venv = vim.fn.expand('$HOME/.local/share/nvim/mason/packages/debugpy/venv')
 
 dap.adapters.python = function(cb, config)
     if config.request == 'attach' then
-        ---@diagnostic disable-next-line: undefined-field
         local port = (config.connect or config).port
-        ---@diagnostic disable-next-line: undefined-field
         local host = (config.connect or config).host or '127.0.0.1'
         cb({
             type = 'server',
@@ -108,6 +105,57 @@ dap.configurations.python = {
             end
         end,
     },
+}
+
+---
+-- Javascript node
+---
+
+dap.adapters["pwa-node"] = {
+    type = "server",
+    host = "localhost",
+    port = "${port}",
+    executable = {
+        command = "js-debug-adapter",
+        args = { "${port}" }
+    }
+}
+
+dap.configurations.javascript = {
+    {
+        type = "pwa-node",
+        request = "launch",
+        name = "Launch file",
+        program = "${file}",
+        cwd = "${workspaceFolder}",
+        runtimeExecutable = "node",
+    },
+}
+dap.configurations.typescript = {
+    {
+        type = "pwa-node",
+        request = "launch",
+        name = "Launch Current File (pwa-node with ts-node)",
+        cwd = "${workspaceFolder}",
+        runtimeArgs = {
+            "--loader",
+            "ts-node/esm"
+        },
+        runtimeExecutable = "node",
+        args = {
+            "${file}"
+        },
+        sourceMaps = true,
+        protocol = "inspector",
+        skipFiles = {
+            "<node_internals>/**",
+            "node_modules/**"
+        },
+        resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**"
+        }
+    }
 }
 
 ---
