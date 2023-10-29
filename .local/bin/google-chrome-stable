@@ -1,0 +1,9 @@
+#!/bin/sh
+
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+USER_FLAGS_FILE="$XDG_CONFIG_HOME/chromium-flags.conf"
+if [[ -f $USER_FLAGS_FILE ]]; then
+    USER_FLAGS="$(cat $USER_FLAGS_FILE | sed 's/#.*//')"
+fi
+
+/usr/bin/google-chrome-stable $@ $USER_FLAGS
