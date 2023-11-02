@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+#
+# Saumon i3blocks scripts
+# volume (pulseaudio volume display and control)
+
+if ! command -v pactl >/dev/null; then
+  echo " !dep "
+  exit 33
+fi
+
+if ! command -v pamixer >/dev/null; then
+  echo " !dep "
+  exit 33
+fi
+
+case $BLOCK_BUTTON in
+  1) pgrep pavucontrol || i3-msg -q exec pavucontrol ;; # click: bring up volume mixer
+  3) pamixer --default-source -t ;;   # right click: toggle mute
+  4) pamixer --default-source -i 5 ;; # scroll up: increase vol by 4%
+  5) pamixer --default-source -d 5 ;; # scroll down: decrease vol by 4%
+esac
+
+active_source=$(pactl get-default-source)
+source=$(pactl list sources | grep -A100 "Name: $active_source")
+if [[ "$source" == *"bluez"* ]]; then isbluetooth=1; fi
+if [[ "$source" == *"Active Port: analog-output-headphone"* ]]; then isheadphone=1; fi
+# I can we can use `pactl get-source-mute @DEFAULT_SOURCE@` but it's less efficient :)
+if [[ "$source" == *"Mute: yes"* ]]; then ismuted=1; fi
+volume=$(echo "$source" | grep "Volume: " | head -1 | awk '{print $5}' | tr -d '%')
+
+if [ -n "$isbluetooth" ]; then
+  if [ -n "$ismuted" ]; then
+    color="#997CC5"
+  else
+    color="#4a74ff"
+  fi
+elif [ -n "$isheadphone" ]; then
+  if [ -n "$ismuted" ]; then
+    color="#997CC5"
+  else
+    color="#F8E744"
+  fi
+elif [ -n "$ismuted" ]; then
+  color="#997CC5"
+else
+  color="#dddddd"
+fi
+
+printf "<span color='%s'>" "$color"
+
+if [ -n "$ismuted" ]; then
+  printf "<s>"
+fi
+
+printf "󰍬 %s" "$volume"
+
+printf "%%"
+
+if [ -n "$ismuted" ]; then
+  printf "</s>"
+fi
+
+echo "</span>"
