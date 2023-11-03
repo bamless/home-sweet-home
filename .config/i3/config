@@ -57,7 +57,7 @@ exec_always --no-startup-id xss-lock -- ~/.config/i3/scripts/lock
 exec --no-startup-id ~/.local/bin/force-full-composition.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id gnome-terminal
+exec --no-startup-id alacritty
 exec --no-startup-id 1password
 exec --no-startup-id slack
 exec --no-startup-id evolution
@@ -81,7 +81,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 # bindsym $mod+space exec "/home/theprimeagen/dotfiles/awesome-streamerrc/ThePrimeagen/tmux2"
