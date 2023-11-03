@@ -292,6 +292,11 @@ bindsym XF86AudioMicMute exec --no-startup-id pamixer --default-source -t && pki
 bindsym XF86MonBrightnessUp exec brightnessctl set 10%+ && pkill -RTMIN+11 i3blocks
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%- && pkill -RTMIN+11 i3blocks
 
+## Screenshots
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
 # Alsa audio controls.
 bindsym $mod+Shift+comma exec ~/.config/i3/scripts/alsa restore
 bindsym $mod+semicolon exec ~/.config/i3/scripts/alsa down Headphone
