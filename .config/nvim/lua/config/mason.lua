@@ -1,6 +1,5 @@
 local options = {
     ensure_installed = {
-        'autopep8',
         'chrome-debug-adapter',
         'clangd',
         'cpptools',
