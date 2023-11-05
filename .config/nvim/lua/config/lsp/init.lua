@@ -5,7 +5,7 @@ return {
         clangd = require('config.lsp.clangd'),
         lua_ls = require('config.lsp.lua_ls'),
         jdtls = require('config.lsp.jdtls'),
-        pylsp = require('config.lsp.pylsp'),
+        pyright = require('config.lsp.pyright'),
         rust_analyzer = require('config.lsp.rust-analyzer'),
         tsserver = require('config.lsp.tsserver'),
     },
