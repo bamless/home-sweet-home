@@ -1,14 +1,25 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Aliases.
+alias vim="nvim"
+
+# Env variables.
+export EDITOR='nvim'
+export PAGER='less'
 export ZSH="/home/$USER/.oh-my-zsh"
+
+# Zsh Plugins.
+plugins=(git zsh-autosuggestions)
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="afowler"
+
+# Zsh auto-suggest  strategy
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -63,17 +74,5 @@ ZSH_THEME="afowler"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Strategy for zsh-autosuggestions
-ZSH_AUTOSUGGEST_STRATEGY=(history)
-
-plugins=(git zsh-autosuggestions)
-
+# Init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-export EDITOR='nvim'
-export PAGER='less'
-
-# Aliases
-alias update-mirrors="reflector --verbose -c Italy -a 6 --sort rate --save /etc/pacman.d/mirrorlist"
-alias vim="nvim"
