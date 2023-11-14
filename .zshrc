@@ -10,7 +10,8 @@ export PAGER='less'
 export ZSH="/home/$USER/.oh-my-zsh"
 
 # Zsh Plugins.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions vi-mode)
+MODE_INDICATOR="%F{yellow}(N) %f"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -76,3 +77,5 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 # Init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+
+PROMPT="\$(vi_mode_prompt_info)$PROMPT"
