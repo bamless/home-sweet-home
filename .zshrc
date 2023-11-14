@@ -1,9 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Aliases.
-alias vim="nvim"
-
 # Env variables.
 export EDITOR='nvim'
 export PAGER='less'
@@ -79,3 +76,8 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 source $ZSH/oh-my-zsh.sh
 
 PROMPT="\$(vi_mode_prompt_info)$PROMPT"
+
+# Aliases.
+alias vim="nvim"
+alias cat="bat"
+alias ls="exa"
