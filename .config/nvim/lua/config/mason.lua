@@ -15,6 +15,7 @@ local options = {
         'css-lsp',
         'debugpy',
         'js-debug-adapter',
+        'templ',
     },
 }
 
