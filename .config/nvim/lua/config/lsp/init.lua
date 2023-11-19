@@ -8,6 +8,7 @@ return {
         pyright = require('config.lsp.pyright'),
         rust_analyzer = require('config.lsp.rust-analyzer'),
         tsserver = require('config.lsp.tsserver'),
+        gopls = require('config.lsp.gopls'),
     },
 
     -- Keybindings configuration
