@@ -1,7 +1,7 @@
 return function()
     local function get_python_path(workspace)
+        local exepath = vim.fn.exepath
         local path = require('lspconfig/util').path
-        local exepath = require('lspconfig/util').exepath
 
         -- Use activated virtualenv.
         if vim.env.VIRTUAL_ENV then
