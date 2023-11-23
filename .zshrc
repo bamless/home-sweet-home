@@ -75,7 +75,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 # Init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-PROMPT="\$(vi_mode_prompt_info)$PROMPT"
+RPROMPT="$RPROMPT\$(vi_mode_prompt_info)"
 
 # Aliases.
 alias vim="nvim"
