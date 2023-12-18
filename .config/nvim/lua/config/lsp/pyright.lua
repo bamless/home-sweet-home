@@ -33,6 +33,7 @@ return function()
                     typeCheckingMode = "basic",
                     autoSearchPaths = true,
                     useLibraryCodeForTypes = true,
+                    diagnosticMode = "openFilesOnly",
                 }
             }
         }
