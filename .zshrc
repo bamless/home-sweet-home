@@ -80,4 +80,4 @@ RPROMPT="$RPROMPT\$(vi_mode_prompt_info)"
 # Aliases.
 alias vim="nvim"
 alias cat="bat"
-alias ls="exa"
+alias ls="eza"
