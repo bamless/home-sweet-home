@@ -64,4 +64,10 @@ return {
         event = "VeryLazy",
         keys = chat_keys,
     },
+    {
+        "jonahgoldwastaken/copilot-status.nvim",
+        dependencies = { "zbirenbaum/copilot.lua" },
+        lazy = true,
+        event = "BufReadPost",
+    }
 }

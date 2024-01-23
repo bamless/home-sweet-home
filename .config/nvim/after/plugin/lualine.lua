@@ -17,7 +17,13 @@ local config = {
             },
             'branch'
         },
-        lualine_c = { 'fileformat' },
+        lualine_c = {
+            'fileformat',
+            {
+                function() return require("copilot_status").status_string() end,
+                cnd = function() return require("copilot_status").enabled() end,
+            }
+        },
         lualine_x = {},
         lualine_y = { 'filetype', 'progress', 'diagnostics' },
         lualine_z = {
@@ -38,15 +44,15 @@ local config = {
 
 -- lsp_status configuration
 local colors = {
-  yellow = '#ECBE7B',
-  cyan = '#008080',
-  darkblue = '#081633',
-  green = '#98be65',
-  orange = '#FF8800',
-  violet = '#a9a1e1',
-  magenta = '#c678dd',
-  blue = '#51afef',
-  red = '#ec5f67'
+    yellow = '#ECBE7B',
+    cyan = '#008080',
+    darkblue = '#081633',
+    green = '#98be65',
+    orange = '#FF8800',
+    violet = '#a9a1e1',
+    magenta = '#c678dd',
+    blue = '#51afef',
+    red = '#ec5f67'
 }
 
 table.insert(config.sections.lualine_c, {
@@ -62,7 +68,7 @@ table.insert(config.sections.lualine_c, {
     separators = {
         component = ' ',
         progress = ' | ',
-        message = { pre = '(', post = ')', commenced = 'In Progress', completed = 'Completed'},
+        message = { pre = '(', post = ')', commenced = 'In Progress', completed = 'Completed' },
         percentage = { pre = '', post = '%% ' },
         title = { pre = '', post = ': ' },
         lsp_client_name = { pre = '[', post = ']' },
@@ -70,7 +76,7 @@ table.insert(config.sections.lualine_c, {
     },
     display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' } },
     timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
-    spinner_symbols = { '🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘' },
+    spinner_symbols = { '🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘' },
 })
 
 require('lualine').setup(config)
