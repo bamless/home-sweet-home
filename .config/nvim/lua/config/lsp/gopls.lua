@@ -16,10 +16,17 @@ return function()
         },
     }
 
+    -- Register templ LSP file types
+    vim.filetype.add({
+        extension = {
+            templ = "templ",
+        },
+    })
+
     -- Autoformat go (and templ) files. Would prefer not to this, but gofmt uses tabs by default...
     vim.api.nvim_create_autocmd("BufWritePre", {
         group = augroup,
-        pattern = {"*.go", "*.templ"},
+        pattern = { "*.go", "*.templ" },
         callback = function()
             local params = vim.lsp.util.make_range_params()
             params.context = { only = { "source.organizeImports" } }
