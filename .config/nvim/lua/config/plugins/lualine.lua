@@ -1,6 +1,9 @@
 return {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+    dependencies = {
+        { 'nvim-tree/nvim-web-devicons',   lazy = true },
+        { 'linrongbin16/lsp-progress.nvim' }
+    },
     config = function()
         vim.o.laststatus = 3
 
@@ -60,27 +63,15 @@ return {
         }
 
         table.insert(config.sections.lualine_c, {
-            'lsp_progress',
-            colors = {
-                percentage      = colors.cyan,
-                title           = colors.cyan,
-                message         = colors.cyan,
-                spinner         = colors.cyan,
-                lsp_client_name = colors.blue,
-                use             = true,
-            },
-            separators = {
-                component = ' ',
-                progress = ' | ',
-                message = { pre = '(', post = ')', commenced = 'In Progress', completed = 'Completed' },
-                percentage = { pre = '', post = '%% ' },
-                title = { pre = '', post = ': ' },
-                lsp_client_name = { pre = '[', post = ']' },
-                spinner = { pre = '', post = '' },
-            },
-            display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' } },
-            timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
-            spinner_symbols = { '🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘' },
+            require('lsp-progress').progress,
+        })
+
+        -- listen lsp-progress event and refresh lualine
+        vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+        vim.api.nvim_create_autocmd("User", {
+            group = "lualine_augroup",
+            pattern = "LspProgressStatusUpdated",
+            callback = require("lualine").refresh,
         })
 
         require('lualine').setup(config)
