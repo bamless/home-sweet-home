@@ -1,10 +1,21 @@
 vim.opt.mouse = 'a'
 
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank {
+            higroup = (vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'),
+            timeout = 500
+        }
+    end
+})
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
-vim.opt.cursorline = true           -- highlight cursor line underneath the cursor horizontally
-vim.opt.splitbelow = true           -- open new vertical split bottom
-vim.opt.splitright = true           -- open new horizontal splits right
+vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
+vim.opt.splitbelow = true -- open new vertical split bottom
+vim.opt.splitright = true -- open new horizontal splits right
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
