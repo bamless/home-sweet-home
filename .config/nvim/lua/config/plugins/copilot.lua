@@ -14,19 +14,27 @@ local prompts = {
 
 -- chat keybinds
 local chat_keys = {
-    { "<leader>cce", "<cmd>CopilotChatExplain<cr>",   desc = "CopilotChat - Explain code" },
-    { "<leader>cct", "<cmd>CopilotChatTests<cr>",     desc = "CopilotChat - Generate tests" },
-    { "<leader>ccr", "<cmd>CopilotChatReview<cr>",    desc = "CopilotChat - Review code" },
-    { "<leader>ccR", "<cmd>CopilotChatRefactor<cr>",  desc = "CopilotChat - Refactor code" },
-    { "<leader>ccs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
-    { "<leader>ccS", "<cmd>CopilotChatSpelling<cr>",  desc = "CopilotChat - Correct spelling" },
-    { "<leader>ccw", "<cmd>CopilotChatWording<cr>",   desc = "CopilotChat - Improve wording" },
-    { "<leader>ccc", "<cmd>CopilotChatConcise<cr>",   desc = "CopilotChat - Make text concise" },
+    { "<leader>cce", "<cmd>CopilotChatExplain<cr>",       desc = "CopilotChat - Explain code" },
+    { "<leader>ccf", "<cmd>CopilotChatFixDiagnostic<cr>", desc = "CopilotChat - Fix diagnostics" },
+    { "<leader>cct", "<cmd>CopilotChatTests<cr>",         desc = "CopilotChat - Generate tests" },
+    { "<leader>ccr", "<cmd>CopilotChatReview<cr>",        desc = "CopilotChat - Review code" },
+    { "<leader>ccR", "<cmd>CopilotChatRefactor<cr>",      desc = "CopilotChat - Refactor code" },
+    { "<leader>ccs", "<cmd>CopilotChatSummarize<cr>",     desc = "CopilotChat - Summarize text" },
+    { "<leader>ccS", "<cmd>CopilotChatSpelling<cr>",      desc = "CopilotChat - Correct spelling" },
+    { "<leader>ccw", "<cmd>CopilotChatWording<cr>",       desc = "CopilotChat - Improve wording" },
+    { "<leader>ccc", "<cmd>CopilotChatConcise<cr>",       desc = "CopilotChat - Make text concise" },
 }
+
+vim.api.nvim_command('vnoremap <leader>cci :<C-u>\'<,\'>CopilotChatInPlace<CR>')
 
 vim.keymap.set("n", "<leader>cc", function()
     local query = vim.fn.input("Ask copilot: ")
     vim.cmd("CopilotChat " .. query)
+end)
+
+vim.keymap.set("n", "<leader>ccb", function()
+    local prompt = vim.fn.input("Prompt: ")
+    vim.cmd("CopilotChatBuffer " .. prompt)
 end)
 
 -- Copilot options
@@ -50,16 +58,18 @@ return {
         end,
     },
     {
-        "jellydn/CopilotChat.nvim",
+        "CopilotC-Nvim/CopilotChat.nvim",
         opts = {
-            mode = "split",
-            prompts = prompts,
+            show_help = "yes",         -- Show help text for CopilotChatInPlace, default: yes
+            debug = false,             -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
+            disable_extra_info = 'no', -- Disable extra information (e.g: system prompt) in the response.
+            language =
+            "English"                  -- Copilot answer language settings when using default prompts. Default language is English.
+            -- proxy = "socks5://127.0.0.1:3000", -- Proxies requests via https or socks.
+            -- temperature = 0.1,
         },
         build = function()
-            vim.defer_fn(function()
-                vim.cmd("UpdateRemotePlugins")
-                vim.notify("CopilotChat - Updated remote plugins. Please restart Neovim.")
-            end, 3000)
+            vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
         end,
         event = "VeryLazy",
         keys = chat_keys,
