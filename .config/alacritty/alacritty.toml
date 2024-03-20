@@ -1,0 +1,28 @@
+import = ["/home/fabrizio/.config/alacritty/tokyo-night.toml"]
+
+[font]
+size = 10.0
+
+[font.bold]
+family = "terminal-font"
+
+[font.bold_italic]
+family = "terminal-font"
+
+[font.italic]
+family = "terminal-font"
+
+[font.normal]
+family = "terminal-font"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.dimensions]
+columns = 123
+lines = 28
+
+[window.padding]
+x = 2
+y = 2
