@@ -41,3 +41,4 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "101"
+vim.opt.conceallevel = 1
