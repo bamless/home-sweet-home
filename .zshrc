@@ -81,3 +81,7 @@ RPROMPT="$RPROMPT\$(vi_mode_prompt_info)"
 alias vim="nvim"
 alias cat="bat"
 alias ls="eza"
+
+if [[ "${XDG_CURRENT_DESKTOP}" == "i3" ]]; then
+    eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)
+fi
