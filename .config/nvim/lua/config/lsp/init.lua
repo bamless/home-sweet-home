@@ -33,9 +33,10 @@ return {
 
         -- Enable inlay hints if supported by neovim and LSP
         if client.supports_method("textDocument/inlayHint") and vim.lsp.inlay_hint then
-            vim.lsp.inlay_hint.enable(bufnr, true) -- Enable inlay hints by default
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) -- Enable inlay hints by default
             vim.keymap.set("n", "<leader>h", function()
-                vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+                local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+                vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
             end, opts)
         end
 
