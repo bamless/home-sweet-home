@@ -56,7 +56,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1200px;
+    width:                       30%;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -236,7 +236,7 @@ element alternate.active {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        64px;
+    size:                        4ch;
     cursor:                      inherit;
 }
 element-text {
