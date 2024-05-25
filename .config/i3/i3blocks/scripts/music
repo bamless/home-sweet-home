@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+#
+# Saumon i3blocks scripts
+# music (mpd/spotify track display and control)
+#
+
+# TODO: refactor (really?)
+
+if ! command -v playerctl >/dev/null; then
+  echo " !dep "
+  exit 33
+fi
+
+lockfile="/tmp/saumon-music-instance.lock"
+instance=$(cat "$lockfile" 2>/dev/null)
+
+if [ "$BLOCK_BUTTON" -eq 2 ]; then
+
+  if [ "$instance" = "mpd" ]; then
+    mpc pause-if-playing > /dev/null 2>&1
+    echo "none" > $lockfile
+    instance="none"
+  elif [ "$instance" = "none" ]; then
+    echo "spotify" > $lockfile
+    instance="spotify"
+  else
+    playerctl --player=spotify pause > /dev/null 2>&1
+    echo "mpd" > $lockfile
+    instance="mpd"
+  fi
+
+fi
+
+if [ "$instance" = "mpd" ]; then
+
+  act() {
+    status=$(mpc "$1")
+    if [[ "$status" == *"playing"* ]]; then playing=1; fi
+    if [[ "$status" == *"paused"* ]]; then paused=1; fi
+    if [ -n "$playing" ]; then
+      echo -n '<span color="#8BC34A">  ' # playing icon
+      echo -n "$status" | head -n1 | tr -d '\n' | sed -r 's/&/&amp;/g'
+    elif [ -n "$paused" ]; then
+      echo -n '<span color="#c7610c">  ' # paused icon
+      echo -n "$status" | head -n1 | tr -d '\n' | sed -r 's/&/&amp;/g'
+    else
+      echo -n '<span color="#999">  ' # music icon
+      echo -n "Stopped"
+    fi
+    echo " </span>"
+  }
+
+  case $BLOCK_BUTTON in
+    3) act toggle ;;  # right click, pause/unpause
+    4) act prev ;;  # scroll up, previous
+    5) act next ;;  # scroll down, next
+    *) act status ;;
+  esac
+
+elif [ "$instance" = "none" ]; then
+
+  echo "<span color='#999999'><span fallback='true'>  </span>Idle </span>"
+
+else  # spotify or others
+
+  PLAYER=""
+  ICON=""
+  PLAYERARG=""
+  if pgrep -x "spotify" > /dev/null; then
+    PLAYER="spotify"
+    ICON=""
+  else
+    if playerctl metadata | grep firefox > /dev/null; then
+      PLAYER="firefox"
+      ICON=""
+    fi
+  fi
+
+  if [ -n "$PLAYER" ]; then
+    PLAYERARG="--player=$PLAYER"
+  fi
+
+  case $BLOCK_BUTTON in
+    3) playerctl "$PLAYERARG" play-pause ;;&  # right click, pause/unpause
+    4) playerctl "$PLAYERARG" previous ;;&  # scroll up, previous
+    5) playerctl "$PLAYERARG" next ;;&  # scroll down, next
+    3|4|5) i3-msg -q exec -- ~/scripts/i3blocks-refresh.sh music 1 0.2; sleep 0.05 ;;
+  esac
+
+  STATUS=$(playerctl "$PLAYERARG" status 2> /dev/null)
+  DATA=$(playerctl "$PLAYERARG" metadata --format "{{ artist }} – {{ title }}" 2> /dev/null)
+
+  if [ "$STATUS" = "Playing" ]; then # TODO: check that data isn't empty (and below)
+    echo -n "<span color='#8BC34A'>$ICON<span fallback='true'> </span> "
+  elif [ "$STATUS" = "Paused" ]; then
+    echo -n "<span color='#c7610c'>$ICON<span fallback='true'> </span> "
+  else
+    echo -n "<span color='#999'>$ICON<span fallback='true'>  Stopped</span>"
+  fi
+  if [ "$STATUS" = "Playing" ] || [ "$STATUS" = "Paused" ]; then
+    DATACLEANED=$(echo -n "${DATA}" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
+    LEFT=$(echo -n "${DATACLEANED}" | awk -F " - " '{print $1}')
+    echo -n "$LEFT"
+    RIGHT=${DATACLEANED:${#LEFT}}
+    if [[ ${#RIGHT} -gt 1 ]]; then
+      echo -n "<span size='small'>$RIGHT</span>"
+    fi
+  fi
+
+  echo "</span>"
+
+fi

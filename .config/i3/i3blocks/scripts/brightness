@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+
+if ! command -v brightnessctl >/dev/null; then
+    echo " !dep "
+    exit 33
+fi
+
+ICONS=("󰃞 " "󰃟 " "󰃠 ")
+command="brightnessctl -m"
+
+case $BLOCK_BUTTON in
+    3) # right click: toggle min/full brightness
+      rounded=$($command | cut -d ',' -f4 |  tr -d '%')
+      if [ "$rounded" -ge 50 ]; then
+        command="brightnessctl -m set 100%"
+      else
+        command="brightnessctl -m set 1"
+      fi
+      ;;
+    4) # scroll up
+      command="brightnessctl -m set -m +2%"
+      ;;
+    5) # scroll down
+      command="brightnessctl -m set -m 2%-"
+      ;;
+esac
+
+current=$($command | cut -d ',' -f4 |  tr -d '%')
+
+if [ -z "$current" ]; then
+    echo "${ICONS[1]}"
+    exit 0
+fi
+
+icon=${ICONS[$(expr ${current} \* \( ${#ICONS[@]} - 1 \) / 100)]}
+echo "${icon}$current%"
