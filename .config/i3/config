@@ -42,7 +42,7 @@ set $ws10 "10"
 exec_always --no-startup-id xset -b
 
 # Display Wallpaper
-exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/hong-kong-night.jpg
+# exec_always --no-startup-id feh --bg-fill /your/wallpaper/path
 
 # Transparency with picom compositor
 exec_always --no-startup-id picom -f
