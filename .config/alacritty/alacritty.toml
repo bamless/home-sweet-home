@@ -1,7 +1,7 @@
 import = ["/home/fabrizio/.config/alacritty/tokyo-night.toml"]
 
 [font]
-size = 10.0
+size = 12.0
 
 [font.bold]
 family = "terminal-font"
