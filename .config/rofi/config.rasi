@@ -18,7 +18,7 @@ configuration {
 	icon-theme: "Flat-Remix";
 /*	cache-dir: ;*/
 	steal-focus: false;
-	dpi: 196;
+	dpi: 98;
 
 	/*---------- Matching setting ----------*/
 	matching: "normal";
