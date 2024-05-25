@@ -1,0 +1,34 @@
+#!/bin/bash
+
+NORMAL_COLOR="#6eff9e"
+WARNING_COLOR="#fcbd35"
+CRITICAL_COLOR="#fa5252"
+CHARGING_COLOR="#4a74ff"
+BATTERY=("󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹")
+CHARGING=""
+
+battery=${BLOCK_INSTANCE:-BAT0}
+capacity=$(<"/sys/class/power_supply/$battery/capacity")
+charging=$(<"/sys/class/power_supply/AC/online")
+
+color=$NORMAL_COLOR
+
+if [ $charging -eq 0 ]; then
+    icon=${BATTERY[$(expr ${capacity} \* \( ${#BATTERY[@]} - 1 \) / 100)]}
+    color=$NORMAL_COLOR
+    if [ $capacity -le 5 ]; then
+        color=$CRITICAL_COLOR
+        notify-send --icon=battery-level-0-symbolic \
+            -u critical                             \
+            "Battery Critical"                      \
+            "The computer will shutdown shortly. Connect to power now."
+    elif [ $capacity -le 20 ]; then
+        color=$WARNING_COLOR
+    fi
+else
+    icon=$CHARGING
+    color=$CHARGING_COLOR
+fi
+
+echo "<span color='${color}'>${icon}</span> ${capacity}%"
+echo "${capacity}%"

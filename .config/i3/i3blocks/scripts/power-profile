@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if ! command -v powerprofilesctl >/dev/null; then
+  echo " !dep "
+  exit 33
+fi
+
+profile=$(powerprofilesctl | grep '*' | sed 's/[\\*: ]//g')
+
+if [ $BLOCK_BUTTON != "" ]; then
+    case $profile in
+        performance)
+            powerprofilesctl set balanced
+            ;;
+        balanced)
+            powerprofilesctl set performance
+            ;;
+        *)
+            exit -1
+            ;;
+    esac
+
+    profile=$(powerprofilesctl | grep '*' | sed 's/[\\*: ]//g')
+fi
+
+echo "󱐋 ${profile}"
