@@ -2,7 +2,7 @@
 # /home/fabrizio/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA Settings utility
-# Generated on Sun Feb  4 22:45:23 2024
+# Generated on Sat May 25 19:47:08 2024
 #
 
 # ConfigProperties:
@@ -12,9 +12,9 @@ DisplayStatusBar = Yes
 SliderTextEntries = Yes
 IncludeDisplayNameInConfigFile = No
 UpdateRulesOnProfileNameChange = Yes
-Timer = Memory_Used_(GPU_0),Yes,3000
-Timer = Thermal_Monitor_(GPU_0),Yes,1000
 Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
+Timer = Thermal_Monitor_(GPU_0),Yes,1000
+Timer = Memory_Used_(GPU_0),Yes,3000
 
 # Attributes:
 
