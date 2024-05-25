@@ -62,12 +62,6 @@ exec --no-startup-id ~/.local/bin/force-full-composition.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id alacritty
-exec --no-startup-id 1password
-exec --no-startup-id slack
-# Outlook PWA
-exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn
-# exec --no-startup-id evolution
-exec --no-startup-id /opt/Webex/bin/CiscoCollabHost
 
 assign [class="Spotify"] $ws4
 
