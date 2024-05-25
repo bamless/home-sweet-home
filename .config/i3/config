@@ -42,7 +42,7 @@ set $ws10 "10"
 exec_always --no-startup-id xset -b
 
 # Display Wallpaper
-# exec_always --no-startup-id feh --bg-fill /your/wallpaper/path
+exec_always --no-startup-id feh --bg-fill /usr/share/backgrounds/gnome/blobs-d.svg
 
 # Transparency with picom compositor
 # exec_always --no-startup-id picom -f --backend glx
