@@ -69,7 +69,7 @@
 
     ### Text ###
 
-    font = DejaVu Sans Mono 11
+    font = DejaVu Sans Mono 12
 
     # Possible values are:
     # full: Allow a small subset of html markup in notifications:

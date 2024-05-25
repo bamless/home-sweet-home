@@ -24,15 +24,15 @@ for_window [class="^.*"] client.focused          #77dd77 #285577 #ffffff #2e9ef4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono 12
 
 # setup workspace names
 set $ws1 "1:  Terminal"
 set $ws2 "2:  Browser"
 set $ws3 "3: ⚙ Misc"
-set $ws4 "4: 󰒱 Slack - 󰇮 Mail"
-set $ws5 "5: 󰖠 Webex"
-set $ws6 "6:  Spotify"
+set $ws4 "4:  Spotify"
+set $ws5 "5"
+set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -69,12 +69,7 @@ exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Defaul
 # exec --no-startup-id evolution
 exec --no-startup-id /opt/Webex/bin/CiscoCollabHost
 
-# Allocate applications to workspaces
-assign [class="Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] $ws4
-# assign [class="Evolution"] $ws4
-assign [class="Slack"] $ws4
-assign [class="webex"] $ws5
-assign [class="Spotify"] $ws6
+assign [class="Spotify"] $ws4
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
