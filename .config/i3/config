@@ -52,7 +52,7 @@ exec_always --no-startup-id dunst
 
 # Lock screen 
 # exec_always --no-startup-id xss-lock -- ~/.config/i3/scripts/lock
-# exec_always --no-startup-id xscreensaver --no-splash
+exec_always --no-startup-id xscreensaver --no-splash
 
 # Gnome keyring
 exec_always --no-startup-id ~/.config/i3/scripts/gnome-keyring.sh
