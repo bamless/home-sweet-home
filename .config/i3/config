@@ -295,8 +295,8 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 10%- && pkill -RTMIN+11 i3b
 
 # Screenshots
 bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date +%d-%m-%Y-%s).png"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date +%d-%m-%Y-%s).png"
 
 # Alsa audio controls.
 bindsym $mod+Shift+comma exec ~/.config/i3/scripts/alsa restore
