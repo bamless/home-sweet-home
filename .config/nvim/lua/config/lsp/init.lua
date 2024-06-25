@@ -40,20 +40,33 @@ return {
             end, opts)
         end
 
-        -- Add keymaps to trigger LSP functions
-        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-        vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
-        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-        vim.keymap.set("n", "<leader>wr", function() vim.lsp.buf.references() end, opts)
-        vim.keymap.set("n", "<leader>ws", function() telescope.lsp_dynamic_workspace_symbols() end, opts)
-        vim.keymap.set("n", "<leader>ss", function() telescope.treesitter() end, opts)
-        vim.keymap.set("n", "<leader>sr", function() telescope.lsp_references() end, opts)
-        vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-        vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-        vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-        vim.keymap.set("n", "<leader>dd", function() telescope.diagnostics() end, opts)
-        vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-        vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+        -- Configure hover keybinding
+        local pretty_hover = require("pretty_hover")
+        local hover_util = require("pretty_hover.util")
+
+        vim.keymap.set("n", "K", function()
+            -- Fall back to default hover if pretty_hover does not support the current client
+            if hover_util.get_current_active_clent() then
+                pretty_hover.hover()
+            else
+                vim.lsp.buf.hover()
+            end
+        end, opts)
+
+
+        -- Other LSP function keybindings
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "<leader>wr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<leader>ws", telescope.lsp_dynamic_workspace_symbols, opts)
+        vim.keymap.set("n", "<leader>ss", telescope.treesitter, opts)
+        vim.keymap.set("n", "<leader>sr", telescope.lsp_references, opts)
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "<leader>dd", telescope.diagnostics, opts)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+        vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
     end,
 }
