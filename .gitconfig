@@ -7,3 +7,14 @@
 	rebase = false
 [init]
 	defaultBranch = master
+[difftool]
+    prompt = true
+[diff]
+    tool = nvimdiff
+[merge]
+  tool = nvimdiff
+[mergetool]
+  prompt = true
+  keepBackup = false
+[mergetool "nvimdiff"]
+  layout = "LOCAL,BASE,REMOTE / MERGED"
