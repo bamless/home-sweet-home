@@ -85,6 +85,23 @@ local config = {
     init_options = {
         bundles = {}
     },
+
+    on_attach = function(client, bufnr)
+        require("config.lsp").on_attach(client, bufnr)
+
+        -- JDTLS client does not report the correct capabilities, such as `textDocument/formatting` or `textDocument/inlayHint`.
+        -- Due to this, the check done in `on_attach` for these capabilities will not work, even though JDTLS supports them.
+        -- Forcefully enable them here.
+
+        local opts = { buffer = bufnr, remap = false }
+        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) -- Enable inlay hints by default
+        vim.keymap.set("n", "<leader>h", function()
+            local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+            vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+        end, opts)
+    end
 }
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
