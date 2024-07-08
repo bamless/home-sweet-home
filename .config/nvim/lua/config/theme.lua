@@ -4,4 +4,3 @@ function ColorTheme(color)
 end
 
 ColorTheme()
-ColorTheme()
