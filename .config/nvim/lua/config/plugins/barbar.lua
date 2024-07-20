@@ -7,6 +7,7 @@ return {
     opts = {
         sidebar_filetypes = {
             NvimTree = true,
+            ["neo-tree"] = true,
         },
         icons = {
             -- Configure the base icons on the bufferline.
