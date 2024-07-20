@@ -87,6 +87,9 @@ local config = {
     },
 
     on_attach = function(client, bufnr)
+        require("jdtls").setup_dap { hotcodereplace = "auto" }
+        require("jdtls.dap").setup_dap_main_class_configs()
+
         require("config.lsp").on_attach(client, bufnr)
 
         -- JDTLS client does not report the correct capabilities, such as `textDocument/formatting` or `textDocument/inlayHint`.
@@ -103,6 +106,35 @@ local config = {
         end, opts)
     end
 }
+
+local java_debug_bundle = vim.split(
+    vim.fn.glob(vim.fn.stdpath('data') ..
+        '/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar'),
+    '\n'
+)
+
+if java_debug_bundle[1] ~= '' then
+    vim.list_extend(config.init_options.bundles, java_debug_bundle)
+end
+
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 require('jdtls').start_or_attach(config)
+
+-- Setup dap java configuration
+local dap = require "dap"
+dap.configurations.java = {
+    {
+        javaExec = "java",
+        request = "launch",
+        type = "java",
+        name = "Debug (Launch)",
+    },
+    {
+        type = "java",
+        request = "attach",
+        name = "Debug (Attach) - Remote",
+        hostName = "127.0.0.1",
+        port = 5005,
+    },
+}
