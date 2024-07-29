@@ -21,10 +21,10 @@ return {
             end)
 
             -- Project wide grep
-            --vim.keymap.set('n', '<leader>ps', function()
-            --    builtin.grep_string({ search = vim.fn.input("Grep > ") })
-            --end)
-            vim.keymap.set('n', '<leader>ps', builtin.live_grep)
+            vim.keymap.set('n', '<leader>ps', function()
+                builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            end)
+            vim.keymap.set('n', '<leader>pg', builtin.live_grep)
 
             -- Git branches
             vim.keymap.set('n', '<C-g>', builtin.git_branches, {})
