@@ -272,7 +272,7 @@ bar {
 
         status_command i3blocks -c ~/.config/i3/i3blocks/i3blocks.conf
         i3bar_command i3bar --transparency
-        # tray_output primary
+        tray_output primary
 
         colors {
                 background #1e1e2e99
