@@ -42,7 +42,7 @@ return {
 
         -- Configure hover keybinding
         local pretty_hover = require("pretty_hover")
-        local hover_util = require("pretty_hover.util")
+        local hover_util = require("pretty_hover.core.util")
 
         vim.keymap.set("n", "K", function()
             -- Fall back to default hover if pretty_hover does not support the current client
