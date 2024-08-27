@@ -70,7 +70,8 @@ exec --no-startup-id slack
 # Outlook PWA
 exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn
 # exec --no-startup-id evolution
-exec_always --no-startup-id teams-for-linux
+exec --no-startup-id teams-for-linux
+
 # Allocate applications to workspaces
 assign [class="Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] $ws4
 # assign [class="Evolution"] $ws4
