@@ -31,7 +31,7 @@ set $ws1 "1:  Terminal"
 set $ws2 "2:  Browser"
 set $ws3 "3: ⚙ Misc"
 set $ws4 "4: 󰒱 Slack - 󰇮 Mail"
-set $ws5 "5: 󰖠 Webex"
+set $ws5 "5: 󰖠 Teams"
 set $ws6 "6:  Spotify"
 set $ws7 "7"
 set $ws8 "8"
@@ -70,13 +70,12 @@ exec --no-startup-id slack
 # Outlook PWA
 exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn
 # exec --no-startup-id evolution
-exec --no-startup-id /opt/Webex/bin/CiscoCollabHost
-
+exec_always --no-startup-id teams-for-linux
 # Allocate applications to workspaces
 assign [class="Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] $ws4
 # assign [class="Evolution"] $ws4
 assign [class="Slack"] $ws4
-assign [class="webex"] $ws5
+assign [class="teams-for-linux"] $ws5
 assign [class="Spotify"] $ws6
 
 # Before i3 v4.8, we used to recommend this one as the default:
