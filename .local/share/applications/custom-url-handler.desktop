@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Custom URL Handler
+Exec=custom-url-handler.sh %u
+Type=Application
+NoDisplay=true
+MimeType=x-scheme-handler/http;x-scheme-handler/https;
