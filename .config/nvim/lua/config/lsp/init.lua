@@ -40,19 +40,9 @@ return {
             end, opts)
         end
 
-        -- Configure hover keybinding
-        local pretty_hover = require("pretty_hover")
-        local hover_util = require("pretty_hover.core.util")
-
         vim.keymap.set("n", "K", function()
-            -- Fall back to default hover if pretty_hover does not support the current client
-            if hover_util.get_current_active_clent() then
-                pretty_hover.hover()
-            else
-                vim.lsp.buf.hover()
-            end
+            vim.lsp.buf.hover()
         end, opts)
-
 
         -- Other LSP function keybindings
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
