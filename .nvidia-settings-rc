@@ -2,7 +2,7 @@
 # /home/fabrizio/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA Settings utility
-# Generated on Tue Aug  6 17:08:16 2024
+# Generated on Sun Jan  5 18:57:26 2025
 #
 
 # ConfigProperties:
@@ -39,9 +39,19 @@ Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 [DPY:HDMI-0]/ColorSpace=0
 [DPY:HDMI-0]/ColorRange=0
 [DPY:HDMI-0]/SynchronousPaletteUpdates=0
+[DPY:DP-0]/RedBrightness=0.000000
+[DPY:DP-0]/GreenBrightness=0.000000
+[DPY:DP-0]/BlueBrightness=0.000000
+[DPY:DP-0]/RedContrast=0.000000
+[DPY:DP-0]/GreenContrast=0.000000
+[DPY:DP-0]/BlueContrast=0.000000
+[DPY:DP-0]/RedGamma=1.000000
+[DPY:DP-0]/GreenGamma=1.000000
+[DPY:DP-0]/BlueGamma=1.000000
 [DPY:DP-0]/Dithering=0
 [DPY:DP-0]/DitheringMode=0
 [DPY:DP-0]/DitheringDepth=0
+[DPY:DP-0]/DigitalVibrance=0
 [DPY:DP-0]/ColorSpace=0
 [DPY:DP-0]/ColorRange=0
 [DPY:DP-0]/SynchronousPaletteUpdates=0
@@ -51,19 +61,9 @@ Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 [DPY:DP-1]/ColorSpace=0
 [DPY:DP-1]/ColorRange=0
 [DPY:DP-1]/SynchronousPaletteUpdates=0
-[DPY:HDMI-1]/RedBrightness=0.000000
-[DPY:HDMI-1]/GreenBrightness=0.000000
-[DPY:HDMI-1]/BlueBrightness=0.000000
-[DPY:HDMI-1]/RedContrast=0.000000
-[DPY:HDMI-1]/GreenContrast=0.000000
-[DPY:HDMI-1]/BlueContrast=0.000000
-[DPY:HDMI-1]/RedGamma=1.000000
-[DPY:HDMI-1]/GreenGamma=1.000000
-[DPY:HDMI-1]/BlueGamma=1.000000
 [DPY:HDMI-1]/Dithering=0
 [DPY:HDMI-1]/DitheringMode=0
 [DPY:HDMI-1]/DitheringDepth=0
-[DPY:HDMI-1]/DigitalVibrance=0
 [DPY:HDMI-1]/ColorSpace=0
 [DPY:HDMI-1]/ColorRange=0
 [DPY:HDMI-1]/SynchronousPaletteUpdates=0
