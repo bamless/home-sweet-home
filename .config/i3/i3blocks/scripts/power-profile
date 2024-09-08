@@ -15,6 +15,9 @@ if [ $BLOCK_BUTTON != "" ]; then
         balanced)
             powerprofilesctl set performance
             ;;
+        power-saver)
+            powerprofilesctl set balanced
+            ;;
         *)
             exit -1
             ;;
