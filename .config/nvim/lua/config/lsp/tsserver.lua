@@ -8,7 +8,7 @@ local function organize_imports()
 end
 
 return function()
-    require('lspconfig').tsserver.setup {
+    require('lspconfig').ts_ls.setup {
         settings = {
             typescript = {
                 inlayHints = {
