@@ -86,6 +86,7 @@ bindsym $mod+x kill
 
 # start rofi program launcher
 bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-1/launcher.sh
+bindsym $mod+p exec --no-startup-id rofi -show window -theme ~/.config/rofi/launchers/type-1/style-5.rasi
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
