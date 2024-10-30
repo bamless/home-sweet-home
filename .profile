@@ -16,9 +16,7 @@ export LESS_TERMCAP_me=$'\E[0m'           # end mode
 export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode 
 export LESS_TERMCAP_so=$'\E[7m'           # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline 
-<<<<<<< Updated upstream
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-=======
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underlin
 
 # Set theme (GTK4 Workaround)
@@ -28,4 +26,3 @@ export GTK_THEME=WhiteSur-Dark-solid-blue-nord #Flat-Remix-GTK-Blue-Dark-Solid
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 PATH=$(printf "%s" "$PATH" | awk -v RS=':' '!a[$1]++ { if (NR > 1) printf RS; printf $1 }')
->>>>>>> Stashed changes
