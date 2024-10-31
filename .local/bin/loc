@@ -112,11 +112,11 @@ main() {
 
 	empty $o_height || fzf+=(--height ${o_height[-1]})
 
-	if tty -s && test -t 0 && test -t 1; then
+	# if tty -s && test -t 0 && test -t 1; then
 		$cmd | $fzf
-	else
-		$cmd
-	fi
+	# else
+	# 	$cmd
+	# fi
 }
 
 main "$@"
