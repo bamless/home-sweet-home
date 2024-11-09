@@ -20,22 +20,27 @@ return function()
         return exepath('python3') or exepath('python') or 'python'
     end
 
-    require('lspconfig').pyright.setup {
+    require('lspconfig').basedpyright.setup {
         before_init = function(_, config)
+            if not config.settings.python then
+                config.settings.python = {}
+            end
             config.settings.python.pythonPath = get_python_path(config.root_dir)
         end,
+        on_attach = function(_, bufnr)
+            vim.keymap.set("n", "<leader>co", function()
+                vim.cmd("PyrightOrganizeImports")
+            end, { buffer = bufnr, remap = false })
+        end,
         settings = {
-            pyright = {
-                autoImportCompletion = true,
-            },
-            python = {
+            basedpyright = {
                 analysis = {
                     typeCheckingMode = "basic",
                     autoSearchPaths = true,
                     useLibraryCodeForTypes = true,
-                    diagnosticMode = "openFilesOnly",
-                }
-            }
+                    diagnosticMode = 'openFilesOnly',
+                },
+            },
         }
     }
 end

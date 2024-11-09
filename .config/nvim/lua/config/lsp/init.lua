@@ -5,9 +5,9 @@ return {
         clangd = require('config.lsp.clangd'),
         lua_ls = require('config.lsp.lua_ls'),
         jdtls = require('config.lsp.jdtls'),
-        pyright = require('config.lsp.pyright'),
+        basedpyright = require('config.lsp.basedpyright'),
         rust_analyzer = require('config.lsp.rust-analyzer'),
-        ts_ls = require('config.lsp.tsserver'),
+        vtsls = require('config.lsp.vtsls'),
         gopls = require('config.lsp.gopls'),
     },
 
@@ -40,6 +40,7 @@ return {
             end, opts)
         end
 
+        -- Hover support
         vim.keymap.set("n", "K", function()
             vim.lsp.buf.hover()
         end, opts)
@@ -58,5 +59,13 @@ return {
         vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
         vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+
+        -- Code action keybindings
+        vim.keymap.set("n", "<leader>co", function()
+            vim.lsp.buf.code_action({
+                apply = true,
+                context = { only = { "source.organizeImports" }, diagnostics = {} },
+            })
+        end)
     end,
 }
