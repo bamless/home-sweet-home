@@ -13,10 +13,10 @@ local options = {
         "js-debug-adapter",
         "json-lsp",
         "lua-language-server",
-        "pyright",
+        "basedpyright",
         "rust-analyzer",
         "templ",
-        "typescript-language-server",
+        "vtsls",
     },
 }
 
