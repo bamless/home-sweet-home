@@ -1,21 +1,17 @@
 return {
     "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-        icons = false
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+        {
+            "<leader>xd",
+            "<cmd>Trouble diagnostics toggle win.position=right<cr>",
+            desc = "Diagnostics (Trouble)",
+        },
+        {
+            "<leader>xq",
+            "<cmd>Trouble qflist toggle win.position=right<cr>",
+            desc = "Quickfix List (Trouble)",
+        },
     },
-    config = function(_, opts)
-        require("trouble").setup(opts)
-
-        vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-            { silent = true, noremap = true }
-        )
-
-        vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle<cr>",
-            { silent = true, noremap = true }
-        )
-    end
 }

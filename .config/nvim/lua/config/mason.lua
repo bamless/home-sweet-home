@@ -1,6 +1,7 @@
 local options = {
     ensure_installed = {
         "autopep8",
+        "basedpyright",
         "bash-language-server",
         "chrome-debug-adapter",
         "clangd",
@@ -8,12 +9,12 @@ local options = {
         "css-lsp",
         "debugpy",
         "eslint-lsp",
+        "gitui",
         "gopls",
         "jdtls",
         "js-debug-adapter",
         "json-lsp",
         "lua-language-server",
-        "basedpyright",
         "rust-analyzer",
         "templ",
         "vtsls",
