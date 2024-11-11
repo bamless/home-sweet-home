@@ -11,7 +11,7 @@ local function setup_dap()
     vim.fn.sign_define('DapStopped', { text = '▶️', texthl = '', linehl = '', numhl = '' })
 
     ---
-    -- C/C++
+    -- C/C++/Rust
     ---
 
     dap.adapters.cppdbg = {
@@ -49,12 +49,13 @@ local function setup_dap()
     }
 
     dap.configurations.c = dap.configurations.cpp
+    dap.configurations.rust = dap.configurations.cpp
 
     ---
     -- Python
     ---
 
-    local debugpy_venv = vim.fn.expand('$HOME/.local/share/nvim/mason/packages/debugpy/venv')
+    local debugpy_venv = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv"
 
     dap.adapters.python = function(cb, config)
         if config.request == 'attach' then
