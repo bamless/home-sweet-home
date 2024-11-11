@@ -1,7 +1,7 @@
 return {
     'aspeddro/gitui.nvim',
     keys = {
-        { "<leader>gui", "<cmd>Gitui<cr>", desc = "Join Toggle" },
+        { "<leader>g", "<cmd>Gitui<cr>", desc = "Join Toggle" },
     },
     opts = {
         -- Command Options
