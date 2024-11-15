@@ -1,29 +1,45 @@
 #!/bin/bash
 
-if ! command -v powerprofilesctl >/dev/null; then
+if ! command -v tuned-adm >/dev/null; then
   echo " !dep "
   exit 33
 fi
 
-profile=$(powerprofilesctl | grep '*' | sed 's/[\\*: ]//g')
+get_power_profile() {
+    local profile=$(tuned-adm active | sed 's/.*: //g')
+    case $profile in
+        throughput-performance)
+            profile="performance"
+            ;;
+        balanced-battery)
+            profile="balanced"
+            ;;
+        powersave)
+            profile="power-saver"
+            ;;
+    esac
+    echo $profile
+}
+
+profile=$(get_power_profile)
 
 if [ "${BLOCK_BUTTON}" != "" ]; then
     case $profile in
         performance)
-            powerprofilesctl set balanced
+            tuned-adm profile balanced-battery
             ;;
         balanced)
-            powerprofilesctl set performance
+            tuned-adm profile throughput-performance
             ;;
         power-saver)
-            powerprofilesctl set balanced
+             tuned-adm profile balanced-battery
             ;;
         *)
             exit -1
             ;;
     esac
 
-    profile=$(powerprofilesctl | grep '*' | sed 's/[\\*: ]//g')
+    profile=$(get_power_profile)
 fi
 
 echo "󱐋 ${profile}"
