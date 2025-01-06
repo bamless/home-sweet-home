@@ -57,6 +57,9 @@ exec_always --no-startup-id dunst
 # Gnome keyring
 exec_always --no-startup-id ~/.config/i3/scripts/gnome-keyring.sh
 
+# Gnome polkit agent
+exec_always --no-startup-id ~/.config/i3/scripts/polkit-agent.sh
+
 # Autostart apps
 exec --no-startup-id ~/.local/bin/force-full-composition.sh
 exec --no-startup-id nm-applet
