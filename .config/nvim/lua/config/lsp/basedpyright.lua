@@ -25,7 +25,7 @@ return function()
             if not config.settings.python then
                 config.settings.python = {}
             end
-            config.settings.python.pythonPath = get_python_path(config.root_dir)
+            config.settings.python.pythonPath = get_python_path(config.root_dir or "")
         end,
         on_attach = function(_, bufnr)
             vim.keymap.set("n", "<leader>co", function()
