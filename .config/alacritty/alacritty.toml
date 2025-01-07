@@ -1,4 +1,4 @@
-general.import = ["/home/fabrizio/.config/alacritty/tokyonight_night.toml"]
+general.import = ["~/.config/alacritty/themes/alacritty-theme/tokyo_night.toml"]
 
 [font]
 size = 12.0
