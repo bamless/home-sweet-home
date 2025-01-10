@@ -45,7 +45,7 @@ exec_always --no-startup-id xset -b
 # exec_always --no-startup-id feh --bg-fill /your/wallpaper/path
 
 # Transparency with picom compositor
-exec_always --no-startup-id picom -f --backend glx
+# exec_always --no-startup-id picom -f --backend glx
 
 # Notification daemon with duns
 exec_always --no-startup-id dunst
