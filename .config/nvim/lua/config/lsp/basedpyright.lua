@@ -39,6 +39,7 @@ return function()
                     autoSearchPaths = true,
                     useLibraryCodeForTypes = true,
                     diagnosticMode = 'openFilesOnly',
+                    autoImportCompletions = true,
                 },
             },
         }
