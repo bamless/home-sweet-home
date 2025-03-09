@@ -11,6 +11,8 @@ local options = {
         "eslint-lsp",
         "gitui",
         "gopls",
+        "java-debug-adapter",
+        "java-test",
         "jdtls",
         "js-debug-adapter",
         "json-lsp",
@@ -18,7 +20,8 @@ local options = {
         "rust-analyzer",
         "tailwindcss-language-server",
         "templ",
-        "vtsls",
+        "terraform-ls terraformls",
+        "typescript-language-server",
     },
 }
 
