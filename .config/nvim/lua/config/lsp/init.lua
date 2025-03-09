@@ -7,7 +7,7 @@ return {
         jdtls = require('config.lsp.jdtls'),
         basedpyright = require('config.lsp.basedpyright'),
         rust_analyzer = require('config.lsp.rust-analyzer'),
-        vtsls = require('config.lsp.vtsls'),
+        ts_ls = require('config.lsp.ts-ls'),
         gopls = require('config.lsp.gopls'),
     },
 
