@@ -4,7 +4,19 @@ return {
         branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
-            require('telescope').setup {}
+            require('telescope').setup {
+                defaults = {
+                    vimgrep_arguments = {
+                        'rg',
+                        '--color=never',
+                        '--no-heading',
+                        '--with-filename',
+                        '--line-number',
+                        '--column',
+                        '--smart-case',
+                    },
+                },
+            }
             require('telescope').load_extension('fzf')
             local builtin = require('telescope.builtin')
 
@@ -22,7 +34,8 @@ return {
 
             -- Project wide grep
             vim.keymap.set('n', '<leader>ps', function()
-                builtin.grep_string({ search = vim.fn.input("Grep > ") })
+                vim.cmd('vimgrep /\\v\\c' .. vim.fn.input("Grep > ") .. '/gj **/*')
+                vim.cmd('copen')
             end)
             vim.keymap.set('n', '<leader>pg', builtin.live_grep)
 
