@@ -18,9 +18,6 @@ local function lsp_setup()
 
     local handlers = {
         lsp_zero.default_setup,
-        -- function(server_name)
-        --     require('lspconfig')[server_name].setup {}
-        -- end
     }
 
     local lsps = lsp_configs.lsps
