@@ -65,7 +65,7 @@ exec --no-startup-id ~/.local/bin/force-full-composition.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id alacritty
-exec --no-startup-id 1password
+exec --no-startup-id env GDK_SCALE=1 GDK_DPI_SCALE=1 1password
 exec --no-startup-id env GDK_SCALE=1 GDK_DPI_SCALE=1 slack
 # Outlook PWA
 exec --no-startup-id env GDK_SCALE=1 /opt/google/chrome/google-chrome --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn
