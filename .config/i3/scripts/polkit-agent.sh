@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec /usr/libexec/polkit-gnome-authentication-agent-1
+exec /usr/libexec/polkit-mate-authentication-agent-1
