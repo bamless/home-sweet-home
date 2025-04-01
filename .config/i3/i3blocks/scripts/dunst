@@ -37,8 +37,8 @@ if clicked():
     mute_toggle()
 
 if muted():
-    RTN = {"full_text": "<span color='#BE616E'>\uf1f6</span>"}
+    RTN = "<span color='#BE616E'>\uf1f6</span>"
 else:
-    RTN = {"full_text": "\uf0f3"}
+    RTN =  "\uf0f3"
 
-print(json.dumps(RTN))
+print(RTN)

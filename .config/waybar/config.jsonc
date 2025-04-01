@@ -1,0 +1,164 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [],
+    "modules-right": [
+        "hyprland/submap",
+        "custom/music",
+        "network",
+        "bluetooth",
+        "cpu",
+        "custom/power_profile",
+        "battery",
+        "backlight",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "clock",
+        "custom/dunst",
+        "custom/power",
+        "tray"
+    ],
+    "sway/workspaces": {
+        "all-outputs": false,
+        "format": "{name}"
+    },
+    "hyprland/submap": {
+        "format": "{}",
+        "max-length": 8,
+        "tooltip": false
+    },
+    "hyprland/workspaces": {
+        "format": "{icon}"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
+    },
+    "clock": {
+        "interval": 60,
+        "format": " {:%H:%M %d/%m}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃞 ",
+            "󰃟 ",
+            "󰃠 "
+        ],
+        "on-scroll-up": "brightnessctl set 1%+",
+        "on-scroll-down": "brightnessctl set 1%-",
+        "min-length": 6
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": [
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ]
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "tooltip": false,
+        "format-muted": " Muted",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "smooth-scrolling-threshold": 2.0,
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
+            "default": [
+                " ",
+                " ",
+                " "
+            ]
+        }
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
+    },
+    "cpu": {
+        "interval": 2,
+        "format": "{usage}% ",
+        "max-length": 10
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "{ipaddr}/{cidr}",
+        "tooltip-format": "{essid} - {ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
+    },
+    "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "", // an empty format will hide the module
+        "format-connected": " {num_connections}",
+        "tooltip-format": "{device_alias}",
+        "tooltip-format-connected": " {device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}"
+    },
+    "custom/dunst": {
+        "exec": "~/.config/i3/i3blocks/scripts/dunst",
+        "on-click": "BLOCK_BUTTON=1 ~/.config/i3/i3blocks/scripts/dunst && pkill -RTMIN+1 waybar",
+        "interval": "once",
+        "signal": 1
+    },
+    "custom/power_profile": {
+        "exec": "~/.config/i3/i3blocks/scripts/power-profile;",
+        "on-click": "BLOCK_BUTTON=1 ~/.config/i3/i3blocks/scripts/power-profile && pkill -RTMIN+2 waybar",
+        "interval": 30,
+        "signal": 2
+    },
+    "custom/music": {
+        "exec": "~/.config/i3/i3blocks/scripts/music",
+        "on-click": "BLOCK_BUTTON=3 ~/.config/i3/i3blocks/scripts/music && pkill -RTMIN+3 waybar",
+        "on-scroll-up": "BLOCK_BUTTON=4 ~/.config/i3/i3blocks/scripts/music && pkill -RTMIN+3 waybar",
+        "on-scroll-down": "BLOCK_BUTTON=5 ~/.config/i3/i3blocks/scripts/music && pkill -RTMIN+3 waybar",
+        "smooth-scrolling-threshold": 3.0,
+        "interval": 30,
+        "signal": 3
+    },
+    "custom/power": {
+        "format": "",
+        "on-click": "~/.config/rofi/powermenu/type-1/powermenu.sh"
+    }
+}

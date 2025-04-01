@@ -7,7 +7,7 @@ fi
 
 profile=$(powerprofilesctl | grep '*' | sed 's/[\\*: ]//g')
 
-if [ $BLOCK_BUTTON != "" ]; then
+if [ "${BLOCK_BUTTON}" != "" ]; then
     case $profile in
         performance)
             powerprofilesctl set balanced

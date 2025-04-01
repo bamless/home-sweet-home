@@ -75,13 +75,22 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 # Init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-RPROMPT="$RPROMPT\$(vi_mode_prompt_info)"
+RPS1="\$(vi_mode_prompt_info)$RPS1"
+
+# Enable gnome-keyring for i3 and Hyprland
+if [[ "${XDG_CURRENT_DESKTOP}" == "i3" ]]; then
+    eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)
+fi
+if [[ "${XDG_CURRENT_DESKTOP}" == "Hyprland" ]]; then
+    eval "export $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)"
+fi
+
+# GDM does not source this on login on wayland, do it here :(
+if [[ "${XDG_BACKEND}" == "wayland" && -v "GDMSESSION" ]]; then
+    source ~/.zprofile
+fi
 
 # Aliases.
 alias vim="nvim"
 alias cat="bat"
 alias ls="eza"
-
-if [[ "${XDG_CURRENT_DESKTOP}" == "i3" ]]; then
-    eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)
-fi
