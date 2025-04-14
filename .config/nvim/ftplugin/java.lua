@@ -89,7 +89,9 @@ local config = {
 
     on_attach = function(client, bufnr)
         require("jdtls").setup_dap { hotcodereplace = "auto" }
-        require("jdtls.dap").setup_dap_main_class_configs()
+        -- TODO: this is failing with: Cannot serialise function: type not supported
+        --       check if this is still needed
+        -- require("jdtls.dap").setup_dap_main_class_configs()
 
         require("config.lsp").on_attach(client, bufnr)
 
