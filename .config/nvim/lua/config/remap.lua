@@ -29,6 +29,10 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>cs", "<cmd>noh<CR>")
 
+-- navigate parent/child tags
+vim.keymap.set("n", "]t", [[vatatov]])
+vim.keymap.set("n", "[t", [[vatatv]])
+
 -- Switch between last two buffers
 vim.keymap.set('n', '<leader><leader>', '<Cmd>b#<CR>')
 
