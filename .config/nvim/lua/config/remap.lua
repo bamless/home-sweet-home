@@ -26,7 +26,8 @@ vim.keymap.set("n", "<leader>F", "<cmd>Format<CR>")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>sw", [[<C-*>``]])
 vim.keymap.set("n", "<leader>cs", "<cmd>noh<CR>")
 
 -- navigate parent/child tags
