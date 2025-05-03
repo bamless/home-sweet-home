@@ -37,16 +37,6 @@ vim.keymap.set("n", "[t", [[vatatv]])
 -- Switch between last two buffers
 vim.keymap.set('n', '<leader><leader>', '<Cmd>b#<CR>')
 
--- vim.keymap.set("n", "<leader><leader>", function()
---    vim.cmd("so")
--- end)
-
--- Better window navigation
--- vim.keymap.set('n', '<C-h>', '<C-w>h')
--- vim.keymap.set('n', '<C-j>', '<C-w>j')
--- vim.keymap.set('n', '<C-k>', '<C-w>k')
--- vim.keymap.set('n', '<C-l>', '<C-w>l')
-
 -- Resize with arrows
 -- delta: 2 lines
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>')
@@ -54,10 +44,11 @@ vim.keymap.set('n', '<C-Down>', ':resize +2<CR>')
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>')
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
 
+-- Switch buffers with arrows
+vim.keymap.set('n', '<A-.>', '<Cmd>bp<CR>', opts)
+vim.keymap.set('n', '<A-,>', '<Cmd>bn<CR>', opts)
+
 -- BarBar
--- Move to previous/next
-vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
-vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
 -- Re-order to previous/next
 vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
 vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
