@@ -16,6 +16,11 @@ return {
                         '--smart-case',
                     },
                 },
+                pickers = {
+                    find_files = {
+                        hidden = true
+                    }
+                }
             }
             require('telescope').load_extension('fzf')
             local builtin = require('telescope.builtin')
