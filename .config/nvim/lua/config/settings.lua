@@ -11,6 +11,23 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end
 })
 
+-- Align on char
+vim.api.nvim_create_user_command("Align", function()
+    local char = vim.fn.input("Enter align character: ")
+    if char == "" then return end
+
+    local start_line = vim.fn.line("'<") - 1
+    local end_line = vim.fn.line("'>")
+
+    local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
+
+    local input = table.concat(lines, "\n")
+    local cmd = string.format("column -t -s'%s' -o'%s'", char, char)
+    local output = vim.fn.systemlist(cmd, input)
+
+    vim.api.nvim_buf_set_lines(0, start_line, end_line, false, output)
+end, { range = true, nargs = 0 })
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
