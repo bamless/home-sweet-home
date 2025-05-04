@@ -45,8 +45,8 @@ vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>')
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
 
 -- Switch buffers with arrows
-vim.keymap.set('n', '<A-.>', '<Cmd>bp<CR>', opts)
-vim.keymap.set('n', '<A-,>', '<Cmd>bn<CR>', opts)
+vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
 
 -- BarBar
 -- Re-order to previous/next

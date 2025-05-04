@@ -66,7 +66,7 @@ local config = {
             completion = {
                 guessMethodArguments = false
             },
-            --<leader>pginlayHints = {
+            --inlayHints = {
             --    parameterNames = { enabled = "literals" }
             --},
         }
