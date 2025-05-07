@@ -20,7 +20,7 @@ return function()
         return exepath('python3') or exepath('python') or 'python'
     end
 
-    require('lspconfig').basedpyright.setup {
+    vim.lsp.config.basedpyright = {
         before_init = function(_, config)
             if not config.settings.python then
                 config.settings.python = {}

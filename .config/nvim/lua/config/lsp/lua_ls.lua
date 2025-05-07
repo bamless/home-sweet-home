@@ -1,5 +1,5 @@
 return function()
-    require('lspconfig').lua_ls.setup {
+    vim.lsp.config.lua_ls = {
         settings = {
             Lua = {
                 -- Disable telemetry

@@ -1,6 +1,6 @@
 return function()
     local mason_path = vim.fn.stdpath("data") .. "/mason/bin/"
-    require('lspconfig').clangd.setup {
+    vim.lsp.config.clangd = {
         cmd = {
             mason_path .. "clangd",
             "--function-arg-placeholders=0",
