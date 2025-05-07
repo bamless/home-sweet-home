@@ -91,8 +91,6 @@ local config = {
         require("jdtls").setup_dap { hotcodereplace = "auto" }
         require("jdtls.dap").setup_dap_main_class_configs()
 
-        require("config.lsp").on_attach(client, bufnr)
-
         -- JDTLS client does not report the correct capabilities, such as `textDocument/formatting` or `textDocument/inlayHint`.
         -- Due to this, the check done in `on_attach` for these capabilities will not work, even though JDTLS supports them.
         -- Forcefully enable them here.
