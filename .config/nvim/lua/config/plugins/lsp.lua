@@ -5,29 +5,91 @@ local function lsp_setup()
     -- Configure LSP servers
     ---
 
-    local lsp_zero = require('lsp-zero')
     local lsp_configs = require('config.lsp')
+    for _, config in ipairs(lsp_configs) do
+        config()
+    end
 
-    lsp_zero.on_attach(lsp_configs.on_attach)
+    vim.api.nvim_create_autocmd('LspAttach', {
+        desc = 'LSP actions',
+        callback = function(ev)
+            local client = vim.lsp.get_client_by_id(ev.data.client_id)
+            if not client then
+                return
+            end
+
+            local opts = { buffer = ev.buf, remap = false }
+
+            -- LSP formatting support
+            if client:supports_method("textDocument/formatting") then
+                vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+                -- Auto formatting on save
+                -- vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+                -- vim.api.nvim_create_autocmd("BufWritePre", {
+                --     group = augroup,
+                --     buffer = bufnr,
+                --     callback = function()
+                --         vim.lsp.buf.format { async = false }
+                --     end
+                -- })
+            end
+
+            -- Enable inlay hints if supported by neovim and LSP
+            --if client.supports_method("textDocument/inlayHint") and vim.lsp.inlay_hint then
+            --    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) -- Enable inlay hints by default
+            --    vim.keymap.set("n", "<leader>h", function()
+            --        local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+            --        vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+            --    end, opts)
+            --end
+        end
+    })
+
+    -- Hover support
+    vim.keymap.set('n', 'K', function()
+        vim.lsp.buf.hover({ border = 'rounded' })
+    end)
+
+    -- LSP function keybindings
+    local telescope = require('telescope.builtin')
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
+    vim.keymap.set("n", "gy", vim.lsp.buf.type_definition)
+    vim.keymap.set("n", "<leader>sr", vim.lsp.buf.references)
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
+    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
+    vim.keymap.set("n", "<leader>ws", telescope.lsp_dynamic_workspace_symbols)
+    vim.keymap.set("n", "<leader>wr", telescope.lsp_references)
+
+    -- Misc language keybinds
+    vim.keymap.set("n", "<leader>ss", telescope.treesitter)
+    vim.keymap.set("n", "<leader>dd", telescope.diagnostics)
+    vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float)
+    vim.keymap.set('n', '<leader>qd', vim.diagnostic.setloclist)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
+
+    -- Code action keybindings
+    vim.keymap.set("n", "<leader>co", function()
+        vim.lsp.buf.code_action({
+            apply = true,
+            context = { only = { "source.organizeImports" }, diagnostics = {} },
+        })
+    end)
 
     ---
     -- Configure Mason
     ---
 
     require('mason').setup()
-
-    local handlers = {
-        lsp_zero.default_setup,
+    require('mason-lspconfig').setup {
+        automatic_enable = {
+            -- ts_ls and jdstls are handled by typescript-tools and nvim-jdtls respectively
+            exclude = { "ts_ls", "jdtls" }
+        }
     }
-
-    local lsps = lsp_configs.lsps
-    for lsp_name, config in pairs(lsps) do
-        handlers[lsp_name] = config
-    end
-
-    require('mason-lspconfig').setup({
-        handlers = handlers
-    })
 
     vim.api.nvim_create_user_command("MasonInstallAll", function()
         vim.cmd("MasonInstall " .. table.concat(require("config.mason").ensure_installed, " "))
@@ -37,35 +99,22 @@ local function lsp_setup()
     -- Diagnostic config
     ---
 
-    lsp_zero.set_sign_icons {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-
-    vim.diagnostic.config {
-        virtual_text = {
-            virtual_text = true,
+    vim.diagnostic.config({
+        signs = {
+            text = { 'E', 'W', 'H', 'I' }
         },
         float = { source = true, severity_sort = true },
+        -- Enable underline, use default values
+        underline = true,
+        -- Enable virtual text, override spacing to 4
+        virtual_text = {
+            spacing = 4,
+            severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN },
+            source = "if_many",
+        },
+        update_in_insert = false,
         severity_sort = true,
-    }
-
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-            -- Enable underline, use default values
-            underline = true,
-            -- Enable virtual text, override spacing to 4
-            virtual_text = {
-                spacing = 4,
-                severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN },
-                source = "if_many",
-            },
-            update_in_insert = false,
-            severity_sort = true,
-        }
-    )
+    })
 
     ---
     -- Snippet config
@@ -97,7 +146,7 @@ local function lsp_setup()
         }
     end
 
-    local cmp_config = lsp_zero.defaults.cmp_config({
+    local cmp_config = {
         completion = {
             completeopt = "menu,menuone",
         },
@@ -140,7 +189,7 @@ local function lsp_setup()
             { name = "nvim_lua" },
             { name = "path" },
         },
-    })
+    }
 
     -- Custom autocompletion formatting
     cmp_config.formatting = {
@@ -174,12 +223,10 @@ end
 return {
     -- LSP Support
     {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
+        'williamboman/mason.nvim',
         config = lsp_setup,
         dependencies = {
             { 'neovim/nvim-lspconfig' },
-            { 'williamboman/mason.nvim' },
             { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion

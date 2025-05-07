@@ -1,6 +1,6 @@
 local augroup = vim.api.nvim_create_augroup("GoAutoFormatting", {})
 return function()
-    require('lspconfig').gopls.setup {
+    vim.lsp.config.gopls =  {
         settings = {
             gopls = {
                 hints = {
