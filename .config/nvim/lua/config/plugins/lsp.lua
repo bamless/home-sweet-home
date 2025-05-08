@@ -90,6 +90,7 @@ local function lsp_setup()
     }
 
     vim.api.nvim_create_user_command("MasonInstallAll", function()
+        ---@diagnostic disable-next-line: different-requires
         vim.cmd("MasonInstall " .. table.concat(require("config.mason").ensure_installed, " "))
     end, {})
 

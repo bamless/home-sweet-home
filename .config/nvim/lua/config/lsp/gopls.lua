@@ -1,6 +1,6 @@
 local augroup = vim.api.nvim_create_augroup("GoAutoFormatting", {})
 return function()
-    vim.lsp.config.gopls =  {
+    vim.lsp.config('gopls', {
         settings = {
             gopls = {
                 hints = {
@@ -14,7 +14,7 @@ return function()
                 staticcheck = true,
             },
         },
-    }
+    })
 
     -- Register templ LSP file types
     vim.filetype.add({

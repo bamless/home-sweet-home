@@ -1,6 +1,14 @@
 return function()
     -- Here, we enable typescript tools instead of vanilla typescript language server
     require("typescript-tools").setup {
+        on_attach = function(_, bufnr)
+            vim.api.nvim_buf_create_user_command(bufnr, "LspTSOrganizeImports", function()
+                vim.cmd("TSToolsOrganizeImports")
+            end, { desc = "Organize imports" })
+            vim.keymap.set("n", "<leader>co", function()
+                vim.cmd("TSToolsOrganizeImports")
+            end, { buffer = bufnr, remap = true })
+        end,
         settings = {
             -- spawn additional tsserver instance to calculate diagnostics on it
             separate_diagnostic_server = true,
