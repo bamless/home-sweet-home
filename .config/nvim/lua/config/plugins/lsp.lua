@@ -1,12 +1,10 @@
----@diagnostic disable: different-requires
-
 local function lsp_setup()
     ---
     -- Configure LSP servers
     ---
 
     local lsp_configs = require('config.lsp')
-    for _, config in ipairs(lsp_configs) do
+    for _, config in pairs(lsp_configs) do
         config()
     end
 
