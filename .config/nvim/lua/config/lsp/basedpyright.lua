@@ -62,6 +62,7 @@ return function()
                     useLibraryCodeForTypes = true,
                     diagnosticMode = 'openFilesOnly',
                     autoImportCompletions = true,
+                    stubPath = vim.fn.stdpath("data") .. "/lazy/typeshed/stubs",
                 },
             },
         },
