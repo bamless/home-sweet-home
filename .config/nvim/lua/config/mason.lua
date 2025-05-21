@@ -18,6 +18,7 @@ local options = {
         "json-lsp",
         "lua-language-server",
         "rust-analyzer",
+        "shellcheck",
         "tailwindcss-language-server",
         "templ",
         "terraform-ls terraformls",
