@@ -37,6 +37,7 @@ return function()
 
     local on_attach = vim.lsp.config.basedpyright.on_attach
     vim.lsp.config('basedpyright', {
+        cmd = { 'basedpyright-langserver', '--stdio', '--threads', '6' },
         before_init = function(_, config)
             if not config.settings.python then
                 config.settings.python = {}
@@ -62,7 +63,6 @@ return function()
                     useLibraryCodeForTypes = true,
                     diagnosticMode = 'openFilesOnly',
                     autoImportCompletions = true,
-                    stubPath = vim.fn.stdpath("data") .. "/lazy/typeshed",
                 },
             },
         },
