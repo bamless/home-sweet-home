@@ -14,7 +14,7 @@ if ! command -v pamixer >/dev/null; then
 fi
 
 case $BLOCK_BUTTON in
-  1) pgrep pavucontrol || i3-msg -q exec pavucontrol ;; # click: bring up volume mixer
+  1) pgrep pavucontrol || i3-msg -q exec i3-msg -q exec env GDK_SCALE=2 pavucontrol ;; # click: bring up volume mixer
   3) pamixer -t ;;   # right click: toggle mute
   4) pamixer -i 5 ;; # scroll up: increase vol by 4%
   5) pamixer -d 5 ;; # scroll down: decrease vol by 4%
