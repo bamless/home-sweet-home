@@ -1,4 +1,5 @@
 return {
+    bashls = require('config.lsp.bashls'),
     clangd = require('config.lsp.clangd'),
     lua_ls = require('config.lsp.lua_ls'),
     basedpyright = require('config.lsp.basedpyright'),
