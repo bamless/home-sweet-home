@@ -54,7 +54,7 @@ return {
                     -- Instead of true it can also be a list of languages
                     additional_vim_regex_highlighting = false,
 
-                    disable = function(lang, buf)
+                    disable = function(_, buf)
                         local max_filesize = 100 * 1024 -- 100 KB
                         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                         if ok and stats and stats.size > max_filesize then
@@ -121,11 +121,17 @@ return {
                     },
                 }
             }
+
+            require('treesitter-context').setup({
+                enable = true
+            })
         end,
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })()
         end,
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-context',
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        }
     },
-    'nvim-treesitter/nvim-treesitter-context',
-    'nvim-treesitter/nvim-treesitter-textobjects',
 }
