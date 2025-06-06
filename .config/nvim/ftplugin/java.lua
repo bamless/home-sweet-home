@@ -72,8 +72,7 @@ local config = {
         }
     },
 
-    root_dir = vim.fs.root(0,
-        { ".git", "mvnw", "gradlew", "build.xml", "pom.xml", "settings.gradle", "settings.gradle.kts" }),
+    root_markers = root_files,
 
     -- Language server `initializationOptions`
     -- You need to extend the `bundles` with paths to jar files
@@ -94,7 +93,6 @@ local config = {
         -- JDTLS client does not report the correct capabilities, such as `textDocument/formatting` or `textDocument/inlayHint`.
         -- Due to this, the check done in `on_attach` for these capabilities will not work, even though JDTLS supports them.
         -- Forcefully enable them here.
-
         local opts = { buffer = bufnr, remap = false }
         vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
 
