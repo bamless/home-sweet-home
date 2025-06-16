@@ -1,22 +1,31 @@
 [user]
 	email = mail@fabrizio-pietrucci.it
 	name = Fabrizio Pietrucci
+
 [core]
 	editor = nvim
+
 [pull]
 	rebase = false
+
 [init]
 	defaultBranch = master
+
 [difftool]
     prompt = true
+
 [diff]
     tool = nvimdiff
+
 [merge]
-  tool = nvimdiff
+    tool = nvimdiff
+
 [mergetool]
-  prompt = true
-  keepBackup = false
+    prompt = true
+    keepBackup = false
+
 [mergetool "nvimdiff"]
-  layout = "LOCAL,BASE,REMOTE / MERGED"
+    layout = "LOCAL,BASE,REMOTE / MERGED"
+
 [rerere]
 	enabled = true
