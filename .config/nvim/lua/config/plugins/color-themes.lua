@@ -10,10 +10,10 @@ return {
         config = function()
             require("tokyonight").setup({
                 style = "night", -- or "storm" or "day"
-                dim_inactive = true,
+                -- dim_inactive = true,
                 on_highlights = function(hl, colors)
                     hl.WinSeparator = {
-                        fg = "#2E2E2E",
+                        fg = "#262a3c",
                     }
                 end,
             })
