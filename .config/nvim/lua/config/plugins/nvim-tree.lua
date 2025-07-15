@@ -27,6 +27,12 @@ return {
             },
             diagnostics = {
                 enable = true,
+                show_on_dirs = true,
+            },
+            update_focused_file = {
+                enable = true,
+                update_root = true,
+                ignore_list = { "help" },
             },
             git = {
                 enable = true,
