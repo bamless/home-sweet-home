@@ -12,11 +12,21 @@ return {
                 style = "night", -- or "storm" or "day"
                 -- dim_inactive = true,
                 on_highlights = function(hl, colors)
-                    hl.WinSeparator = {
-                        fg = "#262a3c",
-                    }
+                    local sep_fg_color = "#262a3c"
+                    local sep_bg_color = hl.NvimTreeWinSeparator.bg
+
+                    hl.WinSeparator.fg = sep_fg_color
+                    hl.WinSeparator.bg = sep_bg_color
+                    hl.WinSeparator.bold = true
+
+                    hl.NvimTreeWinSeparator.fg = sep_fg_color
+                    hl.NvimTreeWinSeparator.bold = true
+
+                    hl.BufferTabpageFill.bg = sep_bg_color
+                    hl.BufferCurrentSign.fg = hl.BufferVisibleSign.fg
                 end,
             })
+            vim.cmd.highlight('NvimTreeWinSeparator guifg=#fffff')
         end
     },
     {
