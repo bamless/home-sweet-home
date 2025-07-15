@@ -11,19 +11,26 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end
 })
 
--- Align on char
+-- Align on string
 vim.api.nvim_create_user_command("Align", function()
-    local char = vim.fn.input("Enter align character: ")
-    if char == "" then return end
+    local sep = vim.fn.input("Enter align string: ")
+    if sep == "" then return end
 
     local start_line = vim.fn.line("'<") - 1
     local end_line = vim.fn.line("'>")
 
     local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
-
     local input = table.concat(lines, "\n")
-    local cmd = string.format("column -t -s'%s' -o'%s'", char, char)
+
+    local unique_sep = "\x1f"
+    input = input:gsub(sep, unique_sep)
+
+    local cmd = string.format("column -t -s'%s' -o'%s'", unique_sep, unique_sep)
     local output = vim.fn.systemlist(cmd, input)
+
+    for i, line in ipairs(output) do
+        output[i] = line:gsub(unique_sep, sep)
+    end
 
     vim.api.nvim_buf_set_lines(0, start_line, end_line, false, output)
 end, { range = true, nargs = 0 })
