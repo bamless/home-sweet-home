@@ -38,4 +38,6 @@ return {
             flavour = "mocha"
         }
     },
+    { "EdenEast/nightfox.nvim" },
+    { "rebelot/kanagawa.nvim" },
 }
