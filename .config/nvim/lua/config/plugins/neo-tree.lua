@@ -6,7 +6,7 @@ return {
         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
         "MunifTanjim/nui.nvim",
         "s1n7ax/nvim-window-picker",
-        { "3rd/image.nvim", opts = {} },
+        -- { "3rd/image.nvim", opts = {} },
     },
     lazy = false,                     -- neo-tree will lazily load itself
     opts = {
