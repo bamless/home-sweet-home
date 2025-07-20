@@ -12,6 +12,7 @@ return {
                 component_separators = '|',
                 section_separators = { left = '', right = '' },
                 icons_enabled = true,
+                globalstatus = false,
             },
             sections = {
                 lualine_a = {
@@ -47,6 +48,12 @@ return {
             },
             tabline = {},
             extensions = {},
+            -- winbar = {
+            --     lualine_c = { 'filename' }
+            -- },
+            -- inactive_winbar = {
+            --     lualine_c = { 'filename' }
+            -- }
         }
 
         -- lsp_status configuration
