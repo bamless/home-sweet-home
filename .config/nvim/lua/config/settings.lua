@@ -35,7 +35,10 @@ vim.api.nvim_create_user_command("Align", function()
     vim.api.nvim_buf_set_lines(0, start_line, end_line, false, output)
 end, { range = true, nargs = 0 })
 
+-- :make
 vim.opt.makeprg = ""
+vim.api.nvim_command[[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m]]
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
