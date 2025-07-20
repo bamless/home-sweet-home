@@ -354,6 +354,7 @@ return {
         vim.opt.termguicolors = true
 
         vim.keymap.set('n', '<C-b>', ':Neotree toggle<CR>', { noremap = true, silent = true })
+        vim.api.nvim_create_user_command("Ex", 'Neotree position=current', {})
 
         require("neo-tree").setup(opts)
     end
