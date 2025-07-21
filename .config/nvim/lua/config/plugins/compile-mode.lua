@@ -16,6 +16,9 @@ return {
             -- to make `:Compile` replace special characters (e.g. `%`) in
             -- the command (and behave more like `:!`), add:
             -- bang_expansion = true,
+            --
         }
+        vim.keymap.set("n", "[e", function() vim.cmd[[NextError]] end)
+        vim.keymap.set("n", "]e", function() vim.cmd[[PrevError]] end)
     end
 }
