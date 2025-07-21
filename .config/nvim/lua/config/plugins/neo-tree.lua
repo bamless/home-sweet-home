@@ -240,7 +240,7 @@ return {
             window = {
                 mappings = {
                     ["K"] = "navigate_up",
-                    ["."] = "set_root",
+                    ["J"] = "set_root",
                     ["H"] = "toggle_hidden",
                     ["/"] = "",
                     ["D"] = "fuzzy_finder_directory",
