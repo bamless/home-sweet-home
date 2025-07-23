@@ -37,11 +37,6 @@ return {
                 builtin.buffers({ sort_mru = true, ignore_current_buffer = true })
             end)
 
-            -- Project wide grep
-            vim.keymap.set('n', '<leader>ps', function()
-                vim.cmd('vimgrep /\\v\\c' .. vim.fn.input("Grep > ") .. '/gj **/*')
-                vim.cmd('copen')
-            end)
             vim.keymap.set('n', '<leader>pg', builtin.live_grep)
 
             -- Git branches
