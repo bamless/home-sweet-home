@@ -3,7 +3,9 @@ local opts = { noremap = true, silent = true }
 -- Project wide grep
 vim.keymap.set('n', '<leader>ps', function()
     -- vim.cmd('vimgrep /\\v\\c' .. vim.fn.input("Grep > ") .. '/gj **/*')
-    local input = vim.fn.shellescape(vim.fn.input("Grep > "))
+    local ok, input = pcall(vim.fn.input, "Grep > ")
+    if not ok then return end
+
     local rg = "rg"
     if vim.o.grepprg:sub(1, #rg) == rg then
         vim.cmd("grep " .. input)
