@@ -1,5 +1,12 @@
 local opts = { noremap = true, silent = true }
 
+-- Project wide grep
+vim.keymap.set('n', '<leader>ps', function()
+    -- vim.cmd('vimgrep /\\v\\c' .. vim.fn.input("Grep > ") .. '/gj **/*')
+    vim.cmd('grep -rn \'' .. vim.fn.input("Grep > ") .. '\'')
+    vim.cmd('copen')
+end)
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
