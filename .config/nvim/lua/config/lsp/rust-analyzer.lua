@@ -13,10 +13,11 @@ return function()
                     runBuildScripts = true,
                 },
                 -- Add clippy lints for Rust.
-                checkOnSave = {
-                    allFeatures = true,
-                    command = "clippy",
-                    extraArgs = { "--no-deps" },
+                checkOnSave=true,
+                check = {
+                   allFeatures = true,
+                   command = "clippy",
+                   extraArgs = { "--no-deps" },
                 },
                 procMacro = {
                     enable = true,
