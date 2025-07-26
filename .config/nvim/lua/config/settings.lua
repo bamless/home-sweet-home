@@ -39,6 +39,9 @@ end, { range = true, nargs = 0 })
 vim.opt.makeprg = ""
 vim.api.nvim_command[[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m]]
 
+-- terminal
+vim.cmd[[:tnoremap <Esc> <C-\><C-n>]]
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
