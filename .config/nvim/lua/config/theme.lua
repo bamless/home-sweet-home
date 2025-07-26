@@ -3,4 +3,4 @@ function ColorTheme(color)
     vim.cmd.colorscheme(color)
 end
 
-ColorTheme()
+ColorTheme("kanagawa")
