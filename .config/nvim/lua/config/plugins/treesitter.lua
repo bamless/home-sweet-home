@@ -62,15 +62,6 @@ return {
                         end
                     end
                 },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "vin",
-                        node_incremental = "vin",
-                        scope_incremental = false,
-                        node_decremental = "<bs>",
-                    },
-                },
                 textobjects = {
                     select = {
                         enable = true,
