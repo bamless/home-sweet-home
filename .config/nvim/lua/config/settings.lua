@@ -55,6 +55,11 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
+-- case-insensitive search/replace
+vim.opt.ignorecase = true
+-- unless uppercase in search term
+vim.opt.smartcase = true
+
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
