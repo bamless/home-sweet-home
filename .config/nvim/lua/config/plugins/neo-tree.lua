@@ -118,7 +118,6 @@ return {
         commands = {},
         window = {
             position = "current",
-            width = 40,
             mapping_options = {
                 noremap = true,
                 nowait = true,
@@ -149,10 +148,10 @@ return {
                 -- ["<cr>"] = "open_drop",
                 -- ["t"] = "open_tab_drop",
                 ["w"] = "open_with_window_picker",
-                --["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
-                ["C"] = "close_node",
-                -- ['C'] = 'close_all_subnodes',
-                ["<bs>"] = "close_all_nodes",
+                -- ["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
+                -- ["C"] = "close_node",
+                ["C"] = 'close_all_subnodes',
+                ["<bs>"] = "close_node",
                 --["Z"] = "expand_all_nodes",
                 --["Z"] = "expand_all_subnodes",
                 ["a"] = {
