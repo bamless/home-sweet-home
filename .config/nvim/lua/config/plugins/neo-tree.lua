@@ -245,7 +245,7 @@ return {
                     ["D"] = "fuzzy_finder_directory",
                     ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
                     ["f"] = "filter_on_submit",
-                    -- ["f"] = "fuzzy_finder",
+                    ["F"] = "fuzzy_finder",
                     -- ["D"] = "fuzzy_sorter_directory",
                     ["<c-x>"] = "clear_filter",
                     ["[g"] = "prev_git_modified",
