@@ -42,6 +42,9 @@ vim.api.nvim_command[[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:
 -- terminal
 vim.cmd[[:tnoremap <Esc> <C-\><C-n>]]
 
+-- inline command completion
+vim.cmd[[:set wildoptions-=pum]]
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
