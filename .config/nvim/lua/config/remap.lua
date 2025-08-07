@@ -5,14 +5,15 @@ vim.keymap.set('n', '<leader>ps', function()
     -- vim.cmd('vimgrep /\\v\\c' .. vim.fn.input("Grep > ") .. '/gj **/*')
     local ok, input = pcall(vim.fn.input, "Grep > ")
     if not ok then return end
+    input = vim.fn.shellescape(input)
 
     local rg = "rg"
     if vim.o.grepprg:sub(1, #rg) == rg then
-        vim.cmd("grep " .. input)
+        vim.cmd("grep " .. input .. " .")
     else
         vim.cmd("grep -rn " .. input .. " .")
     end
-    vim.cmd('copen')
+    vim.cmd('cw')
 end)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
