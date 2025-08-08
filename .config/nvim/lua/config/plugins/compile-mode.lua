@@ -12,7 +12,12 @@ return {
     config = function()
         local compile_mode = require "compile-mode"
         vim.g.compile_mode = {
+            environment = {
+                FORCE_COLOR = "1",
+            },
             baleia_setup = true,
+            default_command = "",
+            input_word_completion = true,
             -- to make `:Compile` replace special characters (e.g. `%`) in
             -- the command (and behave more like `:!`), add:
             bang_expansion = true,
