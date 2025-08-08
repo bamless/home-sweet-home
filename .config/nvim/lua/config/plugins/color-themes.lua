@@ -23,9 +23,6 @@ return {
                         hl.NvimTreeWinSeparator.fg = sep_fg_color
                         hl.NvimTreeWinSeparator.bold = true
                     end
-
-                    hl.BufferTabpageFill.bg = sep_bg_color
-                    hl.BufferCurrentSign.fg = hl.BufferVisibleSign.fg
                 end,
             })
             vim.cmd.highlight('NvimTreeWinSeparator guifg=#fffff')
