@@ -1,15 +1,5 @@
 vim.opt.mouse = 'a'
 
--- :make
-vim.opt.makeprg = ""
-vim.api.nvim_command[[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m]]
-
--- terminal
-vim.cmd[[:tnoremap <Esc> <C-\><C-n>]]
-
--- inline command completion
-vim.cmd[[:set wildoptions-=pum]]
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
@@ -20,13 +10,10 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
 vim.opt.smartindent = true
 
--- case-insensitive search/replace
-vim.opt.ignorecase = true
--- unless uppercase in search term
-vim.opt.smartcase = true
+vim.opt.ignorecase = true -- case-insensitive search/replace
+vim.opt.smartcase = true  -- unless uppercase in search term
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -47,6 +34,15 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "101"
 vim.opt.conceallevel = 1
 
+-- :make
+vim.opt.makeprg = ""
+vim.api.nvim_command [[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m]]
+
+vim.cmd [[:set wildoptions-=pum]]      -- inline command completion
+vim.cmd [[:tnoremap <Esc> <C-\><C-n>]] -- enter normal mode on ESC in terminal
+
+-- Autocmds --------------------
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
@@ -60,16 +56,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Get that italic outta here
 vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
-      local hl = vim.api.nvim_get_hl(0, { name = group })
-      if hl.italic then
-        hl.italic = false
-        vim.api.nvim_set_hl(0, group, hl)
-      end
-    end
-  end,
+    callback = function()
+        for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+            local hl = vim.api.nvim_get_hl(0, { name = group })
+            if hl.italic then
+                hl.italic = false
+                vim.api.nvim_set_hl(0, group, hl)
+            end
+        end
+    end,
 })
+
+-- Custom commands -------------
 
 -- Align on string
 vim.api.nvim_create_user_command("Align", function()
@@ -94,3 +92,20 @@ vim.api.nvim_create_user_command("Align", function()
 
     vim.api.nvim_buf_set_lines(0, start_line, end_line, false, output)
 end, { range = true, nargs = 0 })
+
+-- Custom term command; accepts input and opens split
+vim.api.nvim_create_user_command("Term", function(opts)
+    local input
+    if opts.args and opts.args ~= "" then
+        input = opts.args
+    else
+        vim.ui.input({
+            prompt = "Term > ",
+            -- Hijack `compile-mode` plugin completion :D
+            completion = "customlist,CompileInputComplete"
+        }, function(str) input = str end)
+    end
+    if input then
+        vim.cmd("sp|term " .. input)
+    end
+end, { range = false, nargs = '?' })
