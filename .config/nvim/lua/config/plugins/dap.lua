@@ -195,7 +195,7 @@ local function setup_dap()
     -- Press F6 to open REPL
     vim.keymap.set('n', '<F6>', [[:lua require'dap'.repl.open()<CR>]], {})
     -- Toggle debug mode, will remove NvimTree also
-    vim.keymap.set('n', '<C-x>', [[:lua require'dapui'.toggle()<CR>]], {})
+    vim.keymap.set('n', '<leader>db', [[:lua require'dapui'.toggle()<CR>]], {})
 end
 
 return {
