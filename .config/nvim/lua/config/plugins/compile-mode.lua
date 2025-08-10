@@ -76,5 +76,6 @@ return {
 
         vim.keymap.set("n", "[e", function() vim.cmd [[NextError]] end)
         vim.keymap.set("n", "]e", function() vim.cmd [[PrevError]] end)
+        vim.keymap.set('n', '<C-x>', [[:Compile<CR>]], {})
     end
 }
