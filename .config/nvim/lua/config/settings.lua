@@ -41,6 +41,10 @@ vim.api.nvim_command [[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f
 vim.cmd [[:set wildoptions-=pum]]      -- inline command completion
 vim.cmd [[:tnoremap <Esc> <C-\><C-n>]] -- enter normal mode on ESC in terminal
 
+-- respect prefix when using ctrl-p ctrl-n in command mode
+vim.cmd [[:cnoremap <expr> <C-P> wildmenumode() ? "\<C-P>" : "\<Up>"]]
+vim.cmd [[:cnoremap <expr> <C-N> wildmenumode() ? "\<C-N>" : "\<Down>"]]
+
 -- Autocmds --------------------
 
 -- Highlight on yank
