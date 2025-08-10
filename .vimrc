@@ -9,6 +9,10 @@ let &t_SI = "\e[6 q"  " Set cursor to thin vertical bar in insert mode
 let &t_SR = "\e[4 q"  " Set cursor to underline in replace mode
 let &t_EI = "\e[2 q"  " Set cursor to block in normal mode
 
+" respect prefix when using ctrl-p ctrl-n in command mode
+cnoremap <expr> <C-P> wildmenumode() ? "\<C-P>" : "\<Up>"
+cnoremap <expr> <C-N> wildmenumode() ? "\<C-N>" : "\<Down>"
+
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
