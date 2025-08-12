@@ -1,6 +1,10 @@
+if !empty(glob('~/.vim/**/colors/kanagawa.vim'))
+    colorscheme kanagawa
+else
+    colorscheme habamax
+endif
 set relativenumber
 set colorcolumn=101
-colorscheme habamax
 autocmd BufRead,BufNewFile *.jsr set filetype=jstar
 set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m
 tnoremap <Esc> <C-\><C-n>  " enter normal mode on ESC in terminal
