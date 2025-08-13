@@ -1,5 +1,7 @@
 vim.opt.mouse = 'a'
 
+vim.cmd.colorscheme("kanagawa")
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
@@ -63,6 +65,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
             local hl = vim.api.nvim_get_hl(0, { name = group })
             if hl.italic then
+                ---@diagnostic disable-next-line: assign-type-mismatch
                 hl.italic = false
                 vim.api.nvim_set_hl(0, group, hl)
             end
