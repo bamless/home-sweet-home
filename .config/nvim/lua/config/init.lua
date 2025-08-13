@@ -1,4 +1,3 @@
 require('config.lazy')
-require('config.settings')
+require('config.opts')
 require('config.remap')
-require('config.theme')
