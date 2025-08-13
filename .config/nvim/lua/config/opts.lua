@@ -1,7 +1,5 @@
 vim.opt.mouse = 'a'
 
-vim.cmd.colorscheme("kanagawa")
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizontally
