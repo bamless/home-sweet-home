@@ -112,4 +112,12 @@ vim.api.nvim_create_user_command("Term", function(opts)
     if input then
         vim.cmd("sp|term " .. input)
     end
-end, { range = false, nargs = '?' })
+end, {
+    range = false,
+    nargs = '?',
+    complete = function(_, cmdline)
+        local cmd = cmdline:gsub("Compile%s+", "")
+        local results = vim.fn.getcompletion(("!%s"):format(cmd), "cmdline")
+        return results
+    end,
+})
