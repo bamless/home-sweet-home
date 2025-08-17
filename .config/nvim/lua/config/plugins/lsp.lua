@@ -105,14 +105,16 @@ local function lsp_setup()
             text = { 'E', 'W', 'H', 'I' }
         },
         float = { source = true, severity_sort = true },
-        -- Enable underline, use default values
-        underline = true,
-        -- Enable virtual text, override spacing to 4
-        virtual_text = {
-            spacing = 4,
-            severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN },
-            source = "if_many",
-        },
+        underline = false,
+        virtual_text = false,
+        -- -- Enable underline, use default values
+        -- underline = true,
+        -- -- Enable virtual text, override spacing to 4
+        -- virtual_text = {
+        --     spacing = 4,
+        --     severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN },
+        --     source = "if_many",
+        -- },
         update_in_insert = false,
         severity_sort = true,
     })
