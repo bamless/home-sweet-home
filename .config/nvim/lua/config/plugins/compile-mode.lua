@@ -48,6 +48,12 @@ return {
                     row = 2,
                     col = 3,
                 },
+                pyright = {
+                    regex = "^\\s*\\(.\\+\\):\\([1-9][0-9]*\\):\\([1-9][0-9]*\\) - \\(error\\|warning\\|information\\):",
+                    filename = 1,
+                    row = 2,
+                    col = 3,
+                },
                 gradlew = {
                     regex = "^e:\\s\\+file://\\(.\\+\\):\\(\\d\\+\\):\\(\\d\\+\\) ",
                     filename = 1,
