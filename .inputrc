@@ -1,0 +1,4 @@
+# Scroll thorugh history taking into account currently typed text
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+$include /etc/inputrc
