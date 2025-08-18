@@ -90,6 +90,10 @@ if [[ "${XDG_BACKEND}" == "wayland" && -v "GDMSESSION" ]]; then
     source ~/.zprofile
 fi
 
+# Scroll thorugh history taking into account currently typed text
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+
 # Aliases.
 alias vim="nvim"
 alias ls="eza"
