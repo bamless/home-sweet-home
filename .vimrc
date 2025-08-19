@@ -22,3 +22,6 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
+set listchars=space:·,tab:>·,trail:█,extends:>,precedes:<,nbsp:␣
+highlight ExtraWhitespace ctermfg=Red guifg=Red
+match ExtraWhitespace /\s\+$/
