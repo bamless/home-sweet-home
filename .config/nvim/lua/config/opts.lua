@@ -44,6 +44,21 @@ vim.cmd [[:tnoremap <Esc> <C-\><C-n>]] -- enter normal mode on ESC in terminal
 vim.cmd [[:cnoremap <expr> <C-P> wildmenumode() ? "\<C-P>" : "\<Up>"]]
 vim.cmd [[:cnoremap <expr> <C-N> wildmenumode() ? "\<C-N>" : "\<Down>"]]
 
+-- Whitespace
+-- vim.opt.list = true
+vim.opt.listchars = {
+    tab = "> ",
+    space = "·",
+    trail = "█",
+    extends = ">",
+    precedes = "<",
+    nbsp = "␣"
+}
+vim.cmd [[
+    highlight ExtraWhitespace ctermfg=Red guifg=Red
+    match ExtraWhitespace /\s\+$/
+]]
+
 -- Autocmds --------------------
 
 -- Highlight on yank
