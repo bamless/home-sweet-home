@@ -58,6 +58,7 @@ vim.cmd [[
     highlight ExtraWhitespace ctermfg=Red guifg=Red
     match ExtraWhitespace /\s\+$/
 ]]
+vim.cmd [[ autocmd FileType neo-tree setlocal nolist ]]
 
 -- Autocmds --------------------
 
