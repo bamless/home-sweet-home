@@ -1,3 +1,4 @@
+let mapleader = " "
 if !empty(glob('~/.vim/**/colors/kanagawa.vim'))
     colorscheme kanagawa
 else
