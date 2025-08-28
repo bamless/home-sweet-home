@@ -1,0 +1,43 @@
+# XScreenSaver Preferences File
+# Written by xscreensaver-settings 6.12-2.fc42 for fabrizio on Thu Aug 28 18:10:42 2025.
+# https://www.jwz.org/xscreensaver/
+
+timeout:	0:10:00
+cycle:		0:10:00
+lock:		True
+lockTimeout:	0:10:00
+passwdTimeout:	0:00:15
+visualID:	default
+installColormap:    True
+verbose:	False
+splash:		False
+splashDuration:	0:00:05
+demoCommand:	xscreensaver-settings
+nice:		10
+fade:		True
+unfade:		True
+fadeSeconds:	0:00:01
+ignoreUninstalledPrograms:True
+dpmsEnabled:	False
+dpmsQuickOff:	False
+dpmsStandby:	0:15:00
+dpmsSuspend:	2:00:00
+dpmsOff:	4:00:00
+grabDesktopImages:  False
+grabVideoFrames:    False
+chooseRandomImages: True
+imageDirectory:	~/Pictures/hypnotoad
+
+mode:		one
+selected:	0
+
+textMode:	date
+textLiteral:	XScreenSaver
+textFile:	/etc/fedora-release
+textProgram:	fortune -s
+textURL:	http://planet.fedoraproject.org/rss20.xml
+dialogTheme:	default
+settingsGeom:	32,115 3818,158
+
+programs:								      \
+        sh /home/fabrizio/.local/bin/gif-screensaver.sh      \n\
