@@ -3,7 +3,6 @@ local options = {
         "autopep8",
         "basedpyright",
         "bash-language-server",
-        "chrome-debug-adapter",
         "clangd",
         "cpptools",
         "css-lsp",
