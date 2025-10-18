@@ -1,7 +1,7 @@
 return {
     'ggandor/leap.nvim',
     config = function()
-        require('leap').create_default_mappings()
+        vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
         require('leap').opts.preview_filter = function(ch0, ch1, ch2)
             return not (
                 ch1:match('%s') or
