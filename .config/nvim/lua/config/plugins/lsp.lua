@@ -59,7 +59,7 @@ local function lsp_setup()
     vim.keymap.set("n", "<leader>sr", vim.lsp.buf.references)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-    vim.keymap.set("n", "<leader>ws", telescope.lsp_dynamic_workspace_symbols)
+    vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
     vim.keymap.set("n", "<leader>ss", telescope.lsp_document_symbols)
     vim.keymap.set("n", "<leader>wr", telescope.lsp_references)
 
