@@ -309,7 +309,7 @@ Comment[zh_HK]=使用檔案總管瀏覽檔案系統
 Comment[zh_TW]=使用檔案總管瀏覽檔案系統
 Comment=Browse the file system with the file manager
 TryExec=/usr/bin/caja
-Exec=env GDK_SCALE=2 GDK_DPI_SCALE=0.5 /usr/bin/caja --no-desktop --browser %U
+Exec=/usr/bin/caja --no-desktop --browser %U
 # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=system-file-manager
 Terminal=false
