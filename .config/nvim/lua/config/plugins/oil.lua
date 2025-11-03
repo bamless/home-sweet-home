@@ -178,7 +178,7 @@ return {
         }
 
         vim.keymap.set('n', '<C-b>', ':Oil<CR>', { noremap = true, silent = true })
-        vim.api.nvim_create_user_command("Ex", 'Oil<CR>', {})
+        vim.api.nvim_create_user_command("Ex", 'Oil', {})
 
         local first = true;
         vim.api.nvim_create_autocmd("BufEnter", {
