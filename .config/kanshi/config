@@ -1,9 +1,8 @@
-profile docked {
-    output eDP-1 disable
-    output "Samsung Electric Company Odyssey G85SB H1AK500000" enable scale 1.25
+profile undocked {
+    output "eDP-1" enable
 }
 
-profile undocked {
-    output "Samsung Electric Company Odyssey G85SB H1AK500000" disable
-    output eDP-1 enable
+profile docked {
+    output "eDP-1" disable
+    output "Samsung Electric Company Odyssey G85SB H1AK500000" enable scale 1.25
 }
