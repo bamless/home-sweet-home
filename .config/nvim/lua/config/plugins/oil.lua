@@ -69,7 +69,7 @@ return {
                 ["<leader>op"] = "actions.preview",
                 ["q"] = { "actions.close", mode = "n" },
                 ["<C-r>"] = "actions.refresh",
-                ["<S-k>"] = { "actions.parent", mode = "n" },
+                ["-"] = { "actions.parent", mode = "n" },
                 ["_"] = { "actions.open_cwd", mode = "n" },
                 ["`"] = { "actions.cd", mode = "n" },
                 ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
