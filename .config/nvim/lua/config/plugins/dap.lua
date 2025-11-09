@@ -18,17 +18,17 @@ local function setup_dap()
                 size = 0.25
             } },
             position = "left",
-            size = 40
+            size = 60
         }, {
             elements = { {
                 id = "repl",
-                size = 0.6
+                size = 0.5
             }, {
                 id = "console",
-                size = 0.4
+                size = 0.5
             } },
             position = "bottom",
-            size = 17
+            size = 20
         } },
     }
 
@@ -187,9 +187,9 @@ local function setup_dap()
     -- Press dl to run last ran configuration (if you used f5 before it will re run it etc)
     vim.keymap.set('n', '<leader>dl', [[:lua require'dap'.run_last()<CR>]], {})
     -- Pressing F10 to step over
-    vim.keymap.set('n', '<F7>', [[:lua require'dap'.step_over()<CR>]], {})
+    vim.keymap.set('n', '<F10>', [[:lua require'dap'.step_over()<CR>]], {})
     -- Pressing F11 to step into
-    vim.keymap.set('n', '<F8>', [[:lua require'dap'.step_into()<CR>]], {})
+    vim.keymap.set('n', '<F11>', [[:lua require'dap'.step_into()<CR>]], {})
     -- Pressing F12 to step out
     vim.keymap.set('n', '<F12>', [[:lua require'dap'.step_out()<CR>]], {})
     -- Press F6 to open REPL
