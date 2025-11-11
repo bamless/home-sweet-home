@@ -105,10 +105,9 @@ local function lsp_setup()
             text = { 'E', 'W', 'H', 'I' }
         },
         float = { source = true, severity_sort = true },
-        underline = false,
         virtual_text = false,
         -- -- Enable underline, use default values
-        -- underline = true,
+        underline = true,
         -- -- Enable virtual text, override spacing to 4
         -- virtual_text = {
         --     spacing = 4,
