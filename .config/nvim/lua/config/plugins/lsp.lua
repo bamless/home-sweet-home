@@ -102,7 +102,7 @@ local function lsp_setup()
 
     vim.diagnostic.config({
         signs = {
-            text = { 'E', 'W', 'H', 'I' }
+            text = { '●', '●', '●', '●' } -- { 'E', 'W', 'H', 'I' }
         },
         float = { source = true, severity_sort = true },
         virtual_text = false,
