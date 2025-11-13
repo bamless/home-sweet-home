@@ -55,13 +55,17 @@ local function lsp_setup()
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
     vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
     vim.keymap.set("n", "gc", telescope.lsp_incoming_calls)
-    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
     vim.keymap.set("n", "<leader>sr", vim.lsp.buf.references)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
     vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
     vim.keymap.set("n", "<leader>ss", telescope.lsp_document_symbols)
     vim.keymap.set("n", "<leader>wr", telescope.lsp_references)
+
+    -- Signature help
+    vim.keymap.set({ "n", "i" }, "<C-h>", function()
+        require('lsp_signature').toggle_float_win()
+    end, { silent = true, noremap = true, desc = 'toggle signature' })
 
     -- Misc language keybinds
     vim.keymap.set("n", "<leader>ts", telescope.treesitter)
