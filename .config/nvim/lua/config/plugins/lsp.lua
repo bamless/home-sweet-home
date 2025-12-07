@@ -63,7 +63,7 @@ local function lsp_setup()
     vim.keymap.set("n", "<leader>wr", telescope.lsp_references)
 
     -- Signature help
-    vim.keymap.set({ "n", "i" }, "<C-h>", function()
+    vim.keymap.set("i", "<C-h>", function()
         require('lsp_signature').toggle_float_win()
     end, { silent = true, noremap = true, desc = 'toggle signature' })
 
