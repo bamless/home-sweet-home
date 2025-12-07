@@ -34,8 +34,8 @@
         "dnd",
         "buttons-grid",
         "volume",
-        "backlight",
         "mpris",
+        "title",
         "notifications"
     ],
     "widget-config": {
@@ -49,7 +49,7 @@
         },
         "title": {
             "text": "Notifications",
-            "clear-all-button": false,
+            "clear-all-button": true,
             "button-text": "Clear All"
         },
         "dnd": {

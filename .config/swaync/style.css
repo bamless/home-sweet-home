@@ -1,19 +1,27 @@
 :root {
     --border-radius: 14px;
     --cc-bg: transparent;
-    --widget-background: rgba(30, 30, 46, 0.9);
+    --widget-background: rgba(30, 30, 46, 0.95);
     --noti-bg-alpha: 0.9;
-    --noti-bg-hover: rgba(43, 43, 66, 0.6);
-    --noti-bg-focus: rgba(30, 30, 46, 0.9);
+    --mpris-button-hover: rgba(43, 43, 66, 0.95);
+    --noti-bg-hover: rgba(43, 43, 66, 0.95);
+    --noti-bg-focus: rgba(30, 30, 46, 0.95);
+    --noti-bg: rgba(30, 30, 46, 0.95);
     --padding: calc(var(--border-radius) / 2);
+    --notification-shadow: none;
 }
 
-.control-center {
-    border-radius: 0;
+.control-center-list-placeholder {
+    padding: var(--border-radius);
 }
 
 .notification {
     background: var(--widget-background);
+}
+
+.notification-group {
+    border-radius: var(--border-radius);
+    padding: 8px;
 }
 
 .blank-window {
@@ -30,18 +38,15 @@
     animation: fadeIn 0.3s ease-in-out forwards;
 }
 
+.widget-title>label {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
 .widget-volume {
     font-size: 1.5rem;
 }
 
-.control-center-list-placeholder {
-    padding: var(--border-radius);
-}
-
-.notification-group {
-    border-radius: var(--border-radius);
-    padding: 8px;
-}
 
 .widget.widget-mpris {
     background: transparent;
@@ -60,7 +65,7 @@
 }
 
 .widget-mpris>box>button:hover {
-    background: rgba(46, 46, 46, 1);
+    background: var(--mpris-button-hover);
 }
 
 .widget-mpris-player {
