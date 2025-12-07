@@ -21,7 +21,7 @@
         "pulseaudio",
         "pulseaudio#microphone",
         "clock",
-        "custom/dunst",
+        "custom/notifications",
         "custom/power",
         "tray"
     ],
@@ -136,11 +136,25 @@
         "tooltip-format-connected": " {device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}"
     },
-    "custom/dunst": {
-        "exec": "~/.config/i3/i3blocks/scripts/dunst",
-        "on-click": "BLOCK_BUTTON=1 ~/.config/i3/i3blocks/scripts/dunst && pkill -RTMIN+1 waybar",
-        "interval": "once",
-        "signal": 1
+    "custom/notifications": {
+        "tooltip": true,
+        "format": "<span size='12pt'>{icon}</span>",
+        "format-icons": {
+            "notification": "<span color='#7198D5'>󱅫</span>",
+            "none": "󰂜",
+            "dnd-notification": "<span color='#BE616E'>󰂛</span>",
+            "dnd-none": "<span color='#BE616E'>󰪑</span>",
+            "inhibited-notification": "<span color='#BE616E'>󰂛</span>",
+            "inhibited-none": "<span color='#BE616E'>󰪑</span>",
+            "dnd-inhibited-notification": "<span color='#BE616E'>󰂛</span>",
+            "dnd-inhibited-none": "<span color='#BE616E'>󰪑</span>"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     },
     "custom/power_profile": {
         "exec": "~/.config/i3/i3blocks/scripts/power-profile;",
