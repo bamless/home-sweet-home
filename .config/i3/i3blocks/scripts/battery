@@ -16,7 +16,7 @@ color=$NORMAL_COLOR
 if [ $charging -eq 0 ]; then
     icon=${BATTERY[$(expr ${capacity} \* \( ${#BATTERY[@]} - 1 \) / 100)]}
     color=$NORMAL_COLOR
-    if [ $capacity -le 5 ]; then
+    if [ $capacity -le 10 ]; then
         color=$CRITICAL_COLOR
         notify-send --icon=battery-level-0-symbolic \
             -u critical                             \
