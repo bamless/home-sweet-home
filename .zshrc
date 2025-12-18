@@ -77,19 +77,6 @@ source $ZSH/oh-my-zsh.sh
 
 RPS1="\$(vi_mode_prompt_info)$RPS1"
 
-# Enable gnome-keyring for i3 and Hyprland
-if [[ "${XDG_CURRENT_DESKTOP}" == "i3" ]]; then
-    eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)
-fi
-if [[ "${XDG_CURRENT_DESKTOP}" == "Hyprland" ]]; then
-    eval "export $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)"
-fi
-
-# GDM does not source this on login on wayland, do it here :(
-if [[ "${XDG_BACKEND}" == "wayland" && -v "GDMSESSION" ]]; then
-    source ~/.zprofile
-fi
-
 # Scroll thorugh history taking into account currently typed text
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
@@ -97,3 +84,16 @@ bindkey '^N' history-beginning-search-forward
 # Aliases.
 alias vim="nvim"
 alias ls="eza"
+
+
+# Enable gnome-keyring for i3 and Hyprland
+if [[ "${XDG_CURRENT_DESKTOP}" == "i3" ]]; then
+    eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)
+fi
+if [[ "${XDG_CURRENT_DESKTOP}" == "Hyprland" ]]; then
+    eval "export $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh 2>/dev/null)"
+fi
+# GDM does not source this on login on wayland, do it here :(
+if [[ "${XDG_BACKEND}" == "wayland" && -v "GDMSESSION" ]]; then
+    source ~/.zprofile
+fi
