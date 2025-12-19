@@ -26,3 +26,6 @@ set smartindent
 set listchars=space:·,tab:>·,trail:█,extends:>,precedes:<,nbsp:␣
 highlight ExtraWhitespace ctermfg=Red guifg=Red
 match ExtraWhitespace /\s\+$/
+
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-@> :Buffers<CR>
