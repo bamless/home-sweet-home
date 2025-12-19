@@ -1,6 +1,7 @@
 return {
     {
         'nvim-treesitter/nvim-treesitter',
+        branch="master",
         config = function()
             require 'nvim-treesitter.configs'.setup {
                 -- A list of parser names, or "all"
@@ -122,7 +123,7 @@ return {
         end,
         dependencies = {
             -- 'nvim-treesitter/nvim-treesitter-context',
-            'nvim-treesitter/nvim-treesitter-textobjects',
+            {'nvim-treesitter/nvim-treesitter-textobjects', branch="main"},
         }
     },
 }
