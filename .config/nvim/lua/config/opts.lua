@@ -34,11 +34,12 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "101"
 
 -- :make
-vim.opt.makeprg = ""
 vim.api.nvim_command [[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m]]
 
-vim.cmd [[:set wildoptions-=pum]]      -- inline command completion
-vim.cmd [[:tnoremap <Esc> <C-\><C-n>]] -- enter normal mode on ESC in terminal
+-- inline command completion
+vim.cmd [[:set wildoptions-=pum]]
+-- enter normal mode on ESC in terminal
+vim.cmd [[:tnoremap <Esc> <C-\><C-n>]]
 
 -- respect prefix when using ctrl-p ctrl-n in command mode
 vim.cmd [[:cnoremap <expr> <C-P> wildmenumode() ? "\<C-P>" : "\<Up>"]]
@@ -59,8 +60,6 @@ vim.cmd [[
     match ExtraWhitespace /\s\+$/
 ]]
 vim.cmd [[ autocmd FileType neo-tree setlocal nolist ]]
-
--- Autocmds --------------------
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -89,7 +88,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 -- Custom commands -------------
 
--- Align on string
+-- Align text on string
 vim.api.nvim_create_user_command("Align", function()
     local sep = vim.fn.input("Enter align string: ")
     if sep == "" then return end
@@ -113,7 +112,7 @@ vim.api.nvim_create_user_command("Align", function()
     vim.api.nvim_buf_set_lines(0, start_line, end_line, false, output)
 end, { range = true, nargs = 0 })
 
--- Custom term command; accepts input and opens split
+-- Custom :Term command that opens neovim terminal in a split
 vim.api.nvim_create_user_command("Term", function(opts)
     local input
     if opts.args and opts.args ~= "" then
@@ -138,73 +137,101 @@ end, {
     end,
 })
 
+-- Bbye allows you to do delete buffers (close files) without closing your windows or messing up
+-- your layout.
+-- Use :Bdelete to delete a buffer, or :Bwipeout to delete them all.
 vim.cmd [[
-if v:version < 700 || exists('loaded_bclose') || &cp
-  finish
-endif
-let loaded_bclose = 1
-if !exists('bclose_multiple')
-  let bclose_multiple = 1
-endif
+if exists("g:loaded_bbye") || &cp | finish | endif
+let g:loaded_bbye = 1
 
-" Display an error message.
-function! s:Warn(msg)
-  echohl ErrorMsg
-  echomsg a:msg
-  echohl NONE
+function! s:bdelete(action, bang, buffer_name)
+	let buffer = s:str2bufnr(a:buffer_name)
+	let w:bbye_back = 1
+
+	if buffer < 0
+		return s:error("E516: No buffers were deleted. No match for ".a:buffer_name)
+	endif
+
+	if getbufvar(buffer, "&modified") && empty(a:bang)
+		let error = "E89: No write since last change for buffer "
+		return s:error(error . buffer . " (add ! to override)")
+	endif
+
+	" If the buffer is set to delete and it contains changes, we can't switch
+	" away from it. Hide it before eventual deleting:
+	if getbufvar(buffer, "&modified") && !empty(a:bang)
+		call setbufvar(buffer, "&bufhidden", "hide")
+	endif
+
+	" For cases where adding buffers causes new windows to appear or hiding some
+	" causes windows to disappear and thereby decrement, loop backwards.
+	for window in reverse(range(1, winnr("$")))
+		" For invalid window numbers, winbufnr returns -1.
+		if winbufnr(window) != buffer | continue | endif
+		execute window . "wincmd w"
+
+		" Bprevious also wraps around the buffer list, if necessary:
+		try | exe bufnr("#") > 0 && buflisted(bufnr("#")) ? "buffer #" : "bprevious"
+		catch /^Vim([^)]*):E85:/ " E85: There is no listed buffer
+		endtry
+
+		" If found a new buffer for this window, mission accomplished:
+		if bufnr("%") != buffer | continue | endif
+
+		call s:new(a:bang)
+	endfor
+
+	" Because tabbars and other appearing/disappearing windows change
+	" the window numbers, find where we were manually:
+	let back = filter(range(1, winnr("$")), "getwinvar(v:val, 'bbye_back')")[0]
+	if back | exe back . "wincmd w" | unlet w:bbye_back | endif
+
+	" If it hasn't been already deleted by &bufhidden, end its pains now.
+	" Unless it previously was an unnamed buffer and :enew returned it again.
+	"
+	" Using buflisted() over bufexists() because bufhidden=delete causes the
+	" buffer to still _exist_ even though it won't be :bdelete-able.
+	if buflisted(buffer) && buffer != bufnr("%")
+		exe a:action . a:bang . " " . buffer
+	endif
 endfunction
 
-" Command ':Bclose' executes ':bd' to delete buffer in current window.
-" The window will show the alternate buffer (Ctrl-^) if it exists,
-" or the previous buffer (:bp), or a blank buffer if no previous.
-" Command ':Bclose!' is the same, but executes ':bd!' (discard changes).
-" An optional argument can specify which buffer to close (name or number).
-function! s:Bclose(bang, buffer)
-  if empty(a:buffer)
-    let btarget = bufnr('%')
-  elseif a:buffer =~ '^\d\+$'
-    let btarget = bufnr(str2nr(a:buffer))
-  else
-    let btarget = bufnr(a:buffer)
-  endif
-  if btarget < 0
-    call s:Warn('No matching buffer for '.a:buffer)
-    return
-  endif
-  if empty(a:bang) && getbufvar(btarget, '&modified')
-    call s:Warn('No write since last change for buffer '.btarget.' (use :Bclose!)')
-  endif
-  " Numbers of windows that view target buffer which we will delete.
-  let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
-  if !g:bclose_multiple && len(wnums) > 1
-    call s:Warn('Buffer is in multiple windows (use ":let bclose_multiple=1")')
-  endif
-  let wcurrent = winnr()
-  for w in wnums
-    execute w.'wincmd w'
-    let prevbuf = bufnr('#')
-    if prevbuf > 0 && buflisted(prevbuf) && prevbuf != btarget
-      buffer #
-    else
-      bprevious
-    endif
-    if btarget == bufnr('%')
-      " Numbers of listed buffers which are not the target to be deleted.
-      let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val != btarget')
-      " Listed, not target, and not displayed.
-      let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
-      " Take the first buffer, if any (could be more intelligent).
-      let bjump = (bhidden + blisted + [-1])[0]
-      if bjump > 0
-        execute 'buffer '.bjump
-      else
-        execute 'enew'.a:bang
-      endif
-    endif
-  endfor
-  execute ':confirm :bdelete '.btarget
-  execute wcurrent.'wincmd w'
+function! s:str2bufnr(buffer)
+	if empty(a:buffer)
+		return bufnr("%")
+	elseif a:buffer =~# '^\d\+$'
+		return bufnr(str2nr(a:buffer))
+	else
+		return bufnr(a:buffer)
+	endif
 endfunction
-command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-args>)
-nnoremap <silent> <Leader>bd :Bclose<CR>
+
+function! s:new(bang)
+	exe "enew" . a:bang
+
+	setl noswapfile
+	" If empty and out of sight, delete it right away:
+	setl bufhidden=wipe
+	" Regular buftype warns people if they have unsaved text there.  Wouldn't
+	" want to lose someone's data:
+	setl buftype=
+	" Hide the buffer from buffer explorers and tabbars:
+	setl nobuflisted
+endfunction
+
+" Using the built-in :echoerr prints a stacktrace, which isn't that nice.
+function! s:error(msg)
+	echohl ErrorMsg
+	echomsg a:msg
+	echohl NONE
+	let v:errmsg = a:msg
+endfunction
+
+command! -bang -complete=buffer -nargs=? Bdelete
+	\ :call s:bdelete("bdelete", <q-bang>, <q-args>)
+
+command! -bang -complete=buffer -nargs=? Bwipeout
+	\ :call s:bdelete("bwipeout", <q-bang>, <q-args>)
+
+nnoremap <silent> <Leader>bd :Bdelete<CR>
 ]]
