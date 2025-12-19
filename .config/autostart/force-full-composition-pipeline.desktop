@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Terminal=false
-Name=Force full composition pipeline
-Exec=force-full-composition.sh %U
-Icon=nvidia
-Comment=Force full composition pipeline to prevent screen tearing
-Categories=GNOME;GTK;System;
