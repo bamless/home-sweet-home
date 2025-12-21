@@ -178,7 +178,6 @@
         "on-click": "~/.config/rofi/powermenu/type-1/powermenu.sh"
     },
     "custom/screenrecording-indicator": {
-        "on-click": "omarchy-cmd-screenrecord",
         "exec": "~/.config/i3/i3blocks/scripts/screen-recording",
         "interval": 5,
         "return-type": "json"
