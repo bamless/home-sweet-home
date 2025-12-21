@@ -12,6 +12,7 @@
     "modules-right": [
         "hyprland/submap",
         "custom/music",
+        "custom/screenrecording-indicator",
         "network",
         "bluetooth",
         "cpu",
@@ -116,7 +117,7 @@
         "scroll-step": 5
     },
     "cpu": {
-        "interval": 2,
+        "interval": 5,
         "format": "{usage}% ",
         "max-length": 10
     },
@@ -175,5 +176,11 @@
     "custom/power": {
         "format": "",
         "on-click": "~/.config/rofi/powermenu/type-1/powermenu.sh"
+    },
+    "custom/screenrecording-indicator": {
+        "on-click": "omarchy-cmd-screenrecord",
+        "exec": "~/.config/i3/i3blocks/scripts/screen-recording",
+        "interval": 5,
+        "return-type": "json"
     }
 }
