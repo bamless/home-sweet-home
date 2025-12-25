@@ -18,7 +18,7 @@
         "cpu",
         "custom/power_profile",
         "battery",
-        "backlight",
+        "custom/brightness",
         "pulseaudio",
         "pulseaudio#microphone",
         "clock",
@@ -47,18 +47,14 @@
         "format": " {:%H:%M %d/%m}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{icon} {percent}%",
-        "format-icons": [
-            "󰃞 ",
-            "󰃟 ",
-            "󰃠 "
-        ],
-        "on-scroll-up": "brightnessctl set 1%+",
-        "on-scroll-down": "brightnessctl set 1%-",
+    "custom/brightness": {
+        "exec": "~/.config/i3/i3blocks/scripts/brightness;",
+        "on-click": "BLOCK_BUTTON=3 ~/.config/i3/i3blocks/scripts/brightness && pkill -RTMIN+8 waybar",
+        "on-scroll-up": "BLOCK_BUTTON=4 ~/.config/i3/i3blocks/scripts/brightness && pkill -RTMIN+8 waybar",
+        "on-scroll-down": "BLOCK_BUTTON=5 ~/.config/i3/i3blocks/scripts/brightness && pkill -RTMIN+8 waybar",
         "smooth-scrolling-threshold": 2.0,
-        "min-length": 6
+        "min-length": 6,
+        "signal": 8
     },
     "battery": {
         "states": {
@@ -178,6 +174,7 @@
         "on-click": "~/.config/rofi/powermenu/type-1/powermenu.sh"
     },
     "custom/screenrecording-indicator": {
+        "on-click": "omarchy-cmd-screenrecord",
         "exec": "~/.config/i3/i3blocks/scripts/screen-recording",
         "interval": 5,
         "return-type": "json"

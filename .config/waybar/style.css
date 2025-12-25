@@ -64,7 +64,7 @@ tooltip {
 #cpu,
 #workspaces,
 #tray,
-#backlight {
+#custom-brightness {
     background: #1e1e2e;
     opacity: 0.8;
     padding: 0px 10px;
@@ -82,7 +82,7 @@ tooltip {
     color: #eba0ac;
 }
 
-#backlight {
+#custom-brightness {
     border-radius: 10px 0px 0px 10px;
 }
 
