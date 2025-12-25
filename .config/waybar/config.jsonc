@@ -110,6 +110,7 @@
         "on-click": "pamixer --default-source -t",
         "on-scroll-up": "pamixer --default-source -i 5",
         "on-scroll-down": "pamixer --default-source -d 5",
+        "smooth-scrolling-threshold": 2.0,
         "scroll-step": 5
     },
     "cpu": {
