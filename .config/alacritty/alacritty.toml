@@ -4,16 +4,16 @@ general.import = ["~/.config/alacritty/themes/alacritty-theme/tokyo_night.toml"]
 size = 12.0
 
 [font.bold]
-family = "terminal-font"
+family = "alacritty-terminal-font"
 
 [font.bold_italic]
-family = "terminal-font"
+family = "alacritty-terminal-font"
 
 [font.italic]
-family = "terminal-font"
+family = "alacritty-terminal-font"
 
 [font.normal]
-family = "terminal-font"
+family = "alacritty-terminal-font"
 
 [window.class]
 general = "Alacritty"
