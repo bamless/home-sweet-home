@@ -29,3 +29,9 @@ match ExtraWhitespace /\s\+$/
 
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <C-@> :Buffers<CR>
+
+"Plugins
+call plug#begin()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
