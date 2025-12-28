@@ -74,6 +74,8 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 # Init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+[ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
+[ -f /usr/share/zsh/site-functions/_fzf ] && source /usr/share/zsh/site-functions/_fzf
 
 RPS1="\$(vi_mode_prompt_info)$RPS1"
 
