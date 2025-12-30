@@ -58,7 +58,7 @@ local function setup_dap()
                 return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
             end,
             args = function()
-                local argsString = vim.fn.input('Program Arguments: ')
+                local argsString = vim.fn.input('Program Arguments: ', '', 'file')
                 local args = {}
                 for arg in argsString:gmatch("%S+") do
                     table.insert(args, arg)
