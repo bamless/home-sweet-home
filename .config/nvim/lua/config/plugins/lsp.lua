@@ -123,17 +123,6 @@ local function lsp_setup()
     })
 
     ---
-    -- Snippet config
-    ---
-
-    require('luasnip').config.set_config({
-        region_check_events = 'InsertEnter',
-        delete_check_events = 'InsertLeave'
-    })
-
-    require('luasnip.loaders.from_vscode').lazy_load()
-
-    ---
     -- Autocompletion (cmp)
     ---
 
@@ -182,15 +171,8 @@ local function lsp_setup()
             ['<C-d>'] = cmp.mapping.scroll_docs(4),
         }),
 
-        snippet = {
-            expand = function(args)
-                require("luasnip").lsp_expand(args.body)
-            end,
-        },
-
         sources = {
             { name = "nvim_lsp" },
-            { name = "luasnip" },
             { name = "buffer" },
             { name = "nvim_lua" },
             { name = "path" },
@@ -212,7 +194,6 @@ local function lsp_setup()
             item.menu = ({
                 buffer = "[Buffer]",
                 nvim_lsp = "[LSP]",
-                luasnip = "[LuaSnip]",
                 nvim_lua = "[Lua]",
                 latex_symbols = "[LaTeX]",
             })[entry.source.name]
@@ -238,7 +219,6 @@ return {
             { 'hrsh7th/nvim-cmp' },
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-path' },
-            { 'saadparwaiz1/cmp_luasnip' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lua' },
         }

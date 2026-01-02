@@ -9,6 +9,7 @@ return {
         "nvim-lua/plenary.nvim",
         { "m00qek/baleia.nvim", tag = "v1.3.0" },
     },
+    cmd = { 'Compile', 'Recompile' },
     config = function()
         local compile_mode = require "compile-mode"
         vim.g.compile_mode = {
