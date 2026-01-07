@@ -7,27 +7,49 @@ CHARGING_COLOR="#4a74ff"
 BATTERY=("󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹")
 CHARGING=""
 
+STATE_DIR="${XDG_RUNTIME_DIR:-/tmp}"
+STATE_CRITICAL="$STATE_DIR/battery-critical-notified"
+STATE_FINAL="$STATE_DIR/battery-final-notified"
+
 battery=${BLOCK_INSTANCE:-BAT0}
 capacity=$(<"/sys/class/power_supply/$battery/capacity")
 charging=$(<"/sys/class/power_supply/AC/online")
 
 color=$NORMAL_COLOR
 
-if [ $charging -eq 0 ]; then
+if [ "$charging" -eq 0 ]; then
     icon=${BATTERY[$(expr ${capacity} \* \( ${#BATTERY[@]} - 1 \) / 100)]}
-    color=$NORMAL_COLOR
-    if [ $capacity -le 10 ]; then
+
+    if [ "$capacity" -le 5 ]; then
         color=$CRITICAL_COLOR
-        notify-send --icon=battery-level-0-symbolic \
-            -u critical                             \
-            "Battery Critical"                      \
-            "The computer will shutdown shortly. Connect to power now."
-    elif [ $capacity -le 20 ]; then
+
+        if [ ! -f "$STATE_FINAL" ]; then
+            notify-send --icon=battery-level-0-symbolic \
+                -u critical                             \
+                "Battery Almost Empty"                  \
+                "Battery at ${capacity}%. System will power off imminently."
+            touch "$STATE_FINAL"
+        fi
+    elif [ "$capacity" -le 10 ]; then
+        color=$CRITICAL_COLOR
+
+        if [ ! -f "$STATE_CRITICAL" ]; then
+            notify-send --icon=battery-level-10-symbolic \
+                -u critical                              \
+                "Battery Critical"                       \
+                "Battery at ${capacity}%. Plug in now."
+            touch "$STATE_CRITICAL"
+        fi
+    elif [ "$capacity" -le 20 ]; then
         color=$WARNING_COLOR
+        rm -f "$STATE_CRITICAL" "$STATE_FINAL"
+    else
+        rm -f "$STATE_CRITICAL" "$STATE_FINAL"
     fi
 else
     icon=$CHARGING
     color=$CHARGING_COLOR
+    rm -f "$STATE_CRITICAL" "$STATE_FINAL"
 fi
 
 echo "<span color='${color}'>${icon}</span> ${capacity}%"

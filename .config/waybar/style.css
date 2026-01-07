@@ -156,6 +156,18 @@ tooltip {
     border-left: 0px;
 }
 
+#battery.warning {
+    color: #eac46a;
+}
+
+#battery.critical {
+    color: #e78c8c;
+}
+
+#battery.charging {
+    color: #89b4fa;
+}
+
 #custom-power_profile {
     color: #a6e3a1;
     border-left: 0px;
