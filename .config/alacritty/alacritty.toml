@@ -1,7 +1,8 @@
 general.import = ["~/.config/alacritty/themes/alacritty-theme/tokyo_night.toml"]
 
 [font]
-size = 11.0
+size = 12
+offset.y = -1
 
 [font.bold]
 family = "alacritty-terminal-font"
