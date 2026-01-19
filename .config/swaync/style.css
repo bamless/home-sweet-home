@@ -1,12 +1,12 @@
 :root {
     --border-radius: 14px;
     --cc-bg: transparent;
-    --widget-background: rgba(30, 30, 46, 0.95);
+    --widget-background: rgba(30, 30, 46, 0.85);
     --noti-bg-alpha: 0.9;
-    --mpris-button-hover: rgba(43, 43, 66, 0.95);
-    --noti-bg-hover: rgba(43, 43, 66, 0.95);
-    --noti-bg-focus: rgba(30, 30, 46, 0.95);
-    --noti-bg: rgba(30, 30, 46, 0.95);
+    --mpris-button-hover: rgba(43, 43, 66, 0.85);
+    --noti-bg-hover: rgba(43, 43, 66, 0.85);
+    --noti-bg-focus: rgba(30, 30, 46, 0.85);
+    --noti-bg: rgba(30, 30, 46, 0.85);
     --padding: calc(var(--border-radius) / 2);
     --notification-shadow: none;
 }
