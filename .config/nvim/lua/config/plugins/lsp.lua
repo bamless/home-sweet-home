@@ -58,9 +58,14 @@ local function lsp_setup()
     vim.keymap.set("n", "<leader>sr", vim.lsp.buf.references)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-    vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol)
     vim.keymap.set("n", "<leader>ss", telescope.lsp_document_symbols)
     vim.keymap.set("n", "<leader>wr", telescope.lsp_references)
+    vim.keymap.set("n", "<leader>ws", function()
+        local query = vim.fn.input("Workspace symbol: ")
+        require("telescope.builtin").lsp_workspace_symbols({
+            query = query,
+        })
+    end)
 
     -- Signature help
     vim.keymap.set("i", "<C-h>", function()
