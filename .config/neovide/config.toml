@@ -1,6 +1,6 @@
 [font]
 normal = ["JetBrainsMono Nerd Font", "Alacritty Noto Color Emoji"]
-size = 12.0
+size = 11.0
 
 [font.features]
 "JetBrainsMono Nerd Font" = ["-calt"]
