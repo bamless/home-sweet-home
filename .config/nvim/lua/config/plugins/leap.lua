@@ -1,5 +1,5 @@
 return {
-    'ggandor/leap.nvim',
+    url = "https://codeberg.org/andyg/leap.nvim",
     config = function()
         vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
         require('leap').opts.preview_filter = function(ch0, ch1, ch2)
