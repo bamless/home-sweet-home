@@ -24,7 +24,7 @@ function! QCompile(...) abort
     let g:qcompile_last_cmd = l:cmd
 
     let &l:makeprg = l:cmd
-    execute 'make! | copen 25'
+    execute 'make! | bot copen 25'
 endfunction
 
 function! QRecompile() abort
@@ -33,7 +33,7 @@ function! QRecompile() abort
         return
     endif
     let &l:makeprg = g:qcompile_last_cmd
-    execute 'make! | copen 25'
+    execute 'make! | bot copen 25'
 endfunction
 
 command! -nargs=* -complete=file QCompile call QCompile(<f-args>)

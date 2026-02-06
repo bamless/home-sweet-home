@@ -10,6 +10,9 @@ return {
         { "m00qek/baleia.nvim", tag = "v1.3.0" },
     },
     cmd = { 'Compile', 'Recompile' },
+    keys = {
+        { '<C-x>', ':bot Recompile<CR>', mode = 'n', desc = 'Recompile' },
+    },
     config = function()
         local compile_mode = require "compile-mode"
         vim.g.compile_mode = {
@@ -17,7 +20,8 @@ return {
                 FORCE_COLOR = "1",
             },
             baleia_setup = true,
-            default_command = "",
+            default_command = "make -k",
+            recompile_no_fail = true,
             -- input_word_completion = true,
             -- to make `:Compile` replace special characters (e.g. `%`) in
             -- the command (and behave more like `:!`), add:
@@ -83,6 +87,6 @@ return {
 
         vim.keymap.set("n", "[e", function() vim.cmd [[NextError]] end)
         vim.keymap.set("n", "]e", function() vim.cmd [[PrevError]] end)
-        vim.keymap.set('n', '<C-x>', [[:Compile<CR>]], {})
+        vim.keymap.set('n', '<C-x>', [[:bot Recompile<CR>]], {})
     end
 }

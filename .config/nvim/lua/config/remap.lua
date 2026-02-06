@@ -57,9 +57,6 @@ vim.keymap.set("n", "<leader>cs", "<cmd>noh<CR>")
 vim.keymap.set("n", "]t", [[vatatov]])
 vim.keymap.set("n", "[t", [[vatatv]])
 
--- Switch between last two buffers
-vim.keymap.set('n', '<leader><leader>', '<Cmd>b#<CR>')
-
 -- Resize with arrows
 -- delta: 2 lines
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>')
