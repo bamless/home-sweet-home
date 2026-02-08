@@ -1,11 +1,15 @@
 return {
     "coder/claudecode.nvim",
-    dependencies = { "folke/snacks.nvim" },
+    -- dependencies = { "folke/snacks.nvim" },
     config = true,
     opts = {
         diff_opts = {
             open_in_current_tab = false,
-        }
+        },
+        terminal = {
+            split_side = "right", -- "left" or "right"
+            split_width_percentage = 0.40,
+        },
     },
     keys = {
         { "<leader>a",  nil,                              desc = "AI/Claude Code" },
