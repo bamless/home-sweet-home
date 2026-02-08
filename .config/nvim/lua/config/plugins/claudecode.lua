@@ -8,7 +8,7 @@ return {
         },
         terminal = {
             split_side = "right", -- "left" or "right"
-            split_width_percentage = 0.40,
+            split_width_percentage = 0.35,
         },
     },
     keys = {
