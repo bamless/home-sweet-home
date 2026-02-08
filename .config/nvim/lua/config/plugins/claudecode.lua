@@ -1,6 +1,6 @@
 return {
     "coder/claudecode.nvim",
-    -- dependencies = { "folke/snacks.nvim" },
+    dependencies = { "folke/snacks.nvim" },
     config = true,
     opts = {
         diff_opts = {
