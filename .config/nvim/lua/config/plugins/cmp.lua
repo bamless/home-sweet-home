@@ -48,10 +48,10 @@ return {
                 }),
 
                 sources = {
-                    { name = "nvim_lsp" },
-                    { name = "buffer" },
-                    { name = "nvim_lua" },
-                    { name = "path" },
+                    { name = "nvim_lsp", priority = 1000 },
+                    { name = "nvim_lua", priority = 1000 },
+                    { name = "buffer",   priority = 500 },
+                    { name = "path",     priority = 250 },
                 },
             }
 
