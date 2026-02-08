@@ -46,10 +46,9 @@ vim.opt.colorcolumn = "101"
 -- :make
 vim.api.nvim_command [[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m]]
 
--- inline command completion
-vim.cmd [[:set wildoptions-=pum]]
--- enter normal mode on ESC in terminal
-vim.cmd [[:tnoremap <Esc> <C-\><C-n>]]
+
+vim.cmd [[:set wildoptions-=pum]]           -- inline command completion
+vim.cmd [[:tnoremap <Esc><Esc> <C-\><C-n>]] -- enter normal mode on double ESC in terminal
 
 -- respect prefix when using ctrl-p ctrl-n in command mode
 vim.cmd [[:cnoremap <expr> <C-P> wildmenumode() ? "\<C-P>" : "\<Up>"]]
