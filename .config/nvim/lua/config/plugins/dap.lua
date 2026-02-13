@@ -36,6 +36,10 @@ local function setup_dap()
         dapui.open()
     end
 
+    dap.listeners.after['disconnect']['debug_print'] = function()
+        require('nvim-dap-virtual-text').refresh()
+    end
+
     vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = '', linehl = '', numhl = '' })
     vim.fn.sign_define('DapStopped', { text = '🔶', texthl = '', linehl = '', numhl = '' })
 
@@ -259,16 +263,16 @@ return {
             "nvim-neotest/nvim-nio",
         },
         keys = {
-            { '<F5>', ft = "python" },
-            { '<leader>br', ft = "python" },
+            { '<F5>',        ft = "python" },
+            { '<leader>br',  ft = "python" },
             { '<leader>brc', ft = "python" },
             { '<leader>lgp', ft = "python" },
-            { '<leader>dl', ft = "python" },
-            { '<F10>', ft = "python" },
-            { '<F11>', ft = "python" },
-            { '<F12>', ft = "python" },
-            { '<F6>', ft = "python" },
-            { '<leader>db', ft = "python" },
+            { '<leader>dl',  ft = "python" },
+            { '<F10>',       ft = "python" },
+            { '<F11>',       ft = "python" },
+            { '<F12>',       ft = "python" },
+            { '<F6>',        ft = "python" },
+            { '<leader>db',  ft = "python" },
         },
         config = function(_, _)
             local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
