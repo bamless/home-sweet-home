@@ -17,18 +17,39 @@ sufficient. **Do not write your accomplishments into this file.**
 ## C guidelines
 
 - When working in a c project, make sure to adhere to the c standard set
-  for the project, usually found in the Makefile or CMakeLists.txt
+  for the project, usually found in the Makefile or CMakeLists.txt.
 - If there is an `extlib.h`, prefer using it instead of using bare c standard library.
   Common operations that can be handled with extlib:
-    1. Deal with allocations (`ext_alloc`, `ext_realloc`, `ext_free`, etc.)
+    1. Dealing with allocations (`ext_alloc`, `ext_realloc`, `ext_free`, etc.)
     2. Doing string manipulation (`StringSlice` and `StringBuffer`)
     3. For dynamic arrays and hashtables
     4. For assertions, unreachable and other debug only macros
     5. For logging, e.g. `ext_log` family of functions
     6. For working with the filesystem (`read_file`, `read_dir`, etc.)
     7. Calling external commands (`cmd` family of functions)
+
   Use the unprefixed versions of functions whenever possible.
-  You can find more about extlib by reading the comment at the top of the file.
+  You can find more about extlib by reading the comment at the top of the `extlib.h`.
+
+## Git workflow
+
+Use the `commit-writer` skill, if available, to draft commit messages.
+It reads the current diff and produces a message following the
+conventions below.
+
+Make sure you use git mv to move any files that are already checked into
+git.
+
+When writing commit messages, ensure that you explain any non-obvious
+trade-offs we've made in the design or implementation.
+
+Wrap any prose (but not code) in the commit message to match git commit
+conventions, including the title. Also, follow semantic commit
+conventions for the commit title.
+
+When you refer to types or very short code snippets, place them in
+backticks. When you have a full line of code or more than one line of
+code, put them in indented code blocks.
 
 ## Documentation preferences
 
@@ -53,7 +74,7 @@ Apply literate programming principles to make code self-documenting and maintain
 1. **Explain the Why, Not Just the What**: Focus on business logic, design decisions, and reasoning rather than describing what the code obviously does.
 
 2. **Top-Down Narrative Flow**: Structure code to read like a story with clear sections that build logically:
-   ```c
+   ```rust
    // ==============================================================================
    // Plugin Configuration Extraction
    // ==============================================================================
@@ -93,6 +114,13 @@ Avoid over-documenting:
 - Trivial getters/setters or obvious wrapper code
 - Code that's primarily syntactic sugar over well-known patterns
 
+### Prefer temp files over pipes for sub-agent CLI testing
+
+When testing a CLI with ad-hoc input, write the input to a temp file
+in `tmp/` using the Write tool (not `cat`/`echo` with heredoc + `>`),
+then pass it by path rather than piping. This avoids interactive
+permission prompts in sub-agents.
+
 # Common failure modes when helping
 
 ## The XY Problem
@@ -127,3 +155,4 @@ The XY problem occurs when someone asks about their attempted solution (Y) inste
 
 ### Key Principle
 Always try to understand the fundamental problem (X) before helping with the proposed solution (Y). The user's approach may not be optimal or may indicate they're solving the wrong problem entirely.
+

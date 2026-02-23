@@ -17,18 +17,19 @@ sufficient. **Do not write your accomplishments into this file.**
 ## C guidelines
 
 - When working in a c project, make sure to adhere to the c standard set
-  for the project, usually found in the Makefile or CMakeLists.txt
+  for the project, usually found in the Makefile or CMakeLists.txt.
 - If there is an `extlib.h`, prefer using it instead of using bare c standard library.
   Common operations that can be handled with extlib:
-    1. Deal with allocations (`ext_alloc`, `ext_realloc`, `ext_free`, etc.)
+    1. Dealing with allocations (`ext_alloc`, `ext_realloc`, `ext_free`, etc.)
     2. Doing string manipulation (`StringSlice` and `StringBuffer`)
     3. For dynamic arrays and hashtables
     4. For assertions, unreachable and other debug only macros
     5. For logging, e.g. `ext_log` family of functions
     6. For working with the filesystem (`read_file`, `read_dir`, etc.)
     7. Calling external commands (`cmd` family of functions)
+
   Use the unprefixed versions of functions whenever possible.
-  You can find more about extlib by reading the comment at the top of the file.
+  You can find more about extlib by reading the comment at the top of the `extlib.h`.
 
 ## Git workflow
 
@@ -73,7 +74,7 @@ Apply literate programming principles to make code self-documenting and maintain
 1. **Explain the Why, Not Just the What**: Focus on business logic, design decisions, and reasoning rather than describing what the code obviously does.
 
 2. **Top-Down Narrative Flow**: Structure code to read like a story with clear sections that build logically:
-   ```c
+   ```rust
    // ==============================================================================
    // Plugin Configuration Extraction
    // ==============================================================================
@@ -113,7 +114,7 @@ Avoid over-documenting:
 - Trivial getters/setters or obvious wrapper code
 - Code that's primarily syntactic sugar over well-known patterns
 
-## Claude Code sandbox workarounds
+## Claude Code sandbox insights
 
 ### Pipe workaround (trailing `;`)
 
@@ -159,18 +160,27 @@ until some_command; do sleep 1; done
 
 [cc-24136]: https://github.com/anthropics/claude-code/issues/24136
 
-### `gh` (GitHub CLI) workaround
+### Unsandboxable commands
 
-The `gh` CLI needs auth tokens under `~/.config/gh/` which the
-sandbox blocks. Use `dangerouslyDisableSandbox: true` for `gh`
-invocations.
+The following commands can never be run successfully inside the sandbox,
+and thus must always be run with `dangerouslyDisableSandbox: true`.
+Because they cannot be run inside the sandbox, avoid running them in
+bash invocations with other commands (e.g., using `|`, `&&` or `||`).
+Instead, capture their output to a file, and then operate on that file
+in subsequent commands, which can then be sandboxed.
+
+Known unsandboxable commands are:
+
+- `gh`
+- `perf record` (but _not_ `perf script`)
 
 ### Sandbox discipline
 
 Never use `dangerouslyDisableSandbox` preemptively. Always attempt
 commands in the default sandbox first. Only bypass the sandbox after
 observing an actual permission error, and document which error
-triggered the bypass. The one standing exception is `gh` (see above).
+triggered the bypass. The standing exceptions are the commands known to
+be unsandboxable.
 
 ### Prefer temp files over pipes for sub-agent CLI testing
 
