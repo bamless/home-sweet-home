@@ -176,30 +176,27 @@ local function setup_dap()
     -- Keybindings
     ---
 
-    -- nvim-dap keymappings
-    -- Press f5 to debug
-    vim.keymap.set('n', '<F5>', [[:lua require'dap'.continue()<CR>]], {})
-    -- Regular breakpoint
-    vim.keymap.set('n', '<leader>br', [[:lua require'dap'.toggle_breakpoint()<CR>]], {})
-    -- Breakpoint with Condition
-    vim.keymap.set('n', '<leader>brc', [[:lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: '))<CR>]],
-        {})
-    -- Logpoint
-    vim.keymap.set('n', '<leader>lgp',
-        [[:lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: '))<CR>]],
-        {})
-    -- Press dl to run last ran configuration (if you used f5 before it will re run it etc)
-    vim.keymap.set('n', '<leader>dl', [[:lua require'dap'.run_last()<CR>]], {})
-    -- Pressing F10 to step over
-    vim.keymap.set('n', '<F10>', [[:lua require'dap'.step_over()<CR>]], {})
-    -- Pressing F11 to step into
-    vim.keymap.set('n', '<F11>', [[:lua require'dap'.step_into()<CR>]], {})
-    -- Pressing F12 to step out
-    vim.keymap.set('n', '<F12>', [[:lua require'dap'.step_out()<CR>]], {})
-    -- Press F6 to open REPL
-    vim.keymap.set('n', '<F6>', [[:lua require'dap'.repl.open()<CR>]], {})
-    -- Toggle debug mode, will remove NvimTree also
-    vim.keymap.set('n', '<leader>db', [[:lua require'dapui'.toggle()<CR>]], {})
+    vim.keymap.set('n', '<F5>', function() require'dap'.continue() end)
+    vim.keymap.set('n', '<leader>br', function() require'dap'.toggle_breakpoint() end)
+    vim.keymap.set('n', '<leader>brc', function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: ')) end)
+    vim.keymap.set('n', '<leader>lgp', function() require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: ')) end)
+    vim.keymap.set('n', '<leader>dl', function() require'dap'.run_last() end)
+    vim.keymap.set('n', '<F10>', function() require'dap'.step_over() end)
+    vim.keymap.set('n', '<F11>', function() require'dap'.step_into() end)
+    vim.keymap.set('n', '<F12>', function() require'dap'.step_out() end)
+    vim.keymap.set('n', '<F6>', function() require'dap'.repl.open() end)
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function() require('dap.ui.widgets').hover() end)
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function() require('dap.ui.widgets').preview() end)
+    vim.keymap.set('n', '<Leader>df', function()
+        local widgets = require('dap.ui.widgets')
+        widgets.centered_float(widgets.frames)
+    end)
+    vim.keymap.set('n', '<Leader>ds', function()
+        local widgets = require('dap.ui.widgets')
+        widgets.centered_float(widgets.scopes)
+    end)
+
+    vim.keymap.set('n', '<leader>db', function() require'dapui'.toggle() end)
 end
 
 return {
