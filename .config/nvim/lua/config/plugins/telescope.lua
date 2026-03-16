@@ -17,18 +17,20 @@ return {
                     },
                     file_ignore_patterns = {
                         '^node_modules',
-                        '^.git',
-                        '^.venv',
+                        '^%.git',
+                        '^%.venv',
                         '^dist',
                         '%.lock$',
-                        '.cache',
-                        '.git',
-                        '.github',
+                        '%.cache',
+                        '%.git',
+                        '%.github',
                     },
                 },
                 pickers = {
                     find_files = {
-                        hidden = true
+                        hidden = true,
+                        no_ignore = true,
+                        no_ignore_parent = true,
                     }
                 }
             }
