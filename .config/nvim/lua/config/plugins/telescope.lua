@@ -21,6 +21,7 @@ return {
                         '%.venv',
                         '^%.?build',
                         '^dist',
+                        '^target',
                         '%.lock$',
                         '%.cache',
                         '^%.git',
