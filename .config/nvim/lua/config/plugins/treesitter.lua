@@ -55,7 +55,7 @@ return {
                 additional_vim_regex_highlighting = false,
 
                 disable = function(_, buf)
-                    local max_filesize = 1 * 1024 * 1024     -- 1MB
+                    local max_filesize = 1 * 1024 * 1024 -- 1MB
                     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                     if ok and stats and stats.size > max_filesize then
                         return true
@@ -88,9 +88,9 @@ return {
                     -- and should return the mode ('v', 'V', or '<c-v>') or a table
                     -- mapping query_strings to modes.
                     selection_modes = {
-                        ['@parameter.outer'] = 'v',     -- charwise
-                        ['@function.outer'] = 'V',      -- linewise
-                        ['@class.outer'] = '<c-v>',     -- blockwise
+                        ['@parameter.outer'] = 'v', -- charwise
+                        ['@function.outer'] = 'V',  -- linewise
+                        ['@class.outer'] = '<c-v>', -- blockwise
                     },
                     -- If you set this to `true` (default is `false`) then any textobject is
                     -- extended to include preceding or succeeding whitespace. Succeeding
@@ -122,6 +122,9 @@ return {
     end,
     dependencies = {
         -- 'nvim-treesitter/nvim-treesitter-context',
-        'nvim-treesitter/nvim-treesitter-textobjects',
+        {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+            branch = "master",
+        },
     }
 }
