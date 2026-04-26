@@ -5,6 +5,12 @@ return {
         config = function()
             require('telescope').setup {
                 defaults = {
+                    defaults = {
+                        preview = {
+                            filesize_limit = 0.5,
+                            timeout = 150,
+                        },
+                    },
                     layout_strategy = "flex",
                     vimgrep_arguments = {
                         'rg',
@@ -32,8 +38,8 @@ return {
                 pickers = {
                     find_files = {
                         hidden = true,
-                        no_ignore = true,
-                        no_ignore_parent = true,
+                        -- no_ignore = true,
+                        -- no_ignore_parent = true,
                     }
                 }
             }
