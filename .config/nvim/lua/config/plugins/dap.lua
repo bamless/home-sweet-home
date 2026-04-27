@@ -88,15 +88,17 @@ local function setup_dap()
     -- Javascript node
     ---
 
-    dap.adapters["pwa-node"] = {
-        type = "server",
-        host = "localhost",
-        port = "${port}",
-        executable = {
-            command = "js-debug-adapter",
-            args = { "${port}" }
+    for _, adapter in ipairs({ "pwa-node", "node-terminal" }) do
+        dap.adapters[adapter] = {
+            type = "server",
+            host = "localhost",
+            port = "${port}",
+            executable = {
+                command = "js-debug-adapter",
+                args = { "${port}" },
+            },
         }
-    }
+    end
 
     dap.configurations.javascript = {
         {
@@ -136,55 +138,72 @@ local function setup_dap()
     }
 
     ---
-    -- Javascript Chrome
+    -- Javascript Browser
     ---
 
-    dap.adapters.chrome = {
-        type = "executable",
-        command = "chrome-debug-adapter",
-    }
-
-    dap.configurations.javascriptreact = { -- change this to javascript if needed
-        {
-            type = "chrome",
-            request = "launch",
-            url = "http://localhost:3000",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-            protocol = "inspector",
-            port = 9222,
-            webRoot = "${workspaceFolder}"
+    for _, adapter in ipairs({ "pwa-chrome", "pwa-msedge" }) do
+        dap.adapters[adapter] = {
+            type = "server",
+            host = "localhost",
+            port = "${port}",
+            executable = {
+                command = "js-debug-adapter",
+                args = { "${port}" },
+            },
         }
-    }
+    end
 
-    dap.configurations.typescriptreact = { -- change to typescript if needed
-        {
-            type = "chrome",
-            request = "launch",
-            url = "http://localhost:3000",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-            protocol = "inspector",
-            port = 9222,
-            webRoot = "${workspaceFolder}"
+    local js_languages = { "javascriptreact", "typescriptreact" }
+    for _, lang in ipairs(js_languages) do
+        dap.configurations[lang] = {
+            -- Attach to a running Chrome/Chromium instance (most useful for React)
+            {
+                type = "pwa-chrome",
+                request = "attach",
+                name = "Attach to Chrome (localhost:5173)",
+                port = 5173,
+                webRoot = "${workspaceFolder}",
+                sourceMaps = true,
+                resolveSourceMapLocations = {
+                    "${workspaceFolder}/**",
+                    "!**/node_modules/**",
+                },
+            },
+            -- Launch a new Chrome instance (Chrome must be in PATH)
+            {
+                type = "pwa-chrome",
+                request = "launch",
+                name = "Launch Chrome (localhost:5173)",
+                url = "http://localhost:5173",
+                webRoot = "${workspaceFolder}/src",
+                sourceMaps = true,
+            },
+            -- Node process attach (useful for SSR / Next.js server side)
+            {
+                type = "pwa-node",
+                request = "attach",
+                name = "Attach to Node process",
+                processId = require("dap.utils").pick_process,
+                cwd = "${workspaceFolder}",
+            },
         }
-    }
+    end
 
     ---
     -- Keybindings
     ---
 
-    vim.keymap.set('n', '<F5>', function() require'dap'.continue() end)
-    vim.keymap.set('n', '<leader>br', function() require'dap'.toggle_breakpoint() end)
-    vim.keymap.set('n', '<leader>brc', function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: ')) end)
-    vim.keymap.set('n', '<leader>lgp', function() require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: ')) end)
-    vim.keymap.set('n', '<leader>dl', function() require'dap'.run_last() end)
-    vim.keymap.set('n', '<F10>', function() require'dap'.step_over() end)
-    vim.keymap.set('n', '<F11>', function() require'dap'.step_into() end)
-    vim.keymap.set('n', '<F12>', function() require'dap'.step_out() end)
-    vim.keymap.set('n', '<F6>', function() require'dap'.repl.open() end)
+    vim.keymap.set('n', '<F5>', function() require 'dap'.continue() end)
+    vim.keymap.set('n', '<leader>br', function() require 'dap'.toggle_breakpoint() end)
+    vim.keymap.set('n', '<leader>brc',
+        function() require 'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: ')) end)
+    vim.keymap.set('n', '<leader>lgp',
+        function() require 'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: ')) end)
+    vim.keymap.set('n', '<leader>dl', function() require 'dap'.run_last() end)
+    vim.keymap.set('n', '<F10>', function() require 'dap'.step_over() end)
+    vim.keymap.set('n', '<F11>', function() require 'dap'.step_into() end)
+    vim.keymap.set('n', '<F12>', function() require 'dap'.step_out() end)
+    vim.keymap.set('n', '<F6>', function() require 'dap'.repl.open() end)
     vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function() require('dap.ui.widgets').hover() end)
     vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function() require('dap.ui.widgets').preview() end)
     vim.keymap.set('n', '<Leader>df', function()
@@ -196,7 +215,7 @@ local function setup_dap()
         widgets.centered_float(widgets.scopes)
     end)
 
-    vim.keymap.set('n', '<leader>db', function() require'dapui'.toggle() end)
+    vim.keymap.set('n', '<leader>db', function() require 'dapui'.toggle() end)
 end
 
 return {
