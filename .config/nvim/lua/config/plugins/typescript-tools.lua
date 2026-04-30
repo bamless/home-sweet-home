@@ -31,8 +31,12 @@ return {
                     -- memory limit in megabytes or "auto"(basically no limit)
                     tsserver_max_memory = "auto",
                     -- described below
-                    tsserver_format_options = {},
-                    tsserver_file_preferences = {},
+                    tsserver_format_options = {
+                        allowRenameOfImportPath = true,
+                    },
+                    tsserver_file_preferences = {
+                        includeCompletionsForModuleExports = true,
+                    },
                     -- locale of all tsserver messages, supported locales you can find here:
                     -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
                     tsserver_locale = "en",
