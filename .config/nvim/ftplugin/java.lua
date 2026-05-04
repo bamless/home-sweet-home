@@ -87,6 +87,9 @@ local config = {
     },
 
     on_attach = function(client, bufnr)
+        -- Disable semantic tokens from LSP, as they're messing with my theme and with treesitter
+        client.server_capabilities.semanticTokensProvider = nil
+
         require("jdtls").setup_dap { hotcodereplace = "auto" }
         require("jdtls.dap").setup_dap_main_class_configs()
 
