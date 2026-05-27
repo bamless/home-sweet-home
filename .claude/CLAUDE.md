@@ -33,10 +33,6 @@ sufficient. **Do not write your accomplishments into this file.**
 
 ## Git workflow
 
-Use the `commit-writer` skill, if available, to draft commit messages.
-It reads the current diff and produces a message following the
-conventions below.
-
 Make sure you use git mv to move any files that are already checked into
 git.
 
@@ -116,50 +112,6 @@ Avoid over-documenting:
 
 ## Claude Code sandbox insights
 
-### Pipe workaround (trailing `;`)
-
-The sandbox has a [known issue][cc-16305] where data is silently
-dropped in shell pipes between commands. Appending a trailing `;` to
-the command fixes this:
-
-```sh
-# Broken (downstream receives no input):
-diff <(jq -S . a.json) <(jq -S . b.json)
-
-# Fixed — append `;`:
-diff <(jq -S . a.json) <(jq -S . b.json);
-echo "abc" | grep "abc";
-```
-
-This affects pipes (`|`), process substitution (`<(...)`), and any
-command that connects stdout of one process to stdin of another.
-
-[cc-16305]: https://github.com/anthropics/claude-code/issues/16305
-
-### `!` (negation) workaround
-
-The sandbox has a [separate bug][cc-24136] where the bash `!` keyword
-(pipeline negation operator) is treated as a literal command name. The
-command after `!` **never executes**. This affects `if !`, `while !`,
-and bare `!`. The trailing-`;` workaround does **not** fix this.
-
-```sh
-# Broken:
-if ! some_command; then handle_failure; fi
-
-# Workaround — capture $?:
-some_command; rc=$?
-if [ "$rc" -ne 0 ]; then handle_failure; fi
-
-# Broken:
-while ! some_command; do sleep 1; done
-
-# Workaround — use `until`:
-until some_command; do sleep 1; done
-```
-
-[cc-24136]: https://github.com/anthropics/claude-code/issues/24136
-
 ### Unsandboxable commands
 
 The following commands can never be run successfully inside the sandbox,
@@ -222,4 +174,5 @@ The XY problem occurs when someone asks about their attempted solution (Y) inste
 - Focus on implementation details before problem definition
 
 ### Key Principle
-Always try to understand the fundamental problem (X) before helping with the proposed solution (Y). The user's approach may not be optimal or may indicate they're solving the wrong problem entirely.
+Always try to understand the fundamental problem (X) before helping with the proposed solution (Y).
+The user's approach may not be optimal or may indicate they're solving the wrong problem entirely.
