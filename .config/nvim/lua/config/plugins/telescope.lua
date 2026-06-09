@@ -3,6 +3,7 @@ return {
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
+            local actions = require("telescope.actions")
             require('telescope').setup {
                 defaults = {
                     defaults = {
@@ -33,6 +34,18 @@ return {
                         '^%.git',
                         '%.git',
                         '%.github',
+                    },
+                    mappings = {
+                        i = {
+                            -- prompt history
+                            ["<Up>"] = actions.cycle_history_prev,
+                            ["<Down>"] = actions.cycle_history_next,
+                        },
+                        n = {
+                            -- prompt history
+                            ["<Up>"] = actions.cycle_history_prev,
+                            ["<Down>"] = actions.cycle_history_next,
+                        },
                     },
                 },
                 pickers = {
