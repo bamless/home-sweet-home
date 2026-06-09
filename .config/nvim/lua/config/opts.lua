@@ -43,8 +43,21 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "101"
 
--- :make
-vim.api.nvim_command [[:set errorformat+=%E\ \ File\ \"%f\"\\,\ line\ %l\\,%m,%f:%l:%c:\ %m]]
+-- Extend :make compiler patterns
+vim.o.errorformat = table.concat({
+    -- generic file:line:col:
+    [[%E%f:%l:%c: %m]],
+    -- Python-style traceback:
+    [[%E%*\sFile "%f"\, line %l\,%m]],
+    -- J* traceback / diagnostics, with any leading whitespace:
+    [[%E%*\s%f:%l:%c: error in %m]],
+    [[%E%*\s%f:%l: error in %m]],
+    -- J* traceback / diagnostics, no leading whitespace:
+    [[%E%f:%l:%c: error in %m]],
+    [[%E%f:%l: error in %m]],
+    [[%E%f:%l:%c: error]],
+    [[%E%f:%l: error]],
+}, ",") .. "," .. vim.o.errorformat
 
 
 vim.cmd [[:set wildoptions-=pum]]           -- inline command completion

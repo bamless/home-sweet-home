@@ -82,6 +82,12 @@ return {
                     row = 2,
                     col = 3,
                 },
+                jstar = {
+                    regex = "^\\s*\\(.\\+\\):\\([1-9][0-9]*\\)\\(:\\([1-9][0-9]*\\)\\)\\?: \\(error\\|warning\\|information\\)",
+                    filename = 1,
+                    row = 2,
+                    col = 4,
+                },
             },
         }
 
