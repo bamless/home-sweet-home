@@ -96,14 +96,20 @@ local config = {
         -- JDTLS client does not report the correct capabilities, such as `textDocument/formatting` or `textDocument/inlayHint`.
         -- Due to this, the check done in `on_attach` for these capabilities will not work, even though JDTLS supports them.
         -- Forcefully enable them here.
-        local opts = { buffer = bufnr, remap = false }
-        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+        vim.keymap.set("n", "<leader>f", function()
+            vim.lsp.buf.format {
+                buffer = bufnr,
+                async = true,
+                timeout_ms = 5000,
+                remap = false,
+            }
+        end)
 
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) -- Enable inlay hints by default
         vim.keymap.set("n", "<leader>h", function()
             local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
             vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
-        end, opts)
+        end, { buffer = bufnr, remap = false })
     end
 }
 

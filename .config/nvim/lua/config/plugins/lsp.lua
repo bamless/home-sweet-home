@@ -16,18 +16,27 @@ local function lsp_setup()
                 return
             end
 
-            local opts = { buffer = ev.buf, remap = false }
-
             -- LSP formatting support
             if client:supports_method("textDocument/formatting") then
-                vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+                vim.keymap.set("n", "<leader>f", function()
+                    vim.lsp.buf.format {
+                        buffer = ev.buf,
+                        async = true,
+                        timeout_ms = 5000,
+                        remap = false,
+                    }
+                end)
                 -- Auto formatting on save
-                -- vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+                -- vim.api.nvim_clear_autocmds { buffer = ev.buf }
                 -- vim.api.nvim_create_autocmd("BufWritePre", {
-                --     group = augroup,
-                --     buffer = bufnr,
+                --     buffer = ev.buf,
                 --     callback = function()
-                --         vim.lsp.buf.format { async = false }
+                --         vim.lsp.buf.format {
+                --             buffer = ev.buf,
+                --             async = false,
+                --             timeout_ms = 5000,
+                --             remap = false,
+                --         }
                 --     end
                 -- })
             end
