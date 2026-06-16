@@ -11,6 +11,14 @@ local function lsp_setup()
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
         callback = function(ev)
+            local bufnr = ev.buf
+            if vim.b[bufnr].lsp_disabled then
+                vim.schedule(function()
+                    vim.lsp.buf_detach_client(bufnr, ev.data.client_id)
+                end)
+                return
+            end
+
             local client = vim.lsp.get_client_by_id(ev.data.client_id)
             if not client then
                 return
@@ -51,6 +59,30 @@ local function lsp_setup()
             --end
         end
     })
+
+    -- Custom commands
+    vim.api.nvim_create_user_command("LspDisableBuffer", function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        vim.b[bufnr].lsp_disabled = true
+        bufnr = bufnr or vim.api.nvim_get_current_buf()
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+            vim.lsp.buf_detach_client(bufnr, client.id)
+        end
+        vim.notify("LSP disabled for this buffer")
+    end, {})
+
+    vim.api.nvim_create_user_command("LspEnableBuffer", function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        vim.b[bufnr].lsp_disabled = false
+        vim.cmd("edit")
+        vim.notify("LSP enabled for this buffer")
+    end, {})
+
+    vim.api.nvim_create_user_command("Lsps", function()
+        vim.print(vim.iter(vim.lsp.get_clients({ bufnr = 0 })):map(function(c)
+            return c.name
+        end):totable())
+    end, {})
 
     -- Hover support
     vim.keymap.set('n', 'K', function()

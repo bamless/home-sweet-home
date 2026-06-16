@@ -63,7 +63,15 @@ return {
             vim.keymap.set('n', '<C-space>', function()
                 builtin.buffers({ sort_mru = true, ignore_current_buffer = true })
             end)
-            vim.keymap.set('n', '<C-p>', builtin.find_files)
+            vim.keymap.set("n", "<C-p>", function()
+                local ok = pcall(builtin.git_files, {
+                    show_untracked = true,
+                    use_git_root = true,
+                })
+                if not ok then
+                    builtin.find_files()
+                end
+            end)
             vim.keymap.set('n', '<leader>pg', builtin.live_grep)
             vim.keymap.set('n', '<C-g>', builtin.git_branches, {})
             vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
