@@ -66,7 +66,6 @@ return {
             vim.keymap.set("n", "<C-p>", function()
                 local ok = pcall(builtin.git_files, {
                     show_untracked = true,
-                    use_git_root = true,
                 })
                 if not ok then
                     builtin.find_files()
