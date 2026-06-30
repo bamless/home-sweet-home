@@ -72,6 +72,11 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Load pyenv before oh-my-zsh
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 # Init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
