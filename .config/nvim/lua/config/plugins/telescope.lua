@@ -40,11 +40,13 @@ return {
                             -- prompt history
                             ["<Up>"] = actions.cycle_history_prev,
                             ["<Down>"] = actions.cycle_history_next,
+                            ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                         },
                         n = {
                             -- prompt history
                             ["<Up>"] = actions.cycle_history_prev,
                             ["<Down>"] = actions.cycle_history_next,
+                            ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                         },
                     },
                 },
