@@ -51,10 +51,15 @@ return {
                 pickers = {
                     find_files = {
                         hidden = true,
+                        path_display = { "filename_first" },
                         -- no_ignore = true,
                         -- no_ignore_parent = true,
+                    },
+                    git_files = {
+                        path_display = { "filename_first" },
                     }
                 }
+
             }
 
             require('telescope').load_extension('fzf')
