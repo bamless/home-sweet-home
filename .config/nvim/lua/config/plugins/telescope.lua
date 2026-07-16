@@ -22,19 +22,6 @@ return {
                         '--column',
                         '--smart-case',
                     },
-                    file_ignore_patterns = {
-                        'node_modules',
-                        '__pycache__',
-                        '%.venv',
-                        '^%.?build',
-                        '^dist',
-                        '^target',
-                        '%.lock$',
-                        '%.cache',
-                        '^%.git',
-                        '%.git',
-                        '%.github',
-                    },
                     mappings = {
                         i = {
                             -- prompt history
@@ -54,6 +41,19 @@ return {
                     find_files = {
                         hidden = true,
                         path_display = { "filename_first" },
+                        file_ignore_patterns = {
+                            'node_modules',
+                            '__pycache__',
+                            '%.venv',
+                            '^%.?build',
+                            '^dist',
+                            '^target',
+                            '%.lock$',
+                            '%.cache',
+                            '^%.git',
+                            '%.git',
+                            '%.github',
+                        },
                         -- no_ignore = true,
                         -- no_ignore_parent = true,
                     },
