@@ -12,6 +12,7 @@ local function lsp_setup()
         desc = 'LSP actions',
         callback = function(ev)
             local bufnr = ev.buf
+
             if vim.b[bufnr].lsp_disabled then
                 vim.schedule(function()
                     vim.lsp.buf_detach_client(bufnr, ev.data.client_id)
@@ -27,15 +28,14 @@ local function lsp_setup()
             -- LSP formatting support
             if client:supports_method("textDocument/formatting") then
                 vim.keymap.set("n", "<leader>f", function()
-                    vim.lsp.buf.format {
-                        buffer = ev.buf,
+                    vim.lsp.buf.format({
                         async = true,
                         timeout_ms = 5000,
                         remap = false,
-                    }
-                end)
+                    })
+                end, { buffer = bufnr })
                 -- Auto formatting on save
-                -- vim.api.nvim_clear_autocmds { buffer = ev.buf }
+                -- vim.api.nvim_clear_autocmds { buffer = bufnr }
                 -- vim.api.nvim_create_autocmd("BufWritePre", {
                 --     buffer = ev.buf,
                 --     callback = function()
@@ -46,7 +46,7 @@ local function lsp_setup()
                 --             remap = false,
                 --         }
                 --     end
-                -- })
+                -- }, { buffer = bufnr })
             end
 
             -- Enable inlay hints if supported by neovim and LSP
