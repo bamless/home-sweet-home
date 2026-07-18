@@ -168,6 +168,10 @@ local function lsp_setup()
         update_in_insert = false,
         severity_sort = true,
     })
+
+    vim.keymap.set('n', '<leader>td', function()
+        vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+    end, { desc = 'Toggle diagnostics' })
 end
 
 return {
