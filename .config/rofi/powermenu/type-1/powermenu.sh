@@ -80,7 +80,7 @@ run_cmd() {
 				qdbus org.kde.ksmserver /KSMServer logout 0 0 0
             elif [[ "$DESKTOP_SESSION" == hyprland* ]]; then
                 if [[ "$DESKTOP_SESSION" == *uwsm ]]; then
-                    uwsm stop
+                    loginctl terminate-user ""
                 else
                     hyprctl dispatch exit
                 fi
