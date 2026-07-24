@@ -39,6 +39,12 @@ return {
                     col = 3,
                     priority = 2,
                 },
+                rust_backtrace = {
+                    regex = [[\s* at \([^:]\+\.rs\):\([1-9][0-9]*\):\([1-9][0-9]*\)]],
+                    filename = 1,
+                    row = 2,
+                    priority = 2,
+                },
                 nodejs = {
                     regex = [[^\s\+at .\+ (\(/[^:]\+\.\%(js\|mjs\|cjs\|jsx\)\):\([1-9][0-9]*\):\([1-9][0-9]*\))$]],
                     filename = 1,
