@@ -1,6 +1,6 @@
 return {
     "ej-shafran/compile-mode.nvim",
-    version = "^5.0.0",
+    branch = "latest",
     -- you can just use the latest version:
     -- branch = "latest",
     -- or the most up-to-date updates:
@@ -20,25 +20,37 @@ return {
                 FORCE_COLOR = "1",
             },
             baleia_setup = true,
-            default_command = "make -k",
             recompile_no_fail = true,
             -- input_word_completion = true,
             -- to make `:Compile` replace special characters (e.g. `%`) in
             -- the command (and behave more like `:!`), add:
             bang_expansion = true,
+            default_command = {
+                rust = "cargo",
+                jstar = "jstar",
+                ["*"] = "make -k",
+            },
             -- Custom regexes
             error_regexp_table = {
-                rust = {
-                    regex = "^.*\\( -->\\|panicked at\\) \\(.*\\):\\([0-9]\\+\\):\\([0-9]\\+\\)",
-                    filename = 2,
-                    row = 3,
-                    col = 4,
-                },
-                nodejs = {
-                    regex = "^\\s\\+at .\\+ (\\(.\\+\\):\\([1-9][0-9]*\\):\\([1-9][0-9]*\\))$",
+                rustc = {
+                    regex = [[^.*\%( -->\|panicked at\) \([^:]\+\.rs\):\([0-9]\+\):\([0-9]\+\)]],
                     filename = 1,
                     row = 2,
                     col = 3,
+                    priority = 2,
+                },
+                nodejs = {
+                    regex = [[^\s\+at .\+ (\(/[^:]\+\.\%(js\|mjs\|cjs\|jsx\)\):\([1-9][0-9]*\):\([1-9][0-9]*\))$]],
+                    filename = 1,
+                    row = 2,
+                    col = 3,
+                    priority = 2,
+                },
+                jstar = {
+                    regex = "^    \\(.*\\):\\([1-9][0-9]*\\): error in .*()$",
+                    filename = 1,
+                    row = 2,
+                    col = 4,
                     priority = 2,
                 },
                 typescript = {
@@ -75,18 +87,6 @@ return {
                     row = 2,
                     col = 3,
                     type = compile_mode.level.WARNING,
-                },
-                kotlin = {
-                    regex = "^\\%(e\\|w\\): file://\\(.*\\):\\(\\d\\+\\):\\(\\d\\+\\) ",
-                    filename = 1,
-                    row = 2,
-                    col = 3,
-                },
-                jstar = {
-                    regex = "^\\s*\\(.\\+\\):\\([1-9][0-9]*\\)\\(:\\([1-9][0-9]*\\)\\)\\?: \\(error\\|warning\\|information\\)",
-                    filename = 1,
-                    row = 2,
-                    col = 4,
                 },
             },
         }
