@@ -1,0 +1,9 @@
+[Unit]
+Description=StatusNotifier tray readiness
+After=waybar.service
+PartOf=waybar.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/gdbus wait --session --timeout 5 org.kde.StatusNotifierWatcher
+RemainAfterExit=yes
