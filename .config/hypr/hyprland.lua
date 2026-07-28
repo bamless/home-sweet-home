@@ -17,9 +17,19 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
     output   = "",
-    mode     = "preferred",
+    mode     = "3440x1440@174.962006",
     position = "auto",
     scale    = "auto",
+    bitdepth = 10,
+})
+
+-- Enable color management and automatically switch to HDR for fullscreen HDR content.
+-- See https://wiki.hypr.land/Configuring/Basics/Variables/#render
+hl.config({
+    render = {
+        cm_enabled = true,
+        cm_auto_hdr = 1,
+    },
 })
 
 -- Unscale XWayland
@@ -41,6 +51,10 @@ hl.config({
         hy3 = {
             autotile = {
                 enable = true,
+            },
+            tabs = {
+                height = 18,
+                text_height = 11,
             },
         },
     },
@@ -98,6 +112,9 @@ hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 -- QT Theming
 -- hl.env("QT_SCALE_FACTOR", "2")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+
+-- Toolkit-specific scale
+-- hl.env("QT_SCALE_FACTOR", "1.25")
 
 
 -----------------------
@@ -216,7 +233,7 @@ hl.config({
         kb_rules     = "",
 
         follow_mouse = 1,
-        sensitivity  = 0, -- -1.0 - 1.0, 0 means no modification.
+        sensitivity = -0.5, -- -1.0 - 1.0, 0 means no modification.
 
         touchpad     = {
             natural_scroll = true,
