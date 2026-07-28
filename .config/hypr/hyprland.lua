@@ -20,6 +20,14 @@ hl.monitor({
     mode     = "preferred",
     position = "auto",
     scale    = "auto",
+    bitdepth = 10,
+})
+
+hl.config({
+    render = {
+        cm_enabled = true,
+        cm_auto_hdr = 1,
+    },
 })
 
 -- Unscale XWayland
@@ -41,6 +49,10 @@ hl.config({
         hy3 = {
             autotile = {
                 enable = true,
+            },
+            tabs = {
+                height = 15,
+                text_height = 9,
             },
         },
     },
@@ -91,9 +103,9 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
--- NVIDIA specific settings
-hl.env("LIBVA_DRIVER_NAME", "nvidia")
-hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+-- Toolkit-specific scale
+hl.env("GDK_SCALE", "2")
+-- hl.env("QT_SCALE_FACTOR", "2")
 
 -- QT Theming
 -- hl.env("QT_SCALE_FACTOR", "2")
@@ -106,6 +118,10 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
+    cursor = {
+        no_hardware_cursors = false,
+    },
+
     general = {
         gaps_in          = 5,
         gaps_out         = 10,
@@ -224,11 +240,10 @@ hl.config({
     },
 })
 
--- Example per-device config
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
+-- External mouse settings
 hl.device({
-    name = "epic-mouse-v1",
-    sensitivity = -0.5,
+    name = "logitech-pro-x-1",
+    sensitivity = -0.75,
 })
 
 
@@ -379,6 +394,12 @@ end)
 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/ for more
 -- See https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/ for workspace rules
+
+hl.window_rule({
+    name = "slack_workspace",
+    match = { class = "slack" },
+    workspace = "4 silent",
+})
 
 -- Show polkit agent popup in current workspace instead of always on workspace 1.
 hl.window_rule({
