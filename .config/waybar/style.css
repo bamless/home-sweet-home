@@ -48,8 +48,10 @@ tooltip {
     border-radius: 10px;
 }
 
+#custom-gpu-status,
 #custom-dunst,
 #custom-notifications,
+#custom-gpu-status,
 #custom-power,
 #custom-power_profile,
 #custom-weather,
@@ -164,10 +166,13 @@ tooltip {
     color: #e78c8c;
 }
 
+#custom-gpu-status {
+    border-left: 0px;
+}
+
 #custom-power_profile {
     color: #a6e3a1;
     border-left: 0px;
-    border-right: 0px;
 }
 
 #custom-music {
