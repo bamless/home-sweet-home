@@ -74,7 +74,7 @@ tooltip {
 }
 
 #cpu {
-    min-width: 80px;
+    min-width: 50px;
     border-radius: 10px 0px 0px 10px;
 }
 
