@@ -16,6 +16,7 @@
         "network",
         "bluetooth",
         "cpu",
+        "custom/gpu-status",
         "custom/power_profile",
         "battery",
         "custom/brightness",
@@ -120,6 +121,12 @@
         "interval": 2,
         "format": "{usage}% ",
         "max-length": 10
+    },
+    "custom/gpu-status": {
+        "exec": "~/.config/i3/i3blocks/scripts/gpu-status",
+        "return-type": "json",
+        "interval": 5,
+        "tooltip": true
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
