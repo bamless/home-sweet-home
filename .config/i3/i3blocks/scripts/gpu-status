@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+set -u
+
+# Set this once to the PCI address of the discrete GPU.
+DGPU_PCI_ADDRESS="0000:01:00.0"
+
+POWER_PATH="/sys/bus/pci/devices/${DGPU_PCI_ADDRESS}/power"
+STATUS_FILE="${POWER_PATH}/runtime_status"
+
+integrated_icon="󰍹"
+discrete_icon="󰢮"
+transition_icon="󰔟"
+unknown_icon="󰋗"
+
+json_escape() {
+    local value="${1-}"
+
+    value=${value//\\/\\\\}
+    value=${value//\"/\\\"}
+    value=${value//$'\n'/\\n}
+    value=${value//$'\r'/\\r}
+    value=${value//$'\t'/\\t}
+
+    printf '%s' "$value"
+}
+
+output() {
+    local text="$1"
+    local tooltip="$2"
+    local class="$3"
+
+    printf '{"text":"%s","tooltip":"%s","class":"%s"}\n' \
+        "$(json_escape "$text")" \
+        "$(json_escape "$tooltip")" \
+        "$(json_escape "$class")"
+}
+
+# Do not probe or rediscover the device. Only check whether the already-known
+# runtime PM attribute is readable.
+if [[ ! -r "$STATUS_FILE" ]]; then
+    output \
+        "$unknown_icon GPU?" \
+        "Cannot read ${STATUS_FILE}" \
+        "unknown"
+    exit 0
+fi
+
+# Reading runtime_status reports the kernel's existing runtime-PM state.
+# It does not request a runtime resume.
+IFS= read -r runtime_status < "$STATUS_FILE"
+
+case "$runtime_status" in
+    active)
+        output \
+            "$discrete_icon dGPU" \
+            "Discrete GPU ${DGPU_PCI_ADDRESS}: active" \
+            "discrete"
+        ;;
+
+    suspended)
+        output \
+            "$integrated_icon iGPU" \
+            "Discrete GPU ${DGPU_PCI_ADDRESS}: runtime suspended" \
+            "integrated"
+        ;;
+
+    suspending)
+        output \
+            "$transition_icon dGPU…" \
+            "Discrete GPU ${DGPU_PCI_ADDRESS}: suspending" \
+            "transition"
+        ;;
+
+    resuming)
+        output \
+            "$transition_icon dGPU…" \
+            "Discrete GPU ${DGPU_PCI_ADDRESS}: resuming" \
+            "transition"
+        ;;
+
+    unsupported)
+        output \
+            "$unknown_icon GPU?" \
+            "Runtime power management is unsupported for ${DGPU_PCI_ADDRESS}" \
+            "unknown"
+        ;;
+
+    error)
+        output \
+            "$unknown_icon GPU!" \
+            "Runtime power management reports an error for ${DGPU_PCI_ADDRESS}" \
+            "error"
+        ;;
+
+    *)
+        output \
+            "$unknown_icon GPU?" \
+            "Discrete GPU ${DGPU_PCI_ADDRESS}: unknown status '${runtime_status}'" \
+            "unknown"
+        ;;
+esac
