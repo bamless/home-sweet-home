@@ -101,8 +101,3 @@ bindkey '^N' history-beginning-search-forward
 # Aliases.
 alias vim="nvim"
 alias ls="eza"
-
-# GDM does not source this on login on wayland, do it here :(
-if [[ "${XDG_BACKEND}" == "wayland" && -v "GDMSESSION" ]]; then
-    source ~/.zprofile
-fi
