@@ -15,7 +15,7 @@ get_power_profile() {
             profile="balanced"
             ;;
         powersave)
-            profile="power-saver"
+            profile="power save"
             ;;
     esac
     echo $profile
@@ -29,10 +29,10 @@ if [ "${BLOCK_BUTTON}" != "" ]; then
             tuned-adm profile balanced-battery
             ;;
         balanced)
-            tuned-adm profile throughput-performance
+            tuned-adm profile powersave
             ;;
-        power-saver)
-             tuned-adm profile balanced-battery
+        "power save")
+             tuned-adm profile throughput-performance
             ;;
         *)
             exit -1
