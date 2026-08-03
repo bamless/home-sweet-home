@@ -6,19 +6,19 @@ local function setup_dap()
         layouts = { {
             elements = { {
                 id = "scopes",
-                size = 0.25
-            }, {
-                id = "breakpoints",
-                size = 0.25
+                size = 0.3
             }, {
                 id = "stacks",
-                size = 0.25
+                size = 0.3
             }, {
                 id = "watches",
-                size = 0.25
+                size = 0.3
+            }, {
+                id = "breakpoints",
+                size = 0.10
             } },
             position = "left",
-            size = 60
+            size = 50
         }, {
             elements = { {
                 id = "repl",
