@@ -171,6 +171,7 @@
         "on-scroll-up": "BLOCK_BUTTON=4 ~/.config/i3/i3blocks/scripts/music && pkill -RTMIN+3 waybar",
         "on-scroll-down": "BLOCK_BUTTON=5 ~/.config/i3/i3blocks/scripts/music && pkill -RTMIN+3 waybar",
         "smooth-scrolling-threshold": 3.0,
+        "exec-on-event": false,
         "interval": 10,
         "signal": 3
     },
