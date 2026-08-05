@@ -257,6 +257,10 @@ hl.bind(mainMod .. " + CTRL + P", hl.dsp.exec_cmd("systemctl suspend"))
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("systemctl suspend"), { locked = true })
 
+-- Fullscreen
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + X", hy3.kill_active())
