@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Exec=neovide %F
-Icon=neovide
+Icon=/home/fabrizio/.local/share/icons/neovide.svg
 Name=Neovide
 Keywords=Text;Editor;
 Categories=Utility;TextEditor;

@@ -1,0 +1,199 @@
+[bar.default]
+background_opacity = 0.64999998547136784
+center = [ "media", "spacer_2", "clock", "spacer_2", "privacy" ]
+concave_edge_corners = false
+end = [
+    "cpu",
+    "network",
+    "bluetooth",
+    "spacer_2",
+    "brightness",
+    "battery",
+    "volume",
+    "input_volume",
+    "spacer_2",
+    "clipboard",
+    "notifications",
+    "session",
+    "spacer_2",
+    "tray"
+]
+margin_edge = 6
+margin_ends = 10
+radius = 8
+start = [ "workspaces", "spacer_2", "active_window" ]
+thickness = 26
+widget_spacing = 8
+
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "caffeine"
+
+[[control_center.shortcuts]]
+type = "notification"
+
+[[control_center.shortcuts]]
+type = "nightlight"
+
+[[control_center.shortcuts]]
+type = "power_profile"
+
+[desktop_widgets]
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+pre_action_fade_seconds = 30
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 300.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 360.0
+
+[keybinds]
+down = [ "Down", "Ctrl+n" ]
+up = [ "Up", "Ctrl+p" ]
+
+[location]
+address = "Rome, Italy"
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-widget-0000000000000001", "lockscreen-widget-0000000000000002" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1720.0
+    cy = 1258.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 240.0
+    box_width = 400.0
+    cx = 1720.0
+    cy = 704.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 80.0
+    box_width = 144.0
+    cx = 1720.0
+    cy = 808.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
+        background = false
+        format = "{:%d/%m}"
+        shadow = true
+
+[notification]
+background_opacity = 0.79999998211860657
+
+[osd]
+background_opacity = 0.79999998211860657
+
+[shell]
+polkit_agent = true
+
+    [shell.panel]
+    transparency_mode = "soft"
+
+[theme]
+builtin = "Tokyo-Night"
+community_palette = "Tokyo Night Storm"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "kcolorscheme", "qt" ]
+
+[wallpaper.default]
+path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+
+[wallpaper.last]
+path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+
+[widget.active_window]
+show_empty_label = true
+
+[widget.audio_visualizer]
+interactive = false
+
+[widget.clock]
+anchor = true
+format = " {:%H:%M %d/%m}"
+
+[widget.control-center]
+scale = 0.85000000000000009
+
+[widget.cpu]
+label_min_width = 30
+
+[widget.media]
+hide_when_no_media = true
+title_scroll = "on_hover"
+
+[widget.privacy]
+hide_inactive = true
+
+[widget.spacer_2]
+type = "spacer"
+
+[widget.workspaces]
+active_pill_size = 1.7000000000000002

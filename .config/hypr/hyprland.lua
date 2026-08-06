@@ -65,7 +65,12 @@ local menuTheme = "-theme " .. os.getenv("HOME") .. "/.config/rofi/launchers/typ
 hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpm reload -n")
     hl.exec_cmd('tmux setenv -g HYPRLAND_INSTANCE_SIGNATURE "$HYPRLAND_INSTANCE_SIGNATURE"')
-    hl.exec_cmd(os.getenv("HOME") .. "/.config/i3/scripts/polkit-agent.sh")
+
+    -- Noctalia already provides a polkit agent
+    -- hl.exec_cmd(os.getenv("HOME") .. "/.config/i3/scripts/polkit-agent.sh")
+
+    -- Noctalia
+    hl.exec_cmd("uwsm app -- noctalia")
 
     -- APPS
     -- Keep the terminal on workspace 1 without switching to it.
@@ -102,14 +107,11 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt5ct:qt6ct")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 10,
+        gaps_in          = 5,
+        gaps_out         = 10,
+        border_size      = 1,
 
-        border_size = 1,
-
-        -- See https://wiki.hypr.land/Configuring/Basics/Variables/#variable-types
-        -- for color value types.
-        col = {
+        col              = {
             active_border = {
                 colors = { "rgba(33ccffee)", "rgba(00ff99ee)" },
                 angle = 45,
@@ -117,40 +119,26 @@ hl.config({
             inactive_border = "rgba(595959aa)",
         },
 
-        -- Set to true to enable resizing windows by clicking and dragging on borders and gaps.
-        resize_on_border = false,
-
-        -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/
-        -- before you turn this on.
-        allow_tearing = false,
-
-        layout = "hy3",
+        resize_on_border = true,
+        layout           = "hy3",
     },
 
     decoration = {
         rounding = 8,
 
-        -- Change transparency of focused and unfocused windows
-        active_opacity   = 1.0,
-        inactive_opacity = 1.0,
-
         shadow = {
-            enabled      = true,
-            range        = 4,
+            enabled = true,
+            range = 4,
             render_power = 3,
-            color        = "rgba(1a1a1aee)",
+            color = "rgba(1a1a1aee)",
         },
 
         blur = {
-            enabled  = true,
-            size     = 5,
-            passes   = 1,
+            enabled = true,
+            size = 3,
+            passes = 2,
             vibrancy = 0.1696,
         },
-    },
-
-    animations = {
-        enabled = true,
     },
 })
 
@@ -160,12 +148,12 @@ hl.curve("myBezier", {
     points = { { 0.05, 0.9 }, { 0.1, 1.05 } },
 })
 
-hl.animation({ leaf = "windows",          enabled = true, speed = 2, bezier = "myBezier" })
-hl.animation({ leaf = "windowsOut",       enabled = true, speed = 2, bezier = "default", style = "popin 80%" })
-hl.animation({ leaf = "border",           enabled = true, speed = 6, bezier = "default" })
-hl.animation({ leaf = "borderangle",      enabled = true, speed = 6, bezier = "default" })
-hl.animation({ leaf = "fade",             enabled = true, speed = 3, bezier = "default" })
-hl.animation({ leaf = "workspaces",       enabled = true, speed = 2, bezier = "default" })
+hl.animation({ leaf = "windows", enabled = true, speed = 2, bezier = "myBezier" })
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 2, bezier = "default", style = "popin 80%" })
+hl.animation({ leaf = "border", enabled = true, speed = 6, bezier = "default" })
+hl.animation({ leaf = "borderangle", enabled = true, speed = 6, bezier = "default" })
+hl.animation({ leaf = "fade", enabled = true, speed = 3, bezier = "default" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 2, bezier = "default" })
 hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 3, bezier = "default", style = "fade" })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
@@ -185,8 +173,8 @@ hl.config({
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#misc
 hl.config({
     misc = {
-        force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo = false,   -- If true disables the random Hyprland logo / anime girl background. :(
+        force_default_wallpaper = -1,  -- Set to 0 or 1 to disable the anime mascot wallpapers
+        disable_hyprland_logo = false, -- If true disables the random Hyprland logo / anime girl background. :(
         disable_splash_rendering = true,
     },
 })
@@ -221,16 +209,16 @@ hl.layer_rule({
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#input
 hl.config({
     input = {
-        kb_layout  = "us",
-        kb_variant = "",
-        kb_model   = "",
-        kb_options = "",
-        kb_rules   = "",
+        kb_layout    = "us",
+        kb_variant   = "",
+        kb_model     = "",
+        kb_options   = "",
+        kb_rules     = "",
 
         follow_mouse = 1,
-        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+        sensitivity  = 0, -- -1.0 - 1.0, 0 means no modification.
 
-        touchpad = {
+        touchpad     = {
             natural_scroll = true,
         },
     },
@@ -250,7 +238,22 @@ hl.device({
 
 -- See https://wiki.hypr.land/Configuring/Basics/Binds/
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
+local ipc = "noctalia msg "
 local hy3 = hl.plugin.hy3
+
+-- Noctalia Settings
+hl.window_rule({
+    match = { class = "dev.noctalia.Noctalia" },
+    float = true,
+    size = { 1080, 920 },
+})
+
+-- Core binds
+hl.bind(mainMod .. "+Space", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+hl.bind(mainMod .. "+N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center notifications"))
+hl.bind(mainMod .. "+comma", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+hl.bind(mainMod .. "+C", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher '/calc '"))
+hl.bind(mainMod .. "+P", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher '/win '"))
 
 -- Lock & suspend
 hl.bind(mainMod .. " + CTRL + P", hl.dsp.exec_cmd("systemctl suspend"))
@@ -261,7 +264,6 @@ hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("systemctl suspend"), { locked 
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 
--- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + X", hy3.kill_active())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd('loginctl terminate-user ""'))
@@ -269,11 +271,6 @@ hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.window.float({ action = "toggle" }
 -- Old config had an empty `layoutmsg` bind here for dwindle; it had no useful argument.
 -- hl.bind(mainMod .. " + E", hl.dsp.layout("...")) -- dwindle
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo()) -- dwindle
-
--- rofi
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd('rofi ' .. menuTheme .. ' -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n \'{result}\' | xclip -sel c"'))
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("rofi " .. menuTheme .. " -show window -theme " .. os.getenv("HOME") .. "/.config/rofi/launchers/type-1/style-5.rasi"))
 
 -- Other apps
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("1password --quick-access"))
@@ -331,10 +328,10 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 -- See https://wiki.hypr.land/Configuring/Basics/Binds/#submaps
 hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
-    hl.bind("L", hl.dsp.window.resize({ x = 25,  y = 0,   relative = true }), { repeating = true }) -- Increase width
-    hl.bind("H", hl.dsp.window.resize({ x = -25, y = 0,   relative = true }), { repeating = true }) -- Decrease width
-    hl.bind("K", hl.dsp.window.resize({ x = 0,   y = -25, relative = true }), { repeating = true }) -- Decrease height
-    hl.bind("J", hl.dsp.window.resize({ x = 0,   y = 25,  relative = true }), { repeating = true }) -- Increase height
+    hl.bind("L", hl.dsp.window.resize({ x = 25, y = 0, relative = true }), { repeating = true })    -- Increase width
+    hl.bind("H", hl.dsp.window.resize({ x = -25, y = 0, relative = true }), { repeating = true })   -- Decrease width
+    hl.bind("K", hl.dsp.window.resize({ x = 0, y = -25, relative = true }), { repeating = true })   -- Decrease height
+    hl.bind("J", hl.dsp.window.resize({ x = 0, y = 25, relative = true }), { repeating = true })    -- Increase height
 
     -- Exit resize mode
     hl.bind("escape", hl.dsp.submap("reset"))
@@ -343,12 +340,18 @@ end)
 -- --- Resize submap end ---
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("light -A 10 && pkill -RTMIN+8 waybar"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("light -U 10 && pkill -RTMIN+8 waybar"), { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+    { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+    { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+    { locked = true, repeating = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+    { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("light -A 10 && pkill -RTMIN+8 waybar"),
+    { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("light -U 10 && pkill -RTMIN+8 waybar"),
+    { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
