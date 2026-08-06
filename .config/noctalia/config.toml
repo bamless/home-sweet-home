@@ -1,3 +1,6 @@
+[accessibility]
+ui_scale = 1.1500000096857548
+
 [bar.default]
 background_opacity = 0.64999998547136784
 center = [ "media", "spacer_2", "clock", "spacer_2", "privacy" ]
@@ -21,8 +24,9 @@ end = [
 margin_edge = 6
 margin_ends = 10
 radius = 8
+scale = 1.1500000096857548
 start = [ "workspaces", "spacer_2", "active_window" ]
-thickness = 26
+thickness = 30
 widget_spacing = 8
 
 [[control_center.shortcuts]]
@@ -142,7 +146,7 @@ widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-widget-000000000000000
     box_height = 80.0
     box_width = 144.0
     cx = 1720.0
-    cy = 808.0
+    cy = 824.0
     output = "DP-1"
     rotation = 0.0
     type = "clock"
@@ -176,10 +180,13 @@ wallpaper_scheme = "m3-content"
     builtin_ids = [ "gtk3", "gtk4", "kcolorscheme", "qt" ]
 
 [wallpaper.default]
-path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+path = "/home/fabrizio/Pictures/Wallpapers/wall0.png"
 
 [wallpaper.last]
-path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+path = "/home/fabrizio/Pictures/Wallpapers/wall0.png"
+
+[wallpaper.monitors.DP-1]
+path = "/home/fabrizio/Pictures/Wallpapers/wall0.png"
 
 [widget.active_window]
 show_empty_label = true
