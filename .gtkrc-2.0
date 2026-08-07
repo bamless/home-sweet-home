@@ -2,7 +2,7 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/fabrizio/.gtkrc-2.0.mine"
-gtk-theme-name="Flat-Remix-GTK-Blue-Dark"
+gtk-theme-name="Adwaita-dark"
 gtk-icon-theme-name="Flat-Remix-Blue-Dark"
 gtk-font-name="Adwaita Sans 11"
 gtk-cursor-theme-size=24
@@ -14,5 +14,5 @@ gtk-enable-event-sounds=1
 gtk-enable-input-feedback-sounds=0
 gtk-xft-antialias=1
 gtk-xft-hinting=1
-gtk-xft-hintstyle="hintfull"
+gtk-xft-hintstyle="hintslight"
 gtk-xft-rgba="rgb"
