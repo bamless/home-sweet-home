@@ -55,8 +55,19 @@ widget_order = []
     [desktop_widgets.widget]
 
 [idle]
-behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
-pre_action_fade_seconds = 5
+pre_action_fade_seconds = 0
+
+    [idle.behavior.dim]
+    action = "command"
+    command = "brightnessctl -s set 10%"
+    resume_command = "brightnessctl -r"
+    timeout = 180
+
+    [idle.behavior.kbd-backlight]
+    action = "command"
+    command = "brightnessctl -sd rgb:kbd_backlight set 0"
+    resume_command = "brightnessctl -rd rgb:kbd_backlight"
+    timeout = 180
 
     [idle.behavior.lock]
     action = "lock"
