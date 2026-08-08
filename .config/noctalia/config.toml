@@ -162,6 +162,7 @@ background_opacity = 0.79999998211860657
 polkit_agent = true
 
     [shell.panel]
+    open_near_click_control_center = true
     transparency_mode = "soft"
 
 [theme]
