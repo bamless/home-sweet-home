@@ -97,7 +97,7 @@ hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 
 -- QT Theming
 -- hl.env("QT_SCALE_FACTOR", "2")
-hl.env("QT_QPA_PLATFORMTHEME", "qt5ct:qt6ct")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 
 -----------------------
