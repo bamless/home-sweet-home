@@ -54,6 +54,9 @@ widget_order = []
 
     [desktop_widgets.widget]
 
+[hooks]
+session_locked = "pidof 1password && 1password --lock"
+
 [idle]
 pre_action_fade_seconds = 0
 
