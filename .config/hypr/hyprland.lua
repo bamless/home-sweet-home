@@ -173,10 +173,9 @@ hl.config({
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#misc
 hl.config({
     misc = {
-        disable_hyprland_logo = true,
-        disable_splash_rendering = true,
         force_default_wallpaper = 0,
-        background_color = "0x000000",
+        disable_hyprland_logo = false,
+        disable_splash_rendering = true,
     },
 })
 
