@@ -53,8 +53,8 @@ hl.config({
 
 -- Lua config basics: https://wiki.hypr.land/Configuring/Start/
 local terminal = "alacritty"
-local menu = os.getenv("HOME") .. "/.config/rofi/launchers/type-1/launcher.sh"
-local menuTheme = "-theme " .. os.getenv("HOME") .. "/.config/rofi/launchers/type-1/style-5.rasi"
+-- local menu = os.getenv("HOME") .. "/.config/rofi/launchers/type-1/launcher.sh"
+-- local menuTheme = "-theme " .. os.getenv("HOME") .. "/.config/rofi/launchers/type-1/style-5.rasi"
 
 
 -------------------
@@ -173,9 +173,10 @@ hl.config({
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#misc
 hl.config({
     misc = {
-        force_default_wallpaper = -1,  -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo = false, -- If true disables the random Hyprland logo / anime girl background. :(
+        disable_hyprland_logo = true,
         disable_splash_rendering = true,
+        force_default_wallpaper = 0,
+        background_color = "0x000000",
     },
 })
 
