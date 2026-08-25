@@ -105,7 +105,6 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
 -- Toolkit-specific scale
 hl.env("GDK_SCALE", "2")
-hl.env("QT_SCALE_FACTOR", "2")
 
 -- QT Theming
 -- hl.env("QT_SCALE_FACTOR", "2")
