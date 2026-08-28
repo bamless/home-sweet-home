@@ -196,10 +196,10 @@ widget_order = [
         shadow = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
-    box_height = 192.0
+    box_height = 208.0
     box_width = 336.0
     cx = 960.0
-    cy = 568.0
+    cy = 584.0
     output = "eDP-1"
     placement_height = 1200.0
     placement_width = 1920.0
@@ -208,12 +208,13 @@ widget_order = [
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
         background = false
+        format = "{:%H:%M}"
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
     box_height = 48.0
     box_width = 96.0
     cx = 960.0
-    cy = 664.0
+    cy = 672.0
     output = "eDP-1"
     placement_height = 1200.0
     placement_width = 1920.0
