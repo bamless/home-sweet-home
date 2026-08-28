@@ -193,19 +193,20 @@ local function setup_dap()
     -- Keybindings
     ---
 
-    vim.keymap.set('n', '<F5>', function() require 'dap'.continue() end)
-    vim.keymap.set('n', '<leader>br', function() require 'dap'.toggle_breakpoint() end)
-    vim.keymap.set('n', '<leader>brc',
-        function() require 'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: ')) end)
-    vim.keymap.set('n', '<leader>lgp',
-        function() require 'dap'.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: ')) end)
-    vim.keymap.set('n', '<leader>dl', function() require 'dap'.run_last() end)
-    vim.keymap.set('n', '<F10>', function() require 'dap'.step_over() end)
-    vim.keymap.set('n', '<F11>', function() require 'dap'.step_into() end)
-    vim.keymap.set('n', '<F12>', function() require 'dap'.step_out() end)
-    vim.keymap.set('n', '<F6>', function() require 'dap'.repl.open() end)
+    vim.keymap.set('n', '<F5>', function() dap.continue() end)
+    vim.keymap.set('n', '<F6>', function() dap.run_last() end)
+    vim.keymap.set('n', '<F10>', function() dap.step_over() end)
+    vim.keymap.set('n', '<F11>', function() dap.step_into() end)
+    vim.keymap.set('n', '<F12>', function() dap.step_out() end)
+
+    vim.keymap.set('n', '<leader>br', function() dap.toggle_breakpoint() end)
+    vim.keymap.set('n', '<leader>brc', function() dap.set_breakpoint(vim.fn.input('Breakpoint Condition: ')) end)
+    vim.keymap.set('n', '<leader>lgp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log Point Msg: ')) end)
+    vim.keymap.set('n', '<leader>dl', function() dap.run_last() end)
+    vim.keymap.set('n', '<leader>dc', function() dap.run_to_cursor() end)
     vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function() require('dap.ui.widgets').hover() end)
     vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function() require('dap.ui.widgets').preview() end)
+
     vim.keymap.set('n', '<Leader>df', function()
         local widgets = require('dap.ui.widgets')
         widgets.centered_float(widgets.frames)
