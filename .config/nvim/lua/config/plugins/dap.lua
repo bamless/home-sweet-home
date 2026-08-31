@@ -36,6 +36,10 @@ local function setup_dap()
         dapui.open()
     end
 
+    dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+    end
+
     dap.listeners.after['disconnect']['debug_print'] = function()
         require('nvim-dap-virtual-text').refresh()
     end
