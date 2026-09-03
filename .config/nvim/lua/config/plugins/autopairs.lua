@@ -1,8 +1,10 @@
+local disable_filetype = { "TelescopePrompt", "vim", "oil" }
 return {
     "windwp/nvim-autopairs",
+    event = "InsertEnter",
     opts = {
         fast_wrap = {},
-        disable_filetype = { "TelescopePrompt", "vim" },
+        disable_filetype = disable_filetype,
     },
     config = function(_, opts)
         require("nvim-autopairs").setup(opts)
