@@ -71,9 +71,9 @@ Apply literate programming principles to make code self-documenting and maintain
 
 2. **Top-Down Narrative Flow**: Structure code to read like a story with clear sections that build logically:
    ```rust
-   // ==============================================================================
+   // -----------------------------------------------------------------------------
    // Plugin Configuration Extraction
-   // ==============================================================================
+   // -----------------------------------------------------------------------------
    
    // First, we extract plugin metadata from Cargo.toml to determine
    // what files we need to build and where to put them.
