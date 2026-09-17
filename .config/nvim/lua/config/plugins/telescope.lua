@@ -79,6 +79,7 @@ return {
                     builtin.find_files()
                 end
             end)
+            vim.keymap.set('n', '<leader>pf', builtin.find_files)
             vim.keymap.set('n', '<leader>pg', builtin.live_grep)
             vim.keymap.set('n', '<C-g>', builtin.git_branches, {})
             vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
