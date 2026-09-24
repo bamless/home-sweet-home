@@ -314,9 +314,9 @@ hl.bind(mainMod .. " + SHIFT + K", hy3.move_window("u"))
 hl.bind(mainMod .. " + SHIFT + J", hy3.move_window("d"))
 
 -- Screenshot
-hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("hyprshot -m output"))
-hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m region"))
-hl.bind(mainMod .. " + CTRL + PRINT", hl.dsp.exec_cmd("hyprshot -m window"))
+hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("hyprshot-edit -m output"))
+hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot-edit -m region"))
+hl.bind(mainMod .. " + CTRL + PRINT", hl.dsp.exec_cmd("hyprshot-edit -m window"))
 
 -- Color picker
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("hyprpicker | wl-copy"))

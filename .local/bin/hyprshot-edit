@@ -1,0 +1,39 @@
+#!/bin/sh
+
+dir="${HYPRSHOT_DIR:-$HOME/Pictures/Screenshots}"
+file="screenshot-$(date +%Y%m%d-%H%M%S).png"
+shot="$dir/$file"
+
+GRADIA_ID="be.alexandervanhee.gradia"
+
+open_editor() {
+    if command -v satty >/dev/null 2>&1; then
+        satty --filename "$1"      \
+              --output-filename $1 \
+              --copy-command wl-copy
+    elif command -v swappy >/dev/null 2>&1; then
+        swappy -f "$1"
+    elif flatpak info "$GRADIA_ID" >/dev/null 2>&1; then
+        flatpak run "$GRADIA_ID" "$1"
+    else
+        notify-send --app-name=Hyprshot "No editor found" \
+            "Install satty, swappy, or Gradia (Flatpak)"
+    fi
+}
+
+mkdir -p "$dir"
+hyprshot "$@" -o "$dir" -f "$file" --silent
+
+[ -f "$shot" ] || inotifywait -qq -t 5 -e close_write --include "$file" "$dir"
+[ -f "$shot" ] || exit 0
+
+action=$(notify-send --wait \
+    --app-name=Hyprshot     \
+    --icon="$shot"          \
+    --action=default=Edit   \
+    --action=edit=Edit      \
+    "Screenshot saved" "$file (click to edit)")
+
+case "$action" in
+    default|edit) open_editor "$shot" ;;
+esac
