@@ -1,3 +1,47 @@
+local function cmp_python_setup(cmp)
+    local compare = require("cmp.config.compare")
+    local K = require("cmp.types").lsp.CompletionItemKind
+
+    -- 0 = enum member, 1 = public, 2 = _private, 3 = __dunder__
+    local function python_rank(entry)
+        if entry:get_kind() == K.EnumMember then
+            return 0
+        end
+        local label = entry.completion_item.label or ""
+        if label:find("^__.*__$") then
+            return 3
+        elseif label:find("^_") then
+            return 2
+        end
+        return 1
+    end
+
+    local function python_underscore_last(e1, e2)
+        local r1, r2 = python_rank(e1), python_rank(e2)
+        if r1 ~= r2 then
+            return r1 < r2
+        end
+        return nil
+    end
+
+    cmp.setup.filetype("python", {
+        sorting = {
+            priority_weight = 2,
+            comparators = {
+                compare.offset,
+                compare.exact,
+                python_underscore_last,
+                compare.score,
+                compare.recently_used,
+                compare.locality,
+                compare.kind,
+                compare.length,
+                compare.order,
+            },
+        },
+    })
+end
+
 return {
     {
         'hrsh7th/nvim-cmp',
@@ -80,6 +124,12 @@ return {
             }
 
             cmp.setup(config)
+
+            --
+            -- Language specific extensions
+            --
+
+            cmp_python_setup(cmp)
         end,
         dependencies = {
             { 'neovim/nvim-lspconfig' },

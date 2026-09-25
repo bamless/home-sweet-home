@@ -58,7 +58,7 @@ return function()
         settings = {
             basedpyright = {
                 analysis = {
-                    typeCheckingMode = "basic",
+                    typeCheckingMode = "standard",
                     autoSearchPaths = true,
                     useLibraryCodeForTypes = true,
                     diagnosticMode = 'openFilesOnly',
