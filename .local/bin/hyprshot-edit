@@ -30,10 +30,13 @@ hyprshot "$@" -o "$dir" -f "$file" --silent
 action=$(notify-send --wait \
     --app-name=Hyprshot     \
     --icon="$shot"          \
-    --action=default=Edit   \
+    --action=default=Folder \
+    --action=open=Open      \
     --action=edit=Edit      \
-    "Screenshot saved" "$file (click to edit)")
+    "Screenshot saved" "$file")
 
 case "$action" in
-    default|edit) open_editor "$shot" ;;
+    default)  xdg-open    "$dir"  ;;
+    open)     xdg-open    "$shot" ;;
+    edit)     open_editor "$shot" ;;
 esac
