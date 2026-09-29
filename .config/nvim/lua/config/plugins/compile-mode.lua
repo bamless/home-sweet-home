@@ -19,7 +19,7 @@ return {
             environment = {
                 FORCE_COLOR = "1",
             },
-            baleia_setup = true,
+            ansi_color = { kind = "render" },
             recompile_no_fail = true,
             -- input_word_completion = true,
             -- to make `:Compile` replace special characters (e.g. `%`) in
